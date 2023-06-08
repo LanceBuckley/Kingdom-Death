@@ -55,6 +55,14 @@ export const GMHomeScreen = () => {
         () => {
             if (session.settlementId !== 0) {
                 createSession(session)
+                .then(getSettlements)
+                .then((settlements) => {
+                    setSettlements(settlements)
+                })
+                .then(getSessions)
+                .then((sessions) => {
+                    setSessions(sessions)
+                })
             }
         },
         [session]
