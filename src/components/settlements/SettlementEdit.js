@@ -1,13 +1,14 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { createSettlement } from "../ApiManager"
+import { useEffect, useState } from "react"
+import { editSettlement, getSettlementToEdit } from "../ApiManager"
+import { useNavigate, useParams } from "react-router-dom"
 
-export const SettlementForm = () => {
+export const SettlementEdit = () => {
 
     const localDeathUser = localStorage.getItem("kdm_user")
     const deathUserObject = JSON.parse(localDeathUser)
 
-    // This defines the settlement state object and allows it to be updated using update
+    const { settlementId } = useParams()
+
     const [settlement, update] = useState({
         name: "",
         survivalLimit: 0,
@@ -22,11 +23,20 @@ export const SettlementForm = () => {
         event.preventDefault()
 
         // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
-        createSettlement(settlement)
-            .then(() => {
-                navigate("/")
-            })
+        // Change this to PUT!!!
+        editSettlement(settlementId, settlement)
+        .then(navigate("/"))
     }
+
+    useEffect(
+        () => {
+            getSettlementToEdit(settlementId)
+            .then((settlementToEdit) => {
+                update(settlementToEdit)
+            })
+        },
+        []
+    )
 
     return (
         <form className="settlementForm">

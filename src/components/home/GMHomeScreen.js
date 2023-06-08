@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { createSession, getSessions, getSettlements } from "../ApiManager"
+import { SettlementForm } from "../settlements/SettlementForm"
+import { Link } from "react-router-dom"
 
 export const GMHomeScreen = () => {
     const [settlements, setSettlements] = useState([])
@@ -68,8 +70,8 @@ export const GMHomeScreen = () => {
         [session]
     )
 
-    const editButton = () => {
-        return <button>Edit</button>
+    const editButton = (settlementId) => {
+        return <Link to={`/settlement/${settlementId}`}><button>Edit</button></Link>
     }
 
     const hostGameButton = (settlementId) => {
@@ -94,7 +96,7 @@ export const GMHomeScreen = () => {
                 filteredSettlements.map((settlement) => (
                     <li className="settlement__item" key={`settlement-${settlement.id}`}>
                         {settlement.name}
-                        {editButton()}
+                        {editButton(settlement.id)}
                         {hostGameButton(settlement.id)}
                     </li>
                 ))
