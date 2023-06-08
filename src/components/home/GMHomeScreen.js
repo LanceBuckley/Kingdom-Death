@@ -14,12 +14,22 @@ export const GMHomeScreen = () => {
         []
     )
 
+    const editButton = () => {
+        return <button>Edit</button>
+    }
+
+    const hostGameButton = () => {
+        return <button>Host Game?</button>
+    }
+
     return <>
         <ul className="settlement__list">My Settlements
             {
                 settlements.map((settlement) => (
                     <li className="settlement__item" key={`settlement-${settlement.id}`}>
                         {settlement.name}
+                        {editButton()}
+                        {hostGameButton()}
                     </li>
                 ))
 

@@ -1,8 +1,11 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, Route, useLocation, useNavigate } from "react-router-dom"
 import "./NavBar.css"
 
 export const GMNav = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const isSettlementPage = location.pathname === "/settlements"
 
     return (
         <ul className="navbar">
@@ -14,8 +17,17 @@ export const GMNav = () => {
                     ? <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={() => {
                             localStorage.removeItem("kdm_user")
-                            navigate("/", {replace: true})
+                            navigate("/", { replace: true })
                         }}>Logout</Link>
+                    </li>
+                    : ""
+            }
+            {
+                isSettlementPage
+                    ? <li className="navbar__item navbar__logout">
+                        <Link className="navbar__link" to="" onClick={() => {
+                            navigate("/")
+                        }}>Home</Link>
                     </li>
                     : ""
             }

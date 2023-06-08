@@ -11,8 +11,8 @@ export const GameMasterViews = () => {
                     <Outlet />
                 </>
             }>
-                <Route path="settlements" element={<SettlementForm />} />
             </Route>
+            <Route path="settlements" element={<SettlementForm />} />
         </Routes>
     )
 }
