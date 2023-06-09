@@ -6,7 +6,7 @@ export const Register = (props) => {
     const [customer, setCustomer] = useState({
         email: "",
         fullName: "",
-        isStaff: false
+        isGameMaster: false
     })
     let navigate = useNavigate()
 
@@ -21,9 +21,9 @@ export const Register = (props) => {
             .then(res => res.json())
             .then(createdUser => {
                 if (createdUser.hasOwnProperty("id")) {
-                    localStorage.setItem("honey_user", JSON.stringify({
+                    localStorage.setItem("kdm_user", JSON.stringify({
                         id: createdUser.id,
-                        staff: createdUser.isStaff
+                        gameMaster: createdUser.isGameMaster
                     }))
 
                     navigate("/")
@@ -56,7 +56,7 @@ export const Register = (props) => {
     return (
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Honey Rae Repairs</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Please Register for Kingdom Death</h1>
                 <fieldset>
                     <label htmlFor="fullName"> Full Name </label>
                     <input onChange={updateCustomer}
@@ -72,11 +72,11 @@ export const Register = (props) => {
                 <fieldset>
                     <input onChange={(evt) => {
                         const copy = {...customer}
-                        copy.isStaff = evt.target.checked
+                        copy.isGameMaster = evt.target.checked
                         setCustomer(copy)
                     }}
-                        type="checkbox" id="isStaff" />
-                    <label htmlFor="email"> I am an employee </label>
+                        type="checkbox" id="isGameMaster" />
+                    <label htmlFor="email"> I am a Game Master </label>
                 </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>
