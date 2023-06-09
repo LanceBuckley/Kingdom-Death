@@ -44,7 +44,7 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
     const handleChange = (evt, milestoneId) => {
         const milestone = { ...findMilestone(milestoneId) }
         milestone.reached = evt.target.checked
-        const copy = Object.values(achievedMilestones)
+        const copy = [...achievedMilestones]
         const updatedMilestone = copy.map((oldMilestone) => {
             if (oldMilestone.milestoneId === milestoneId) {
                 return milestone
