@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { editSettlement, getSettlementToEdit } from "../ApiManager"
 import { useNavigate, useParams } from "react-router-dom"
+import { MileStonesEdit } from "./MilestonesEdit"
 
 export const SettlementEdit = () => {
 
@@ -16,18 +17,6 @@ export const SettlementEdit = () => {
         userId: deathUserObject.id
     })
 
-    // This declares navigate as an invocation of useNavigate
-    const navigate = useNavigate()
-
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-
-        // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
-        // Change this to PUT!!!
-        editSettlement(settlementId, settlement)
-        .then(navigate("/"))
-    }
-
     useEffect(
         () => {
             getSettlementToEdit(settlementId)
@@ -40,7 +29,7 @@ export const SettlementEdit = () => {
 
     return (
         <form className="settlementForm">
-            <h2 className="settlementForm__title">New Settlement</h2>
+            <h2 className="settlementForm__title">Edit Settlement</h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
@@ -96,11 +85,7 @@ export const SettlementEdit = () => {
                         } />
                 </div>
             </fieldset>
-            <button
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
-                Submit Settlement
-            </button>
+            <MileStonesEdit settlement={settlement} settlementId={settlementId}/>
         </form>
     )
 }

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
-import { createAchievedMilestone, createSettlement, getMilestones } from "../ApiManager"
+import { createAchievedMilestone, deleteAchievedMilestones, editSettlement, getAchievedMilestones, getMilestones } from "../ApiManager"
 import { useNavigate } from "react-router-dom"
 
-export const MileStones = ({settlement}) => {
+export const MileStonesEdit = ({ settlement, settlementId }) => {
+
     const [milestones, setMilestones] = useState([])
+    const [storedMilestones, setStoredMilestones] = useState([])
     const [achievedMilestones, setAchievedMilestones] = useState([])
 
-        // This declares navigate as an invocation of useNavigate
-        const navigate = useNavigate()
+    // This declares navigate as an invocation of useNavigate
+    const navigate = useNavigate()
 
     useEffect(
         () => {
@@ -19,14 +21,26 @@ export const MileStones = ({settlement}) => {
         []
     )
 
+    useEffect(
+        () => {
+            getAchievedMilestones(settlementId)
+                .then((storedMilestones) => {
+                    setStoredMilestones(storedMilestones)
+                })
+        },
+        []
+    )
+
     useEffect(() => {
         const mappedMilestones = milestones.map((milestone) => ({
-            settlementId: 0,
+            settlementId: parseInt(settlementId),
             milestoneId: milestone.id,
-            reached: false
+            reached: findAchievedMilestone(milestone.id),
+            id: findAchievedMilestone(milestone.id)
         }))
         setAchievedMilestones(mappedMilestones)
-    }, [milestones])
+    }, [storedMilestones])
+
 
     const handleChange = (evt, milestoneId) => {
         const milestone = { ...findMilestone(milestoneId) }
@@ -46,11 +60,37 @@ export const MileStones = ({settlement}) => {
         return currentMilestone
     }
 
+    const findAchievedMilestone = (milestoneId) => {
+        const currentMilestone = storedMilestones.find(storedMilestone => { return storedMilestone.milestoneId === milestoneId })
+        return currentMilestone
+            ? currentMilestone.reached && currentMilestone.id
+            : false && 0
+    }
+
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
+        debugger
+        editSettlement(settlementId, settlement)
+        achievedMilestones.map((achievedMilestone) => {
+            if (findAchievedMilestone(achievedMilestone.milestoneId) && achievedMilestone.reached) {
+            } else if (findAchievedMilestone(achievedMilestone.milestoneId)) {
+                deleteAchievedMilestones(achievedMilestone)
+            } else if (achievedMilestone.reached) {
+                createAchievedMilestone(achievedMilestone)
+            } else {
+            }
+        })
+        navigate("/")
+    }
 
-        // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
-        createSettlement(settlement)
+    // if (findAchievedMilestone(achievedMilestone.id) && achievedMilestone.reached) {
+    //     createAchievedMilestone(achievedMilestone)
+    // } else {
+    //     deleteAchievedMilestones(achievedMilestone)
+    // }
+
+    /*
+    createSettlement(settlement)
             .then((newSettlement) => {
                 achievedMilestones.map((achievedMilestone) => {
                     if (achievedMilestone.reached === true) {
@@ -60,7 +100,7 @@ export const MileStones = ({settlement}) => {
                 })
             })
             navigate("/")
-    }
+    */
 
     return (
         <>
@@ -69,6 +109,8 @@ export const MileStones = ({settlement}) => {
                     <label htmlFor="milestoneTypeId">Milestones:</label>
                 </div>
                 {milestones.map((milestone) => {
+                    const achievedMilestone = achievedMilestones.find((achievedMilestone) => achievedMilestone.milestoneId === milestone.id);
+                    const reached = achievedMilestone ? achievedMilestone.reached : false;
                     return (
                         <div className="form-group" key={milestone.id}>
                             <label htmlFor="milestoneType">{milestone.type}</label>
@@ -76,6 +118,7 @@ export const MileStones = ({settlement}) => {
                                 required
                                 type="checkbox"
                                 name={milestone.type}
+                                checked={reached}
                                 value={milestone.id}
                                 onChange={(evt) => handleChange(evt, milestone.id)}
                             />

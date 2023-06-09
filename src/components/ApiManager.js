@@ -50,10 +50,22 @@ export const editSettlement = (settlementId, settlement ) => {
         .then(response => response.json())
 }
 
+export const deleteAchievedMilestones = ( achievedMilestone ) => {
+    return fetch(`http://localhost:8088/achievedMilestones/${achievedMilestone.id}`, {
+        method: "DELETE"
+})
+}
+
 export const getMilestones = async () => {
     const response = await fetch("http://localhost:8088/milestones")
     const milestones = await response.json()
     return milestones
+}
+
+export const getAchievedMilestones = async (settlementId) => {
+    const response = await fetch(`http://localhost:8088/achievedMilestones?settlementId=${settlementId}`)
+    const achievedMilestones = await response.json()
+    return achievedMilestones
 }
 
 export const createAchievedMilestone = (achievedMilestone) => {
