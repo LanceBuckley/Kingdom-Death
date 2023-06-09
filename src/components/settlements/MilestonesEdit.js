@@ -8,7 +8,6 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
     const [storedMilestones, setStoredMilestones] = useState([])
     const [achievedMilestones, setAchievedMilestones] = useState([])
 
-    // This declares navigate as an invocation of useNavigate
     const navigate = useNavigate()
 
     useEffect(
@@ -82,25 +81,6 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
         })
         navigate("/")
     }
-
-    // if (findAchievedMilestone(achievedMilestone.id) && achievedMilestone.reached) {
-    //     createAchievedMilestone(achievedMilestone)
-    // } else {
-    //     deleteAchievedMilestones(achievedMilestone)
-    // }
-
-    /*
-    createSettlement(settlement)
-            .then((newSettlement) => {
-                achievedMilestones.map((achievedMilestone) => {
-                    if (achievedMilestone.reached === true) {
-                        achievedMilestone.settlementId = newSettlement.id
-                        createAchievedMilestone(achievedMilestone)
-                    }
-                })
-            })
-            navigate("/")
-    */
 
     return (
         <>
