@@ -49,3 +49,20 @@ export const editSettlement = (settlementId, settlement ) => {
     })
         .then(response => response.json())
 }
+
+export const getMilestones = async () => {
+    const response = await fetch("http://localhost:8088/milestones")
+    const milestones = await response.json()
+    return milestones
+}
+
+export const createAchievedMilestone = (achievedMilestone) => {
+    return fetch("http://localhost:8088/achievedMilestones", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(achievedMilestone)
+    })
+        .then(response => response.json())
+}

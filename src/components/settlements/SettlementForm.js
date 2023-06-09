@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createSettlement } from "../ApiManager"
+import { createAchievedMilestone, createSettlement } from "../ApiManager"
+import { MileStones } from "./Milestones"
 
 export const SettlementForm = () => {
 
@@ -14,19 +15,6 @@ export const SettlementForm = () => {
         population: 0,
         userId: deathUserObject.id
     })
-
-    // This declares navigate as an invocation of useNavigate
-    const navigate = useNavigate()
-
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-
-        // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
-        createSettlement(settlement)
-            .then(() => {
-                navigate("/")
-            })
-    }
 
     return (
         <form className="settlementForm">
@@ -86,11 +74,7 @@ export const SettlementForm = () => {
                         } />
                 </div>
             </fieldset>
-            <button
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
-                Submit Settlement
-            </button>
+            <MileStones settlement={settlement}/>
         </form>
     )
 }
