@@ -56,6 +56,26 @@ export const deleteAchievedMilestones = ( achievedMilestone ) => {
 })
 }
 
+const deleteAllMilestones = ( settlementId ) => {
+    return fetch(`http://localhost:8088/achievedMilestones?settlementId=${settlementId}`, {
+        method: "DELETE"
+})
+}
+
+const deleteAllSessions = ( settlementId ) => {
+    return fetch(`http://localhost:8088/sessions?settlementId=${settlementId}`, {
+        method: "DELETE"
+})
+}
+
+export const deleteSettlement = ( settlementId ) => {
+    deleteAllMilestones(settlementId)
+    deleteAllSessions(settlementId)
+    return fetch(`http://localhost:8088/settlements/${settlementId}`, {
+        method: "DELETE"
+})
+}
+
 export const getMilestones = async () => {
     const response = await fetch("http://localhost:8088/milestones")
     const milestones = await response.json()

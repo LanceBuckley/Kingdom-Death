@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { editSettlement, getSettlementToEdit } from "../ApiManager"
+import { deleteSettlement, editSettlement, getSettlementToEdit } from "../ApiManager"
 import { useNavigate, useParams } from "react-router-dom"
 import { MileStonesEdit } from "./MilestonesEdit"
 
@@ -16,6 +16,15 @@ export const SettlementEdit = () => {
         population: 0,
         userId: deathUserObject.id
     })
+
+    const navigate = useNavigate()
+    
+    const deleteButton = () => {
+        return <button onClick={() => 
+            deleteSettlement(settlementId)
+            .then(navigate("/"))
+        }>Delete</button>
+      }      
 
     useEffect(
         () => {
@@ -86,6 +95,7 @@ export const SettlementEdit = () => {
                 </div>
             </fieldset>
             <MileStonesEdit settlement={settlement} settlementId={settlementId}/>
+            {deleteButton()}
         </form>
     )
 }

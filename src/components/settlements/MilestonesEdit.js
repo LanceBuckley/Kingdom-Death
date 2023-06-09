@@ -68,7 +68,6 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
-        debugger
         editSettlement(settlementId, settlement)
         achievedMilestones.map((achievedMilestone) => {
             if (findAchievedMilestone(achievedMilestone.milestoneId) && achievedMilestone.reached) {
@@ -95,7 +94,6 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
                         <div className="form-group" key={milestone.id}>
                             <label htmlFor="milestoneType">{milestone.type}</label>
                             <input
-                                required
                                 type="checkbox"
                                 name={milestone.type}
                                 checked={reached}

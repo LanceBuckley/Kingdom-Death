@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createAchievedMilestone, createSettlement } from "../ApiManager"
 import { MileStones } from "./Milestones"
+import { Resources } from "./Resources"
 
 export const SettlementForm = () => {
 
@@ -74,6 +75,7 @@ export const SettlementForm = () => {
                         } />
                 </div>
             </fieldset>
+            <Resources />
             <MileStones settlement={settlement}/>
         </form>
     )
