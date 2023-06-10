@@ -26,6 +26,18 @@ export const getSettlements = async () => {
     return settlements
 }
 
+export const getResources = async () => {
+    const response = await fetch("http://localhost:8088/resources")
+    const resources = await response.json()
+    return resources
+}
+
+export const getSettlementInventory = async () => {
+    const response = await fetch("http://localhost:8088/settlementInventory")
+    const inventory = await response.json()
+    return inventory
+}
+
 export const getSettlementToEdit = async (settlementId) => {
     const response = await fetch(`http://localhost:8088/settlements?id=${settlementId}`)
     const settlements = await response.json()

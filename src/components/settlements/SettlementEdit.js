@@ -43,7 +43,6 @@ export const SettlementEdit = () => {
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input
-                        required autoFocus
                         type="text"
                         className="form-control"
                         placeholder="The name of the settlement"
@@ -62,7 +61,6 @@ export const SettlementEdit = () => {
                 <div className="form-group">
                     <label htmlFor="survival">Survival Limit:</label>
                     <input
-                        required autoFocus
                         type="number"
                         className="form-control"
                         placeholder="Set the survival limit"
@@ -80,7 +78,6 @@ export const SettlementEdit = () => {
                 <div className="form-group">
                     <label htmlFor="population">Population:</label>
                     <input
-                        required autoFocus
                         type="number"
                         className="form-control"
                         placeholder="Set the settlement population"

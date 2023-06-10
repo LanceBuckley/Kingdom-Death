@@ -18,65 +18,64 @@ export const SettlementForm = () => {
     })
 
     return (
-        <form className="settlementForm">
-            <h2 className="settlementForm__title">New Settlement</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="The name of the settlement"
-                        value={settlement.name}
-                        onChange={
-                            (evt) => {
-                                // This creates a copy variable of the settlement using the spread operator and then marks the appropriate property value to the input value and invokes update
-                                const copy = { ...settlement }
-                                copy.name = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="survival">Survival Limit:</label>
-                    <input
-                        required autoFocus
-                        type="number"
-                        className="form-control"
-                        placeholder="Set the survival limit"
-                        value={settlement.survivalLimit}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...settlement }
-                                copy.survivalLimit = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="population">Population:</label>
-                    <input
-                        required autoFocus
-                        type="number"
-                        className="form-control"
-                        placeholder="Set the settlement population"
-                        value={settlement.population}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...settlement }
-                                copy.population = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
+        <>
+            <form className="settlementForm">
+                <h2 className="settlementForm__title">New Settlement</h2>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="name">Name:</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="The name of the settlement"
+                            value={settlement.name}
+                            onChange={
+                                (evt) => {
+                                    // This creates a copy variable of the settlement using the spread operator and then marks the appropriate property value to the input value and invokes update
+                                    const copy = { ...settlement }
+                                    copy.name = evt.target.value
+                                    update(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="survival">Survival Limit:</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Set the survival limit"
+                            value={settlement.survivalLimit}
+                            onChange={
+                                (evt) => {
+                                    const copy = { ...settlement }
+                                    copy.survivalLimit = evt.target.value
+                                    update(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="population">Population:</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Set the settlement population"
+                            value={settlement.population}
+                            onChange={
+                                (evt) => {
+                                    const copy = { ...settlement }
+                                    copy.population = evt.target.value
+                                    update(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+            </form>
             <Resources />
-            <MileStones settlement={settlement}/>
-        </form>
+            <MileStones settlement={settlement} />
+        </>
     )
 }

@@ -31,7 +31,7 @@ export const MileStones = ({settlement}) => {
     const handleChange = (evt, milestoneId) => {
         const milestone = { ...findMilestone(milestoneId) }
         milestone.reached = evt.target.checked
-        const copy = Object.values(achievedMilestones)
+        const copy = [...achievedMilestones]
         const updatedMilestone = copy.map((oldMilestone) => {
             if (oldMilestone.milestoneId === milestoneId) {
                 return milestone
@@ -73,7 +73,6 @@ export const MileStones = ({settlement}) => {
                         <div className="form-group" key={milestone.id}>
                             <label htmlFor="milestoneType">{milestone.type}</label>
                             <input
-                                required
                                 type="checkbox"
                                 name={milestone.type}
                                 value={milestone.id}
