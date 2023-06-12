@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { createAchievedMilestone, createSettlement, createSettlementInventory, getMilestones } from "../ApiManager"
 import { Save } from "./Save"
 
-export const MileStones = ({settlement, settlementInventory}) => {
+export const MileStones = ({settlement, settlementInventory, settlementEvents}) => {
     const [milestones, setMilestones] = useState([])
     const [achievedMilestones, setAchievedMilestones] = useState([])
 
@@ -64,7 +64,7 @@ export const MileStones = ({settlement, settlementInventory}) => {
                     )
                 })}
             </fieldset>
-            <Save settlement={settlement} settlementInventory={settlementInventory} achievedMilestones={achievedMilestones}/>
+            <Save settlement={settlement} settlementInventory={settlementInventory} achievedMilestones={achievedMilestones} settlementEvents={settlementEvents}/>
         </>
     )
 }

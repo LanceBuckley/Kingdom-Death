@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getResources, getSettlementInventory } from "../ApiManager"
 import { MileStones } from "./Milestones"
 
-export const Resources = ({ settlement, settlementId }) => {
+export const Resources = ({ settlement, settlementId, settlementEvents }) => {
     const [resources, setResources] = useState([])
     const [settlementItem, setSettlementItem] = useState({
         settlementId: 0,
@@ -87,7 +87,6 @@ export const Resources = ({ settlement, settlementId }) => {
                     <label htmlFor="resourceTypeId">Resources:</label>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="resourceName">Select a resource:</label>
                     <select name="resourceName" onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {resources.map((resource) => (
@@ -106,13 +105,12 @@ export const Resources = ({ settlement, settlementId }) => {
                 filteredInventory.map((item) => {
                     const resource = findItem(item)
                     return <>
-                        <li key={`chosenResource--${resource.id}`}>{resource.name}: {resource.type} {item.amount}</li>
+                        <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type} {item.amount}</li>
                         <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
                     </>
                 })
             }
-            <MileStones settlement={settlement} settlementInventory={filteredInventory} settlementId={settlementId}/>
+            <MileStones settlement={settlement} settlementInventory={filteredInventory} settlementId={settlementId} settlementEvents={settlementEvents}/>
         </>
-    );
-
+    )
 }

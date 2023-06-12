@@ -92,7 +92,6 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
                     <label htmlFor="resourceTypeId">Resources:</label>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="resourceName">Select a resource:</label>
                     <select name="resourceName" onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {resources.map((resource) => (
@@ -118,6 +117,5 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
             }
             <MileStonesEdit settlement={settlement} filteredInventory={filteredInventory} settlementInventory={settlementInventory} settlementId={settlementId} />
         </>
-    );
-
+    )
 }

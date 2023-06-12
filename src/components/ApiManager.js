@@ -51,7 +51,7 @@ export const getSessions = async () => {
     return sessions
 }
 
-export const editSettlement = (settlementId, settlement ) => {
+export const editSettlement = (settlementId, settlement) => {
     return fetch(`http://localhost:8088/settlements/${settlementId}`, {
         method: "PUT",
         headers: {
@@ -62,30 +62,37 @@ export const editSettlement = (settlementId, settlement ) => {
         .then(response => response.json())
 }
 
-export const deleteAchievedMilestones = ( achievedMilestone ) => {
+export const deleteAchievedMilestones = (achievedMilestone) => {
     return fetch(`http://localhost:8088/achievedMilestones/${achievedMilestone.id}`, {
         method: "DELETE"
-})
+    })
 }
 
-const deleteAllMilestones = ( settlementId ) => {
+const deleteAllMilestones = (settlementId) => {
     return fetch(`http://localhost:8088/achievedMilestones?settlementId=${settlementId}`, {
         method: "DELETE"
-})
+    })
 }
 
-const deleteAllSessions = ( settlementId ) => {
+const deleteAllSessions = (settlementId) => {
     return fetch(`http://localhost:8088/sessions?settlementId=${settlementId}`, {
         method: "DELETE"
-})
+    })
 }
 
-export const deleteSettlement = ( settlementId ) => {
+const deleteAllInventory = (settlementId) => {
+    return fetch(`http://localhost:8088/settlementInventory?settlementId=${settlementId}`, {
+        method: "DELETE"
+    })
+}
+
+export const deleteSettlement = (settlementId) => {
     deleteAllMilestones(settlementId)
     deleteAllSessions(settlementId)
+    deleteAllInventory(settlementId)
     return fetch(`http://localhost:8088/settlements/${settlementId}`, {
         method: "DELETE"
-})
+    })
 }
 
 export const getMilestones = async () => {
@@ -136,5 +143,22 @@ export const editSettlementInventory = (existingItem) => {
 export const deleteSettlementInventory = (removedItem) => {
     return fetch(`http://localhost:8088/settlementInventory/${removedItem.id}`, {
         method: "DELETE"
-})
+    })
+}
+
+export const getEvents = async () => {
+    const response = await fetch("http://localhost:8088/events")
+    const events = await response.json()
+    return events
+}
+
+export const createSettlementEvents = (settlementEvent) => {
+    return fetch("http://localhost:8088/settlementEvents", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(settlementEvent)
+    })
+        .then(response => response.json())
 }
