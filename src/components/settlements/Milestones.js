@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { createAchievedMilestone, createSettlement, getMilestones } from "../ApiManager"
+import { createAchievedMilestone, createSettlement, createSettlementInventory, getMilestones } from "../ApiManager"
 import { useNavigate } from "react-router-dom"
 
-export const MileStones = ({settlement}) => {
+export const MileStones = ({settlement, settlementInventory}) => {
     const [milestones, setMilestones] = useState([])
     const [achievedMilestones, setAchievedMilestones] = useState([])
 
@@ -52,6 +52,10 @@ export const MileStones = ({settlement}) => {
         // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
         createSettlement(settlement)
             .then((newSettlement) => {
+                settlementInventory.map((settlementItem) => {
+                    settlementItem.settlementId = newSettlement.id
+                    createSettlementInventory(settlementItem)
+                })
                 achievedMilestones.map((achievedMilestone) => {
                     if (achievedMilestone.reached === true) {
                         achievedMilestone.settlementId = newSettlement.id

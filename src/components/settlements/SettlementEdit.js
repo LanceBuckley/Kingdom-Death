@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { deleteSettlement, editSettlement, getSettlementToEdit } from "../ApiManager"
+import { deleteSettlement, getSettlementToEdit } from "../ApiManager"
 import { useNavigate, useParams } from "react-router-dom"
-import { MileStonesEdit } from "./MilestonesEdit"
+import { ResourcesEdit } from "./ResourcesEdit"
 
 export const SettlementEdit = () => {
 
@@ -91,7 +91,7 @@ export const SettlementEdit = () => {
                         } />
                 </div>
             </fieldset>
-            <MileStonesEdit settlement={settlement} settlementId={settlementId}/>
+            <ResourcesEdit settlement={settlement} settlementId={settlementId}/>
             {deleteButton()}
         </form>
     )

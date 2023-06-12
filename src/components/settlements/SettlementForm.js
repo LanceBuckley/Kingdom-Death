@@ -74,8 +74,7 @@ export const SettlementForm = () => {
                     </div>
                 </fieldset>
             </form>
-            <Resources />
-            <MileStones settlement={settlement} />
+            <Resources settlement={settlement} />
         </>
     )
 }

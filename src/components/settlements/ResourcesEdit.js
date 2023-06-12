@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { getResources, getSettlementInventory } from "../ApiManager"
-import { MileStones } from "./Milestones"
+import { MileStonesEdit } from "./MilestonesEdit"
 
-export const Resources = ({ settlement, settlementId }) => {
+export const ResourcesEdit = ({ settlement, settlementId }) => {
     const [resources, setResources] = useState([])
     const [settlementItem, setSettlementItem] = useState({
         settlementId: 0,
@@ -106,12 +106,12 @@ export const Resources = ({ settlement, settlementId }) => {
                 filteredInventory.map((item) => {
                     const resource = findItem(item)
                     return <>
-                        <li key={`resource--${resource.id}`}>{resource.name}: {resource.type} {item.amount}</li>
-                        <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
-                    </>
+                    <li key={`resource--${resource.id}`}>{resource.name}: {resource.type} {item.amount}</li>
+                    <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
+                </>
                 })
             }
-            <MileStones settlement={settlement} settlementInventory={filteredInventory} settlementId={settlementId}/>
+            <MileStonesEdit settlement={settlement} settlementInventory={filteredInventory} settlementId={settlementId}/>
         </>
     );
 

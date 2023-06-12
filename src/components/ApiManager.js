@@ -110,3 +110,14 @@ export const createAchievedMilestone = (achievedMilestone) => {
     })
         .then(response => response.json())
 }
+
+export const createSettlementInventory = (settlementItem) => {
+    return fetch("http://localhost:8088/settlementInventory", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(settlementItem)
+    })
+        .then(response => response.json())
+}
