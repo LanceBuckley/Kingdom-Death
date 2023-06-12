@@ -106,7 +106,7 @@ export const Resources = ({ settlement, settlementId }) => {
                 filteredInventory.map((item) => {
                     const resource = findItem(item)
                     return <>
-                        <li key={`resource--${resource.id}`}>{resource.name}: {resource.type} {item.amount}</li>
+                        <li key={`chosenResource--${resource.id}`}>{resource.name}: {resource.type} {item.amount}</li>
                         <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
                     </>
                 })

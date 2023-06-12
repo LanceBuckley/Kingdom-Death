@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { createAchievedMilestone, deleteAchievedMilestones, editSettlement, getAchievedMilestones, getMilestones } from "../ApiManager"
 import { useNavigate } from "react-router-dom"
+import { SaveEdit } from "./SaveEdit"
 
-export const MileStonesEdit = ({ settlement, settlementId }) => {
+export const MileStonesEdit = ({ settlement, filteredInventory, settlementInventory, settlementId }) => {
 
     const [milestones, setMilestones] = useState([])
     const [storedMilestones, setStoredMilestones] = useState([])
@@ -66,21 +67,6 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
             : false && 0
     }
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-        editSettlement(settlementId, settlement)
-        achievedMilestones.map((achievedMilestone) => {
-            if (findAchievedMilestone(achievedMilestone.milestoneId) && achievedMilestone.reached) {
-            } else if (findAchievedMilestone(achievedMilestone.milestoneId)) {
-                deleteAchievedMilestones(achievedMilestone)
-            } else if (achievedMilestone.reached) {
-                createAchievedMilestone(achievedMilestone)
-            } else {
-            }
-        })
-        navigate("/")
-    }
-
     return (
         <>
             <fieldset>
@@ -104,11 +90,7 @@ export const MileStonesEdit = ({ settlement, settlementId }) => {
                     )
                 })}
             </fieldset>
-            <button
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
-                Submit Settlement
-            </button>
+            <SaveEdit settlement={settlement} settlementId={settlementId} filteredInventory={filteredInventory} settlementInventory={settlementInventory} achievedMilestones={achievedMilestones} findAchievedMilestone={findAchievedMilestone}/>
         </>
     )
 }

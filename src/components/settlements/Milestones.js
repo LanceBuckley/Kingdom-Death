@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react"
 import { createAchievedMilestone, createSettlement, createSettlementInventory, getMilestones } from "../ApiManager"
-import { useNavigate } from "react-router-dom"
+import { Save } from "./Save"
 
 export const MileStones = ({settlement, settlementInventory}) => {
     const [milestones, setMilestones] = useState([])
     const [achievedMilestones, setAchievedMilestones] = useState([])
 
-        // This declares navigate as an invocation of useNavigate
-        const navigate = useNavigate()
 
     useEffect(
         () => {
@@ -46,26 +44,6 @@ export const MileStones = ({settlement, settlementInventory}) => {
         return currentMilestone
     }
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-
-        // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
-        createSettlement(settlement)
-            .then((newSettlement) => {
-                settlementInventory.map((settlementItem) => {
-                    settlementItem.settlementId = newSettlement.id
-                    createSettlementInventory(settlementItem)
-                })
-                achievedMilestones.map((achievedMilestone) => {
-                    if (achievedMilestone.reached === true) {
-                        achievedMilestone.settlementId = newSettlement.id
-                        createAchievedMilestone(achievedMilestone)
-                    }
-                })
-            })
-            navigate("/")
-    }
-
     return (
         <>
             <fieldset>
@@ -86,11 +64,7 @@ export const MileStones = ({settlement, settlementInventory}) => {
                     )
                 })}
             </fieldset>
-            <button
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
-                Submit Settlement
-            </button>
+            <Save settlement={settlement} settlementInventory={settlementInventory} achievedMilestones={achievedMilestones}/>
         </>
     )
 }

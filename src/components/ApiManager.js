@@ -121,3 +121,20 @@ export const createSettlementInventory = (settlementItem) => {
     })
         .then(response => response.json())
 }
+
+export const editSettlementInventory = (existingItem) => {
+    return fetch(`http://localhost:8088/settlementInventory/${existingItem.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(existingItem)
+    })
+        .then(response => response.json())
+}
+
+export const deleteSettlementInventory = (removedItem) => {
+    return fetch(`http://localhost:8088/settlementInventory/${removedItem.id}`, {
+        method: "DELETE"
+})
+}
