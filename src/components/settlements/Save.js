@@ -7,7 +7,6 @@ export const Save = ({settlement, settlementInventory, achievedMilestones, settl
     const navigate = useNavigate()
 
     const handleSaveButtonClick = (event) => {
-        debugger
         event.preventDefault()
 
         // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
@@ -17,7 +16,6 @@ export const Save = ({settlement, settlementInventory, achievedMilestones, settl
                     settlementItem.settlementId = newSettlement.id
                     createSettlementInventory(settlementItem)
                 })
-                debugger
                 settlementEvents.map((settlementEvent) => {
                     settlementEvent.settlementId = newSettlement.id
                     createSettlementEvents(settlementEvent)

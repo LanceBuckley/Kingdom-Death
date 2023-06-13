@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getResources, getSettlementInventory } from "../ApiManager"
 import { MileStonesEdit } from "./MilestonesEdit"
 
-export const ResourcesEdit = ({ settlement, settlementId }) => {
+export const ResourcesEdit = ({ settlement, settlementId, filteredEvents, settlementEvents}) => {
     const [resources, setResources] = useState([])
     const [settlementItem, setSettlementItem] = useState({
         settlementId: 0,
@@ -37,7 +37,7 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
             const inventoryToEdit = settlementInventory.filter((item) => { return item.settlementId === parseInt(settlementId) })
             setFilteredInventory(inventoryToEdit)
         },
-        [settlementInventory]
+        [settlementInventory, resources]
     )
 
     const handleChange = (evt) => {
@@ -49,6 +49,7 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
 
     const addResource = (evt) => {
         evt.preventDefault()
+        debugger
         const copyInventory = [...filteredInventory]
         const copyItem = { ...settlementItem }
         const existingItem = copyInventory.find((item) => { return item.resourceId === copyItem.resourceId })
@@ -63,6 +64,7 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
 
     const removeResource = (evt, resourceId) => {
         evt.preventDefault()
+        debugger
         const copyInventory = [...filteredInventory]
         const chosenItem = copyInventory.find((item) => { return item.resourceId === resourceId })
         chosenItem.amount--
@@ -107,6 +109,8 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
             }
             <ul>Settlement Inventory:</ul>
             {
+                filteredInventory
+                ?
                 filteredInventory.map((item) => {
                     const resource = findItem(item)
                     return <>
@@ -114,8 +118,15 @@ export const ResourcesEdit = ({ settlement, settlementId }) => {
                         <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
                     </>
                 })
+                : ""
             }
-            <MileStonesEdit settlement={settlement} filteredInventory={filteredInventory} settlementInventory={settlementInventory} settlementId={settlementId} />
+            <MileStonesEdit
+            settlement={settlement}
+            filteredInventory={filteredInventory}
+            settlementInventory={settlementInventory}
+            filteredEvents={filteredEvents}
+            settlementEvents={settlementEvents}
+            settlementId={settlementId} />
         </>
     )
 }

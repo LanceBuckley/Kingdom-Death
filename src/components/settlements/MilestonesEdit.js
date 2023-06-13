@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react"
-import { createAchievedMilestone, deleteAchievedMilestones, editSettlement, getAchievedMilestones, getMilestones } from "../ApiManager"
-import { useNavigate } from "react-router-dom"
+import { getAchievedMilestones, getMilestones } from "../ApiManager"
 import { SaveEdit } from "./SaveEdit"
 
-export const MileStonesEdit = ({ settlement, filteredInventory, settlementInventory, settlementId }) => {
+export const MileStonesEdit = ({ settlement, filteredInventory, settlementInventory, settlementId, filteredEvents, settlementEvents }) => {
 
     const [milestones, setMilestones] = useState([])
     const [storedMilestones, setStoredMilestones] = useState([])
     const [achievedMilestones, setAchievedMilestones] = useState([])
-
-    const navigate = useNavigate()
 
     useEffect(
         () => {
@@ -90,7 +87,15 @@ export const MileStonesEdit = ({ settlement, filteredInventory, settlementInvent
                     )
                 })}
             </fieldset>
-            <SaveEdit settlement={settlement} settlementId={settlementId} filteredInventory={filteredInventory} settlementInventory={settlementInventory} achievedMilestones={achievedMilestones} findAchievedMilestone={findAchievedMilestone}/>
+            <SaveEdit
+            settlement={settlement}
+            settlementId={settlementId}
+            filteredInventory={filteredInventory}
+            settlementInventory={settlementInventory}
+            filteredEvents={filteredEvents}
+            settlementEvents={settlementEvents}
+            achievedMilestones={achievedMilestones}
+            findAchievedMilestone={findAchievedMilestone}/>
         </>
     )
 }

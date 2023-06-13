@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { deleteSettlement, getSettlementToEdit } from "../ApiManager"
 import { useNavigate, useParams } from "react-router-dom"
-import { ResourcesEdit } from "./ResourcesEdit"
+import { EventsEdit } from "./EventsEdit"
 
 export const SettlementEdit = () => {
 
@@ -18,81 +18,83 @@ export const SettlementEdit = () => {
     })
 
     const navigate = useNavigate()
-    
+
     const deleteButton = () => {
-        return <button onClick={() => 
-            deleteSettlement(settlementId)
-            .then(navigate("/"))
+        return <button onClick={() =>
+            deleteSettlement(parseInt(settlementId))
+                .then(navigate("/"))
         }>Delete</button>
-      }      
+    }
 
     useEffect(
         () => {
             getSettlementToEdit(settlementId)
-            .then((settlementToEdit) => {
-                update(settlementToEdit)
-            })
+                .then((settlementToEdit) => {
+                    update(settlementToEdit)
+                })
         },
         []
     )
 
     return (
-        <form className="settlementForm">
-            <h2 className="settlementForm__title">Edit Settlement</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="The name of the settlement"
-                        value={settlement.name}
-                        onChange={
-                            (evt) => {
-                                // This creates a copy variable of the settlement using the spread operator and then marks the appropriate property value to the input value and invokes update
-                                const copy = { ...settlement }
-                                copy.name = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="survival">Survival Limit:</label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Set the survival limit"
-                        value={settlement.survivalLimit}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...settlement }
-                                copy.survivalLimit = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="population">Population:</label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Set the settlement population"
-                        value={settlement.population}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...settlement }
-                                copy.population = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <ResourcesEdit settlement={settlement} settlementId={settlementId}/>
+        <>
+            <form className="settlementForm">
+                <h2 className="settlementForm__title">Edit Settlement</h2>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="name">Name:</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="The name of the settlement"
+                            value={settlement.name}
+                            onChange={
+                                (evt) => {
+                                    // This creates a copy variable of the settlement using the spread operator and then marks the appropriate property value to the input value and invokes update
+                                    const copy = { ...settlement }
+                                    copy.name = evt.target.value
+                                    update(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="survival">Survival Limit:</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Set the survival limit"
+                            value={settlement.survivalLimit}
+                            onChange={
+                                (evt) => {
+                                    const copy = { ...settlement }
+                                    copy.survivalLimit = evt.target.value
+                                    update(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="population">Population:</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Set the settlement population"
+                            value={settlement.population}
+                            onChange={
+                                (evt) => {
+                                    const copy = { ...settlement }
+                                    copy.population = evt.target.value
+                                    update(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+            </form>
+            <EventsEdit settlement={settlement} settlementId={parseInt(settlementId)} />
             {deleteButton()}
-        </form>
+        </>
     )
 }

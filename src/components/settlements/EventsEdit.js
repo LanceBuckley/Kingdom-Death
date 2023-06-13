@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { getEvents } from "../ApiManager"
-import { Resources } from "./Resources"
+import { getEvents, getSettlementEvents } from "../ApiManager"
+import { ResourcesEdit } from "./ResourcesEdit"
 
-export const Events = ({settlement}) => {
+export const EventsEdit = ({settlement, settlementId}) => {
 
     const [allEvents, setEvents] = useState([])
     const [settlementEvents, setSettlementEvents] = useState([])
+    const [filteredEvents, setFilteredEvents] = useState([])
     const [newEvent, setNewEvent] = useState({
         settlementId: 0,
         eventId: 0,
@@ -24,16 +25,34 @@ export const Events = ({settlement}) => {
 
     useEffect(
         () => {
+            getSettlementEvents()
+                .then((events) => {
+                    setSettlementEvents(events)
+                })
+        },
+        []
+    )
+
+    useEffect(
+        () => {
+            const userEvents = settlementEvents.filter((sEvents) => {return sEvents.settlementId === settlementId})
+            setFilteredEvents(userEvents)
+        },
+        [settlementEvents]
+    )
+
+    useEffect(
+        () => {
             if (newEvent.year !== 0) {
                 const copyEvent = {...newEvent}
-                const copySEvents = [...settlementEvents]
-                let previouslyChosenEvent = findUsedEvent(copySEvents, copyEvent)
+                const copyFEvents = [...filteredEvents]
+                let previouslyChosenEvent = findUsedEvent(copyFEvents, copyEvent)
                 if (previouslyChosenEvent) {
                     previouslyChosenEvent.eventId = copyEvent.eventId
                 } else {
-                    copySEvents.push(copyEvent)
+                    copyFEvents.push(copyEvent)
                 }
-                setSettlementEvents(copySEvents)
+                setFilteredEvents(copyFEvents)
             }
         },
         [newEvent]
@@ -57,13 +76,17 @@ export const Events = ({settlement}) => {
         const timeline = []
         for (let i = 0; i <= 9; i++) {
             const year = i + 1
+            const selectedEvent = filteredEvents.find((event) => event.year === year)
             timeline.push(
                 <fieldset key={`event-${year}`}>
                     <div className="form-group">
                         <select name={year} onChange={(evt) => handleChange(evt)}>
                             <option value="0">-- Set The Event Of Year {year} --</option>
                             {allEvents.map((event) => (
-                                <option key={`event--${event.id}`} value={event.id}>
+                                <option
+                                key={`event--${event.id}`}
+                                value={event.id}
+                                selected={selectedEvent && selectedEvent.eventId === event.id}>
                                     {event.name}
                                 </option>
                             ))}
@@ -81,7 +104,7 @@ export const Events = ({settlement}) => {
                 <label htmlFor="">Timeline:</label>
             </div>
             {createTimeline()}
-            <Resources settlement={settlement} settlementEvents={settlementEvents}/>
+            <ResourcesEdit settlement={settlement} settlementId={settlementId} filteredEvents={filteredEvents} settlementEvents={settlementEvents}/>
         </>
     )
 }

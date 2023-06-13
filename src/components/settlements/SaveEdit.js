@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import { createAchievedMilestone, createSettlementInventory, deleteAchievedMilestones, deleteSettlementInventory, editSettlement, editSettlementInventory } from "../ApiManager"
+import { createAchievedMilestone, createSettlementEvents, createSettlementInventory, deleteAchievedMilestones, deleteSettlementEvents, deleteSettlementInventory, editSettlement, editSettlementEvents, editSettlementInventory } from "../ApiManager"
 
-export const SaveEdit = ({ settlement, settlementId, filteredInventory, settlementInventory, achievedMilestones, findAchievedMilestone }) => {
+export const SaveEdit = ({ settlement, settlementId, filteredInventory, settlementInventory, achievedMilestones, findAchievedMilestone, filteredEvents, settlementEvents }) => {
 
     // This declares navigate as an invocation of useNavigate
     const navigate = useNavigate()
@@ -11,10 +11,35 @@ export const SaveEdit = ({ settlement, settlementId, filteredInventory, settleme
         return oldInventory
     }
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
+    const findOldSEvents = () => {
+        const oldSEvents = settlementEvents.filter((sEvent) => { return sEvent.settlementId === parseInt(settlementId) })
+        return oldSEvents
+    }
 
-        editSettlement(settlementId, settlement)
+    const saveSEvents = () => {
+        const oldSEvents = findOldSEvents()
+        const currentEvents = filteredEvents.filter((fEvent) => oldSEvents.some((sEvent) => sEvent.year === fEvent.year))
+        const newEvents = filteredEvents.filter((fEvent) => !oldSEvents.some((sEvent) => sEvent.year === fEvent.year))
+        const removedEvents = oldSEvents.filter((sEvent) => sEvent.eventId === 0)
+        if (currentEvents) {
+            currentEvents.map((currentEvent) => {
+                editSettlementEvents(currentEvent)
+            })
+        }
+        if (newEvents) {
+            newEvents.map((newEvent) => {
+                newEvent.settlementId = settlementId
+                createSettlementEvents(newEvent)
+            })
+        }
+        if (removedEvents) {
+            removedEvents.map((removedEvent) => {
+                deleteSettlementEvents(removedEvent)
+            })
+        }
+    }
+
+    const saveSInventory = () => {
         const oldInventory = findOldInventory()
         const existingItems = filteredInventory.filter((settlementItem) => oldInventory.some((item) => item.resourceId === settlementItem.resourceId))
         const newItems = filteredInventory.filter((settlementItem) => !oldInventory.some((item) => item.resourceId === settlementItem.resourceId))
@@ -35,8 +60,9 @@ export const SaveEdit = ({ settlement, settlementId, filteredInventory, settleme
                 deleteSettlementInventory(removedItem);
             })
         }
+    }
 
-
+    const saveAchievedMilestones = () => {
         achievedMilestones.map((achievedMilestone) => {
             if (findAchievedMilestone(achievedMilestone.milestoneId) && achievedMilestone.reached) {
             } else if (findAchievedMilestone(achievedMilestone.milestoneId)) {
@@ -46,12 +72,21 @@ export const SaveEdit = ({ settlement, settlementId, filteredInventory, settleme
             } else {
             }
         })
-        navigate("/")
-    }
+}
 
-    return <button
-        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-        className="btn btn-primary">
-        Submit Settlement
-    </button>
+const handleSaveButtonClick = async (event) => {
+    event.preventDefault()
+
+    await editSettlement(settlementId, settlement)
+    saveSEvents()
+    saveSInventory()
+    saveAchievedMilestones()
+    navigate("/")
+}
+
+return <button
+    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+    className="btn btn-primary">
+    Submit Settlement
+</button>
 }
