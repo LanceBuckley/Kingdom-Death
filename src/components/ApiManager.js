@@ -34,8 +34,8 @@ export const getResources = async () => {
     return resources
 }
 
-export const getSettlementInventory = async () => {
-    const response = await fetch("http://localhost:8088/settlementInventory")
+export const getSettlementInventory = async (settlementId) => {
+    const response = await fetch(`http://localhost:8088/settlementInventory?settlementId=${settlementId}`)
     const inventory = await response.json()
     return inventory
 }

@@ -1,15 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import { createAchievedMilestone, createSettlementEvents, createSettlementInventory, deleteAchievedMilestones, deleteSettlementEvents, deleteSettlementInventory, editSettlement, editSettlementEvents, editSettlementInventory } from "../ApiManager"
 
-export const SaveEdit = ({ settlement, settlementId, filteredInventory, settlementInventory, achievedMilestones, findAchievedMilestone, filteredEvents, settlementEvents }) => {
+export const SaveEdit = ({ settlement, settlementId, settlementInventory, achievedMilestones, findAchievedMilestone, filteredEvents, settlementEvents }) => {
 
     // This declares navigate as an invocation of useNavigate
     const navigate = useNavigate()
-
-    const findOldInventory = () => {
-        const oldInventory = settlementInventory.filter((item) => { return item.settlementId === parseInt(settlementId) })
-        return oldInventory
-    }
 
     const findOldSEvents = () => {
         const oldSEvents = settlementEvents.filter((sEvent) => { return sEvent.settlementId === parseInt(settlementId) })
@@ -40,10 +35,9 @@ export const SaveEdit = ({ settlement, settlementId, filteredInventory, settleme
     }
 
     const saveSInventory = () => {
-        const oldInventory = findOldInventory()
-        const existingItems = filteredInventory.filter((settlementItem) => oldInventory.some((item) => item.resourceId === settlementItem.resourceId))
-        const newItems = filteredInventory.filter((settlementItem) => !oldInventory.some((item) => item.resourceId === settlementItem.resourceId))
-        const removedItems = oldInventory.filter((item) => !filteredInventory.some((settlementItem) => settlementItem.resourceId === item.resourceId))
+        const existingItems = settlementInventory.filter((settlementItem) => settlementItem.hasOwnProperty('id') && settlementItem.amount !== 0)
+        const newItems = settlementInventory.filter((settlementItem) => !settlementItem.hasOwnProperty('id'))
+        const removedItems = settlementInventory.filter((settlementItem) => settlementItem.amount === 0)
         if (existingItems) {
             existingItems.map((existingItem) => {
                 editSettlementInventory(existingItem);

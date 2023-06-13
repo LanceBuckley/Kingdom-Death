@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getAchievedMilestones, getMilestones } from "../ApiManager"
 import { SaveEdit } from "./SaveEdit"
 
-export const MileStonesEdit = ({ settlement, filteredInventory, settlementInventory, settlementId, filteredEvents, settlementEvents }) => {
+export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, filteredEvents, settlementEvents }) => {
 
     const [milestones, setMilestones] = useState([])
     const [storedMilestones, setStoredMilestones] = useState([])
@@ -90,7 +90,6 @@ export const MileStonesEdit = ({ settlement, filteredInventory, settlementInvent
             <SaveEdit
             settlement={settlement}
             settlementId={settlementId}
-            filteredInventory={filteredInventory}
             settlementInventory={settlementInventory}
             filteredEvents={filteredEvents}
             settlementEvents={settlementEvents}
