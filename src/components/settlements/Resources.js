@@ -10,7 +10,6 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
         amount: 1
     })
     const [settlementInventory, setSettlementInventory] = useState([])
-    const [filteredInventory, setFilteredInventory] = useState([])
 
     useEffect(
         () => {
@@ -22,24 +21,6 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
         []
     )
 
-    useEffect(
-        () => {
-            getSettlementInventory()
-                .then((inventory) => {
-                    setSettlementInventory(inventory)
-                })
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            const inventoryToEdit = settlementInventory.filter((item) => {return item.settlementId === parseInt(settlementId)})
-            setFilteredInventory(inventoryToEdit)
-        },
-        [settlementInventory]
-    )
-
     const handleChange = (evt) => {
         evt.preventDefault()
         const copyItem = { ...settlementItem }
@@ -49,7 +30,7 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
 
     const addResource = (evt) => {
         evt.preventDefault()
-        const copyInventory = [...filteredInventory]
+        const copyInventory = [...settlementInventory]
         const copyItem = { ...settlementItem }
         const existingItem = copyInventory.find((item) => { return item.resourceId === copyItem.resourceId })
         if (existingItem) {
@@ -58,12 +39,12 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
         } else {
             copyInventory.push(copyItem)
         }
-        setFilteredInventory(copyInventory)
+        setSettlementInventory(copyInventory)
     }
 
     const removeResource = (evt, resourceId) => {
         evt.preventDefault()
-        const copyInventory = [...filteredInventory]
+        const copyInventory = [...settlementInventory]
         const chosenItem = copyInventory.find((item) => { return item.resourceId === resourceId })
         chosenItem.amount--
         if(chosenItem.amount === 0) {
@@ -72,7 +53,7 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
                 copyInventory.splice(index, 1)
             }
         }
-        setFilteredInventory(copyInventory)
+        setSettlementInventory(copyInventory)
     }
 
     const findItem = (item) => {
@@ -102,7 +83,7 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
             }
             <ul>Settlement Inventory:</ul>
             {
-                filteredInventory.map((item) => {
+                settlementInventory.map((item) => {
                     const resource = findItem(item)
                     return <>
                         <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type} {item.amount}</li>
@@ -110,7 +91,7 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
                     </>
                 })
             }
-            <MileStones settlement={settlement} settlementInventory={filteredInventory} settlementId={settlementId} settlementEvents={settlementEvents}/>
+            <MileStones settlement={settlement} settlementInventory={settlementInventory} settlementId={settlementId} settlementEvents={settlementEvents}/>
         </>
     )
 }

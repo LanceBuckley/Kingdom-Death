@@ -6,62 +6,50 @@ export const SaveEdit = ({ settlement, settlementId, settlementInventory, achiev
     // This declares navigate as an invocation of useNavigate
     const navigate = useNavigate()
 
-    const saveSEvents = () => {
+    const saveSEvents = async () => {
         const currentEvents = settlementEvents.filter((sEvent) => sEvent.hasOwnProperty('id') && sEvent.eventId !== 0)
         const newEvents = settlementEvents.filter((sEvent) => !sEvent.hasOwnProperty('id'))
         const removedEvents = settlementEvents.filter((sEvent) => sEvent.eventId === 0)
-        if (currentEvents) {
-            currentEvents.forEach((currentEvent) => {
-                editSettlementEvents(currentEvent)
-            })
-        }
-        if (newEvents) {
-            newEvents.forEach((newEvent) => {
-                newEvent.settlementId = settlementId
-                createSettlementEvents(newEvent)
-            })
-        }
-        if (removedEvents) {
-            removedEvents.forEach((removedEvent) => {
-                deleteSettlementEvents(removedEvent)
-            })
-        }
+        for (const currentEvent of currentEvents) {
+            await editSettlementEvents(currentEvent);
+          }
+        
+          for (const newEvent of newEvents) {
+            newEvent.settlementId = settlementId;
+            await createSettlementEvents(newEvent);
+          }
+        
+          for (const removedEvent of removedEvents) {
+            await deleteSettlementEvents(removedEvent);
+          }
     }
 
-    const saveSInventory = () => {
+    const saveSInventory = async () => {
         const existingItems = settlementInventory.filter((settlementItem) => settlementItem.hasOwnProperty('id') && settlementItem.amount !== 0)
         const newItems = settlementInventory.filter((settlementItem) => !settlementItem.hasOwnProperty('id'))
         const removedItems = settlementInventory.filter((settlementItem) => settlementItem.amount === 0)
-        if (existingItems) {
-            existingItems.forEach((existingItem) => {
-                editSettlementInventory(existingItem);
-            })
+        for (const existingItem of existingItems) {
+            await editSettlementInventory(existingItem)
         }
-        if (newItems) {
-            newItems.forEach((newItem) => {
-                newItem.settlementId = parseInt(settlementId)
-                createSettlementInventory(newItem);
-            })
+
+        for (const newItem of newItems) {
+            newItem.settlementId = parseInt(settlementId)
+            await createSettlementInventory(newItem)
         }
-        if (removedItems) {
-            removedItems.forEach((removedItem) => {
-                deleteSettlementInventory(removedItem);
-            })
+
+        for (const removedItem of removedItems) {
+            await deleteSettlementInventory(removedItem)
         }
     }
 
-    const saveAchievedMilestones = () => {
+    const saveAchievedMilestones = async () => {
         const removedMilestones = achievedMilestones.filter((achievedMilestone) => achievedMilestone.hasOwnProperty('id') && achievedMilestone.reached === false)
         const newMilestones = achievedMilestones.filter((achievedMilestone) => !achievedMilestone.hasOwnProperty('id') && achievedMilestone.reached === true)
-        if (removedMilestones) {
-            removedMilestones.forEach((removedMilestone) => {
-                deleteAchievedMilestones(removedMilestone)
-            })
+        for (const removedMilestone of removedMilestones) {
+            await deleteAchievedMilestones(removedMilestone)
         }
-        if (newMilestones) {
-            newMilestones.forEach((newMilestone) => {
-                createAchievedMilestone(newMilestone)
-            })
+        for (const newMilestone of newMilestones) {
+            await createAchievedMilestone(newMilestone)
         }
     }
 
@@ -69,9 +57,9 @@ export const SaveEdit = ({ settlement, settlementId, settlementInventory, achiev
         event.preventDefault()
 
         await editSettlement(settlementId, settlement)
-        saveSEvents()
-        saveSInventory()
-        saveAchievedMilestones()
+        await saveSEvents()
+        await saveSInventory()
+        await saveAchievedMilestones()
         navigate("/")
     }
 

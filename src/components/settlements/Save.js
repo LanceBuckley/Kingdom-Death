@@ -38,9 +38,9 @@ export const Save = ({ settlement, settlementInventory, achievedMilestones, sett
                 saveInventory(newSettlement)
                 saveEvents(newSettlement)
                 saveAchievedMilestones(newSettlement)
-            }).then(
+            }).then(() => {
                 navigate("/")
-            )
+            })
     }
 
     return <button
