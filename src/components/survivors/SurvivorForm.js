@@ -124,7 +124,6 @@ export const SurvivorForm = () => {
                         </div>
                     </div>
                 </fieldset>
-
             </form>
         </>
     )
