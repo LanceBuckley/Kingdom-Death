@@ -7,7 +7,7 @@ export const PlayerNav = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item active">
-                <Link className="navbar__link" to="/tickets">Tickets</Link>
+                <Link className="navbar__link" to="/survivors">New Survivor</Link>
             </li>
             {
                 localStorage.getItem("kdm_user")

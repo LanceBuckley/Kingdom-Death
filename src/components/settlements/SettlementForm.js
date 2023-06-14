@@ -1,8 +1,4 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { createAchievedMilestone, createSettlement } from "../ApiManager"
-import { MileStones } from "./Milestones"
-import { Resources } from "./Resources"
 import { Events } from "./Events"
 
 export const SettlementForm = () => {
