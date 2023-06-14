@@ -17,18 +17,18 @@ export const SaveEdit = ({ settlement, settlementId, settlementInventory, achiev
         const newEvents = filteredEvents.filter((fEvent) => !oldSEvents.some((sEvent) => sEvent.year === fEvent.year))
         const removedEvents = oldSEvents.filter((sEvent) => sEvent.eventId === 0)
         if (currentEvents) {
-            currentEvents.map((currentEvent) => {
+            currentEvents.forEach((currentEvent) => {
                 editSettlementEvents(currentEvent)
             })
         }
         if (newEvents) {
-            newEvents.map((newEvent) => {
+            newEvents.forEach((newEvent) => {
                 newEvent.settlementId = settlementId
                 createSettlementEvents(newEvent)
             })
         }
         if (removedEvents) {
-            removedEvents.map((removedEvent) => {
+            removedEvents.forEach((removedEvent) => {
                 deleteSettlementEvents(removedEvent)
             })
         }
@@ -39,25 +39,25 @@ export const SaveEdit = ({ settlement, settlementId, settlementInventory, achiev
         const newItems = settlementInventory.filter((settlementItem) => !settlementItem.hasOwnProperty('id'))
         const removedItems = settlementInventory.filter((settlementItem) => settlementItem.amount === 0)
         if (existingItems) {
-            existingItems.map((existingItem) => {
+            existingItems.forEach((existingItem) => {
                 editSettlementInventory(existingItem);
             })
         }
         if (newItems) {
-            newItems.map((newItem) => {
+            newItems.forEach((newItem) => {
                 newItem.settlementId = parseInt(settlementId)
                 createSettlementInventory(newItem);
             })
         }
         if (removedItems) {
-            removedItems.map((removedItem) => {
+            removedItems.forEach((removedItem) => {
                 deleteSettlementInventory(removedItem);
             })
         }
     }
 
     const saveAchievedMilestones = () => {
-        achievedMilestones.map((achievedMilestone) => {
+        achievedMilestones.forEach((achievedMilestone) => {
             if (findAchievedMilestone(achievedMilestone.milestoneId) && achievedMilestone.reached) {
             } else if (findAchievedMilestone(achievedMilestone.milestoneId)) {
                 deleteAchievedMilestones(achievedMilestone)

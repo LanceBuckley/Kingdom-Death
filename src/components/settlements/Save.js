@@ -12,15 +12,15 @@ export const Save = ({settlement, settlementInventory, achievedMilestones, settl
         // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
         createSettlement(settlement)
             .then((newSettlement) => {
-                settlementInventory.map((settlementItem) => {
+                settlementInventory.forEach((settlementItem) => {
                     settlementItem.settlementId = newSettlement.id
                     createSettlementInventory(settlementItem)
                 })
-                settlementEvents.map((settlementEvent) => {
+                settlementEvents.forEach((settlementEvent) => {
                     settlementEvent.settlementId = newSettlement.id
                     createSettlementEvents(settlementEvent)
                 })
-                achievedMilestones.map((achievedMilestone) => {
+                achievedMilestones.forEach((achievedMilestone) => {
                     if (achievedMilestone.reached === true) {
                         achievedMilestone.settlementId = newSettlement.id
                         createAchievedMilestone(achievedMilestone)
