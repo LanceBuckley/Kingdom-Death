@@ -32,12 +32,12 @@ export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, 
         []
     )
 
-    const handleChange = (evt, milestoneId) => {
+    const handleChange = (evt) => {
         const milestone = { ...milestoneObject}
         milestone.milestoneId = parseInt(evt.target.value)
         milestone.reached = evt.target.checked
         const copy = [...storedMilestones]
-        const updatedMilestone = copy.find((oldMilestone) => oldMilestone.milestoneId === milestoneId)
+        const updatedMilestone = copy.find((oldMilestone) => oldMilestone.milestoneId === parseInt(evt.target.value))
         if (updatedMilestone) {
             updatedMilestone.milestoneId = milestone.milestoneId
             updatedMilestone.reached = milestone.reached
@@ -64,7 +64,7 @@ export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, 
                                 name={milestone.type}
                                 checked={reached}
                                 value={milestone.id}
-                                onChange={(evt) => handleChange(evt, milestone.id)}
+                                onChange={(evt) => handleChange(evt)}
                             />
                         </div>
                     )

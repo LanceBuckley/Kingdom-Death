@@ -51,7 +51,6 @@ export const SaveEdit = ({ settlement, settlementId, settlementInventory, achiev
     }
 
     const saveAchievedMilestones = () => {
-        debugger
         const removedMilestones = achievedMilestones.filter((achievedMilestone) => achievedMilestone.hasOwnProperty('id') && achievedMilestone.reached === false)
         const newMilestones = achievedMilestones.filter((achievedMilestone) => !achievedMilestone.hasOwnProperty('id') && achievedMilestone.reached === true)
         if (removedMilestones) {

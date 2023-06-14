@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
-import { createAchievedMilestone, createSettlement, createSettlementInventory, getMilestones } from "../ApiManager"
+import { getMilestones } from "../ApiManager"
 import { Save } from "./Save"
 
-export const MileStones = ({settlement, settlementInventory, settlementEvents}) => {
+export const MileStones = ({ settlement, settlementInventory, settlementEvents }) => {
+
     const [milestones, setMilestones] = useState([])
-    const [achievedMilestones, setAchievedMilestones] = useState([])
+    const [storedMilestones, setStoredMilestones] = useState([])
+    const [milestoneObject, setMilestoneObject] = useState({
+        milestoneId: 0,
+        reached: false
+    })
 
 
     useEffect(
@@ -17,31 +22,19 @@ export const MileStones = ({settlement, settlementInventory, settlementEvents}) 
         []
     )
 
-    useEffect(() => {
-        const mappedMilestones = milestones.map((milestone) => ({
-            settlementId: 0,
-            milestoneId: milestone.id,
-            reached: false
-        }))
-        setAchievedMilestones(mappedMilestones)
-    }, [milestones])
-
-    const handleChange = (evt, milestoneId) => {
-        const milestone = { ...findMilestone(milestoneId) }
+    const handleChange = (evt) => {
+        const milestone = { ...milestoneObject}
+        milestone.milestoneId = parseInt(evt.target.value)
         milestone.reached = evt.target.checked
-        const copy = [...achievedMilestones]
-        const updatedMilestone = copy.map((oldMilestone) => {
-            if (oldMilestone.milestoneId === milestoneId) {
-                return milestone
-            }
-            return oldMilestone
-        })
-        setAchievedMilestones(updatedMilestone)
-    }
-
-    const findMilestone = (milestoneId) => {
-        const currentMilestone = achievedMilestones.find(achievedMilestone => { return achievedMilestone.milestoneId === milestoneId })
-        return currentMilestone
+        const copy = [...storedMilestones]
+        const updatedMilestone = copy.find((oldMilestone) => oldMilestone.milestoneId === parseInt(evt.target.value))
+        if (updatedMilestone) {
+            updatedMilestone.milestoneId = milestone.milestoneId
+            updatedMilestone.reached = milestone.reached
+        } else {
+            copy.push(milestone)
+        }
+        setStoredMilestones(copy)
     }
 
     return (
@@ -64,7 +57,7 @@ export const MileStones = ({settlement, settlementInventory, settlementEvents}) 
                     )
                 })}
             </fieldset>
-            <Save settlement={settlement} settlementInventory={settlementInventory} achievedMilestones={achievedMilestones} settlementEvents={settlementEvents}/>
+            <Save settlement={settlement} settlementInventory={settlementInventory} achievedMilestones={storedMilestones} settlementEvents={settlementEvents} />
         </>
     )
 }
