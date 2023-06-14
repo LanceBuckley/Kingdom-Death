@@ -73,7 +73,6 @@ export const deleteAchievedMilestones = async (achievedMilestone) => {
 }
 
 export const deleteSettlement = async (settlementId) => {
-    debugger
     return fetch(`http://localhost:8088/settlements/${settlementId}`, {
         method: "DELETE"
     })
@@ -173,8 +172,8 @@ export const deleteSettlementEvents = async (removedEvent) => {
     return await response.json()
 }
 
-export const getSettlementEvents = async () => {
-    const response = await fetch("http://localhost:8088/settlementEvents")
+export const getSettlementEvents = async (settlementId) => {
+    const response = await fetch(`http://localhost:8088/settlementEvents?settlementId=${settlementId}`)
     const settlementEvents = await response.json()
     return settlementEvents
 }

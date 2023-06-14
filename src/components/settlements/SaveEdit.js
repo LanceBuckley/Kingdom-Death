@@ -1,21 +1,15 @@
 import { useNavigate } from "react-router-dom"
 import { createAchievedMilestone, createSettlementEvents, createSettlementInventory, deleteAchievedMilestones, deleteSettlementEvents, deleteSettlementInventory, editSettlement, editSettlementEvents, editSettlementInventory } from "../ApiManager"
 
-export const SaveEdit = ({ settlement, settlementId, settlementInventory, achievedMilestones, findAchievedMilestone, filteredEvents, settlementEvents }) => {
+export const SaveEdit = ({ settlement, settlementId, settlementInventory, achievedMilestones, settlementEvents }) => {
 
     // This declares navigate as an invocation of useNavigate
     const navigate = useNavigate()
 
-    const findOldSEvents = () => {
-        const oldSEvents = settlementEvents.filter((sEvent) => { return sEvent.settlementId === parseInt(settlementId) })
-        return oldSEvents
-    }
-
     const saveSEvents = () => {
-        const oldSEvents = findOldSEvents()
-        const currentEvents = filteredEvents.filter((fEvent) => oldSEvents.some((sEvent) => sEvent.year === fEvent.year))
-        const newEvents = filteredEvents.filter((fEvent) => !oldSEvents.some((sEvent) => sEvent.year === fEvent.year))
-        const removedEvents = oldSEvents.filter((sEvent) => sEvent.eventId === 0)
+        const currentEvents = settlementEvents.filter((sEvent) => sEvent.hasOwnProperty('id') && sEvent.eventId !== 0)
+        const newEvents = settlementEvents.filter((sEvent) => !sEvent.hasOwnProperty('id'))
+        const removedEvents = settlementEvents.filter((sEvent) => sEvent.eventId === 0)
         if (currentEvents) {
             currentEvents.forEach((currentEvent) => {
                 editSettlementEvents(currentEvent)
@@ -57,30 +51,34 @@ export const SaveEdit = ({ settlement, settlementId, settlementInventory, achiev
     }
 
     const saveAchievedMilestones = () => {
-        achievedMilestones.forEach((achievedMilestone) => {
-            if (findAchievedMilestone(achievedMilestone.milestoneId) && achievedMilestone.reached) {
-            } else if (findAchievedMilestone(achievedMilestone.milestoneId)) {
-                deleteAchievedMilestones(achievedMilestone)
-            } else if (achievedMilestone.reached) {
-                createAchievedMilestone(achievedMilestone)
-            } else {
-            }
-        })
-}
+        debugger
+        const removedMilestones = achievedMilestones.filter((achievedMilestone) => achievedMilestone.hasOwnProperty('id') && achievedMilestone.reached === false)
+        const newMilestones = achievedMilestones.filter((achievedMilestone) => !achievedMilestone.hasOwnProperty('id') && achievedMilestone.reached === true)
+        if (removedMilestones) {
+            removedMilestones.forEach((removedMilestone) => {
+                deleteAchievedMilestones(removedMilestone)
+            })
+        }
+        if (newMilestones) {
+            newMilestones.forEach((newMilestone) => {
+                createAchievedMilestone(newMilestone)
+            })
+        }
+    }
 
-const handleSaveButtonClick = async (event) => {
-    event.preventDefault()
+    const handleSaveButtonClick = async (event) => {
+        event.preventDefault()
 
-    await editSettlement(settlementId, settlement)
-    saveSEvents()
-    saveSInventory()
-    saveAchievedMilestones()
-    navigate("/")
-}
+        await editSettlement(settlementId, settlement)
+        saveSEvents()
+        saveSInventory()
+        saveAchievedMilestones()
+        navigate("/")
+    }
 
-return <button
-    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-    className="btn btn-primary">
-    Submit Settlement
-</button>
+    return <button
+        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+        className="btn btn-primary">
+        Submit Settlement
+    </button>
 }

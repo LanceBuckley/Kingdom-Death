@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getResources, getSettlementInventory } from "../ApiManager"
 import { MileStonesEdit } from "./MilestonesEdit"
 
-export const ResourcesEdit = ({ settlement, settlementId, filteredEvents, settlementEvents }) => {
+export const ResourcesEdit = ({ settlement, settlementId, settlementEvents }) => {
     const [resources, setResources] = useState([])
     const [settlementItem, setSettlementItem] = useState({
         settlementId: 0,
@@ -102,7 +102,6 @@ export const ResourcesEdit = ({ settlement, settlementId, filteredEvents, settle
             <MileStonesEdit
                 settlement={settlement}
                 settlementInventory={settlementInventory}
-                filteredEvents={filteredEvents}
                 settlementEvents={settlementEvents}
                 settlementId={settlementId} />
         </>

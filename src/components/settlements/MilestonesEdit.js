@@ -2,11 +2,15 @@ import { useEffect, useState } from "react"
 import { getAchievedMilestones, getMilestones } from "../ApiManager"
 import { SaveEdit } from "./SaveEdit"
 
-export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, filteredEvents, settlementEvents }) => {
+export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, settlementEvents }) => {
 
     const [milestones, setMilestones] = useState([])
     const [storedMilestones, setStoredMilestones] = useState([])
-    const [achievedMilestones, setAchievedMilestones] = useState([])
+    const [milestoneObject, setMilestoneObject] = useState({
+        settlementId: settlementId,
+        milestoneId: 0,
+        reached: false
+    })
 
     useEffect(
         () => {
@@ -28,40 +32,19 @@ export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, 
         []
     )
 
-    useEffect(() => {
-        const mappedMilestones = milestones.map((milestone) => ({
-            settlementId: parseInt(settlementId),
-            milestoneId: milestone.id,
-            reached: findAchievedMilestone(milestone.id),
-            id: findAchievedMilestone(milestone.id)
-        }))
-        setAchievedMilestones(mappedMilestones)
-    }, [storedMilestones])
-
-
     const handleChange = (evt, milestoneId) => {
-        const milestone = { ...findMilestone(milestoneId) }
+        const milestone = { ...milestoneObject}
+        milestone.milestoneId = parseInt(evt.target.value)
         milestone.reached = evt.target.checked
-        const copy = [...achievedMilestones]
-        const updatedMilestone = copy.map((oldMilestone) => {
-            if (oldMilestone.milestoneId === milestoneId) {
-                return milestone
-            }
-            return oldMilestone
-        })
-        setAchievedMilestones(updatedMilestone)
-    }
-
-    const findMilestone = (milestoneId) => {
-        const currentMilestone = achievedMilestones.find(achievedMilestone => { return achievedMilestone.milestoneId === milestoneId })
-        return currentMilestone
-    }
-
-    const findAchievedMilestone = (milestoneId) => {
-        const currentMilestone = storedMilestones.find(storedMilestone => { return storedMilestone.milestoneId === milestoneId })
-        return currentMilestone
-            ? currentMilestone.reached && currentMilestone.id
-            : false && 0
+        const copy = [...storedMilestones]
+        const updatedMilestone = copy.find((oldMilestone) => oldMilestone.milestoneId === milestoneId)
+        if (updatedMilestone) {
+            updatedMilestone.milestoneId = milestone.milestoneId
+            updatedMilestone.reached = milestone.reached
+        } else {
+            copy.push(milestone)
+        }
+        setStoredMilestones(copy)
     }
 
     return (
@@ -71,8 +54,8 @@ export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, 
                     <label htmlFor="milestoneTypeId">Milestones:</label>
                 </div>
                 {milestones.map((milestone) => {
-                    const achievedMilestone = achievedMilestones.find((achievedMilestone) => achievedMilestone.milestoneId === milestone.id);
-                    const reached = achievedMilestone ? achievedMilestone.reached : false;
+                    const storedMilestone = storedMilestones.find((storedMilestone) => storedMilestone.milestoneId === milestone.id);
+                    const reached = storedMilestone ? storedMilestone.reached : false;
                     return (
                         <div className="form-group" key={milestone.id}>
                             <label htmlFor="milestoneType">{milestone.type}</label>
@@ -91,10 +74,8 @@ export const MileStonesEdit = ({ settlement, settlementInventory, settlementId, 
             settlement={settlement}
             settlementId={settlementId}
             settlementInventory={settlementInventory}
-            filteredEvents={filteredEvents}
             settlementEvents={settlementEvents}
-            achievedMilestones={achievedMilestones}
-            findAchievedMilestone={findAchievedMilestone}/>
+            achievedMilestones={storedMilestones} />
         </>
     )
 }
