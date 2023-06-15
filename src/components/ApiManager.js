@@ -177,3 +177,9 @@ export const getSettlementEvents = async (settlementId) => {
     const settlementEvents = await response.json()
     return settlementEvents
 }
+
+export const getWeaponProficencies = async () => {
+    const response = await fetch("http://localhost:8088/weaponProficencies")
+    const weaponProficencies = await response.json()
+    return weaponProficencies
+}

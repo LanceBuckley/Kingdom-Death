@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { WeaponProficenciesProvider } from "./weaponProficency/WeaponProficenciesContext";
+import { WeaponProficencies } from "./weaponProficency/WeaponProficencies";
 
 export const SurvivorForm = () => {
-    const localDeathUser = localStorage.getItem("kdm_user");
-    const deathUserObject = JSON.parse(localDeathUser);
+    const localDeathUser = localStorage.getItem("kdm_user")
+    const deathUserObject = JSON.parse(localDeathUser)
 
     const [survivor, update] = useState({
         userId: deathUserObject.id,
@@ -11,7 +13,7 @@ export const SurvivorForm = () => {
         insanity: 0,
         huntXp: 0,
         gender: null,
-    });
+    })
 
     return (
         <>
@@ -87,7 +89,6 @@ export const SurvivorForm = () => {
                 </fieldset>
                 <fieldset>
                     <div className="form-group">
-                        <label>Gender:</label>
                         <div>
                             <label htmlFor="maleGender">
                                 Male
@@ -124,7 +125,9 @@ export const SurvivorForm = () => {
                         </div>
                     </div>
                 </fieldset>
-
+                <WeaponProficenciesProvider>
+                    <WeaponProficencies />
+                </WeaponProficenciesProvider>
             </form>
         </>
     )
