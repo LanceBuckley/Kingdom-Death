@@ -214,6 +214,15 @@ export const getFightingArts = async () => {
 
 
 
+// Abilities
+export const getAbilities = async () => {
+    const response = await fetch("http://localhost:8088/abilities");
+    const abilities = await response.json();
+    return abilities;
+};
+
+
+
 // Sessions
 export const getSessions = async () => {
     const response = await fetch("http://localhost:8088/sessions")
