@@ -12,18 +12,23 @@ export const SaveSurvivor = ({survivor}) => {
 
     const handleSaveButtonClick = () => {
         debugger
-        survivor.weaponProfId = chosenProficency.id
-        survivor.fightingArt1Id = chosenFightingArts[0].id
-        survivor.fightingArt2Id = chosenFightingArts[1].id
-        survivor.fightingArt3Id = chosenFightingArts[2].id
-        survivor.disorder1Id = chosenDisorders[0].id
-        survivor.disorder2Id = chosenDisorders[1].id
-        survivor.disorder3Id = chosenDisorders[2].id
-        survivor.ability1Id = chosenAbilities[0].id
-        survivor.ability2Id = chosenAbilities[1].id
-        survivor.ability3Id = chosenAbilities[2].id
-        createSurvivor(survivor)
-    }
+        survivor.weaponProfId = chosenProficency.id;
+      
+        survivor.fightingArt1Id = chosenFightingArts.length >= 1 ? chosenFightingArts[0].id : null;
+        survivor.fightingArt2Id = chosenFightingArts.length >= 2 ? chosenFightingArts[1].id : null;
+        survivor.fightingArt3Id = chosenFightingArts.length >= 3 ? chosenFightingArts[2].id : null;
+      
+        survivor.disorder1Id = chosenDisorders.length >= 1 ? chosenDisorders[0].id : null;
+        survivor.disorder2Id = chosenDisorders.length >= 2 ? chosenDisorders[1].id : null;
+        survivor.disorder3Id = chosenDisorders.length >= 3 ? chosenDisorders[2].id : null;
+      
+        survivor.ability1Id = chosenAbilities.length >= 1 ? chosenAbilities[0].id : null;
+        survivor.ability2Id = chosenAbilities.length >= 2 ? chosenAbilities[1].id : null;
+        survivor.ability3Id = chosenAbilities.length >= 3 ? chosenAbilities[2].id : null;
+      
+        createSurvivor(survivor);
+      };
+      
     
     return <button
     onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
