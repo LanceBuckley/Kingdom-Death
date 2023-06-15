@@ -3,6 +3,8 @@ import { WeaponProficenciesProvider } from "./weaponProficency/WeaponProficencie
 import { WeaponProficencies } from "./weaponProficency/WeaponProficencies";
 import { DisordersProvider } from "./disorders/DisordersContext";
 import { Disorders } from "./disorders/Disorders";
+import { FightingArtsProvider } from "./fightingArts/FightingArtsContext";
+import { FightingArts } from "./fightingArts/FightingArts";
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -129,8 +131,11 @@ export const SurvivorForm = () => {
                 </fieldset>
                 <WeaponProficenciesProvider>
                     <DisordersProvider>
-                    <WeaponProficencies />
-                        <Disorders />
+                        <FightingArtsProvider>
+                            <WeaponProficencies />
+                            <FightingArts />
+                            <Disorders />
+                        </FightingArtsProvider>
                     </DisordersProvider>
                 </WeaponProficenciesProvider>
             </form>

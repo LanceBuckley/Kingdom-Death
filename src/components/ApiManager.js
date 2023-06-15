@@ -189,3 +189,9 @@ export const getDisorders = async () => {
     const disorders = await response.json()
     return disorders
 }
+
+export const getFightingArts = async () => {
+    const response = await fetch("http://localhost:8088/fightingArts")
+    const fightingArts = await response.json()
+    return fightingArts
+}

@@ -58,7 +58,7 @@ export const Disorders = () => {
         <>
             <fieldset>
                 <div className="form-group">
-                    <label>Disorders</label>
+                    <label>Disorders:</label>
                 </div>
                 <div className="form-group">
                     <select id="disorders1" onChange={(evt) => handleChange(evt)}>
