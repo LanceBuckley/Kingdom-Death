@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { WeaponProficenciesProvider } from "./weaponProficency/WeaponProficenciesContext";
 import { WeaponProficencies } from "./weaponProficency/WeaponProficencies";
+import { DisordersProvider } from "./disorders/DisordersContext";
+import { Disorders } from "./disorders/Disorders";
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -126,7 +128,10 @@ export const SurvivorForm = () => {
                     </div>
                 </fieldset>
                 <WeaponProficenciesProvider>
+                    <DisordersProvider>
                     <WeaponProficencies />
+                        <Disorders />
+                    </DisordersProvider>
                 </WeaponProficenciesProvider>
             </form>
         </>

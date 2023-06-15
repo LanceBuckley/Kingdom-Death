@@ -1,10 +1,10 @@
 import { useWeaponProficencies } from "./WeaponProficenciesContext"
 
 export const WeaponProficencies = () => {
+    // Here we destructure the values prop from the provider
     const { allProficencies, chosenProficency, setChosenProficency } = useWeaponProficencies()
 
     const handleChange = (evt) => {
-        evt.preventDefault()
         const copyProf = { ...chosenProficency }
         copyProf.id = parseInt(evt.target.value)
         copyProf.name = evt.target[copyProf.id].label
