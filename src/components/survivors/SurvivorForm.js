@@ -100,7 +100,6 @@ export const SurvivorForm = () => {
                                 <input
                                     type="checkbox"
                                     id="maleGender"
-                                    className="form-control"
                                     value="male"
                                     checked={survivor.gender === "male"}
                                     onChange={(evt) => {
@@ -117,7 +116,6 @@ export const SurvivorForm = () => {
                                 <input
                                     type="checkbox"
                                     id="femaleGender"
-                                    className="form-control"
                                     value="female"
                                     checked={survivor.gender === "female"}
                                     onChange={(evt) => {
