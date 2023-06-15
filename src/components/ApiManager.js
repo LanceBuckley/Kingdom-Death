@@ -223,6 +223,22 @@ export const getAbilities = async () => {
 
 
 
+// Stats
+export const createStats = async (stats) => {
+    debugger
+    const response = await fetch("http://localhost:8088/stats", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(stats)
+    })
+    const createdStats = await response.json()
+    return createdStats
+}
+
+
+
 // Sessions
 export const getSessions = async () => {
     const response = await fetch("http://localhost:8088/sessions")

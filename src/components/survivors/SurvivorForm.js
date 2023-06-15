@@ -9,6 +9,8 @@ import { SaveSurvivor } from "./SaveSurvivor";
 import { AbilitiesProvider } from "./abilities/AbilitiesContext";
 import { Abilities } from "./abilities/Abilities";
 import "./SurvivorForm.css"
+import { Stats } from "./stats/Stats";
+import { StatsProvider } from "./stats/StatsContext";
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -27,7 +29,7 @@ export const SurvivorForm = () => {
         <>
             <form className="survivorForm">
                 <div className="survivorForm__title-container">
-                <h2 className="survivorForm__title">New survivor</h2>
+                    <h2 className="survivorForm__title">New survivor</h2>
                 </div>
                 <fieldset>
                     <div className="form-group">
@@ -133,23 +135,28 @@ export const SurvivorForm = () => {
                         />
                     </div>
                 </fieldset>
-                <div className="dropDowns">
-                    <WeaponProficenciesProvider>
-                        <DisordersProvider>
-                            <FightingArtsProvider>
-                                <AbilitiesProvider>
-                                    <WeaponProficencies />
-                                    <FightingArts />
-                                    <Disorders />
-                                    <Abilities />
-                                    <div className="saveButton">
-                                    <SaveSurvivor survivor={survivor} />
+                <WeaponProficenciesProvider>
+                    <DisordersProvider>
+                        <FightingArtsProvider>
+                            <AbilitiesProvider>
+                                <StatsProvider>
+                                    <div className="stats">
+                                        <Stats />
                                     </div>
-                                </AbilitiesProvider>
-                            </FightingArtsProvider>
-                        </DisordersProvider>
-                    </WeaponProficenciesProvider>
-                </div>
+                                    <div className="dropDowns">
+                                        <WeaponProficencies />
+                                        <FightingArts />
+                                        <Disorders />
+                                        <Abilities />
+                                        <div className="saveButton">
+                                            <SaveSurvivor survivor={survivor} />
+                                        </div>
+                                    </div>
+                                </StatsProvider>
+                            </AbilitiesProvider>
+                        </FightingArtsProvider>
+                    </DisordersProvider>
+                </WeaponProficenciesProvider>
             </form>
         </>
     )
