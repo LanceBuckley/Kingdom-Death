@@ -5,6 +5,7 @@ import { DisordersProvider } from "./disorders/DisordersContext";
 import { Disorders } from "./disorders/Disorders";
 import { FightingArtsProvider } from "./fightingArts/FightingArtsContext";
 import { FightingArts } from "./fightingArts/FightingArts";
+import { SaveSurvivor } from "./SaveSurvivor";
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -135,6 +136,7 @@ export const SurvivorForm = () => {
                             <WeaponProficencies />
                             <FightingArts />
                             <Disorders />
+                            <SaveSurvivor survivor={survivor}/>
                         </FightingArtsProvider>
                     </DisordersProvider>
                 </WeaponProficenciesProvider>

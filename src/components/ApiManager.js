@@ -195,3 +195,15 @@ export const getFightingArts = async () => {
     const fightingArts = await response.json()
     return fightingArts
 }
+
+export const createSurvivor = async (survivor) => {
+    const response = await fetch("http://localhost:8088/survivors", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(survivor)
+    })
+    const createdSurvivor = await response.json()
+    return createdSurvivor
+}

@@ -1,7 +1,23 @@
-export const SaveSurvivor = () => {
+import { createSurvivor } from "../ApiManager"
+import { useDisorders } from "./disorders/DisordersContext"
+import { useFightingArts } from "./fightingArts/FightingArtsContext"
+import { useWeaponProficencies } from "./weaponProficency/WeaponProficenciesContext"
+
+export const SaveSurvivor = ({survivor}) => {
+    const { chosenProficency } = useWeaponProficencies()
+    const { chosenFightingArts} = useFightingArts()
+    const { chosenDisorders } = useDisorders()
 
     const handleSaveButtonClick = () => {
-        return <></>
+        debugger
+        survivor.weaponProfId = chosenProficency.id
+        survivor.fightingArt1Id = chosenFightingArts[0].id
+        survivor.fightingArt2Id = chosenFightingArts[1].id
+        survivor.fightingArt3Id = chosenFightingArts[2].id
+        survivor.disorder1Id = chosenDisorders[0].id
+        survivor.disorder2Id = chosenDisorders[1].id
+        survivor.disorder3Id = chosenDisorders[2].id
+        createSurvivor(survivor)
     }
     
     return <button
