@@ -57,7 +57,7 @@ export const Abilities = () => {
 
     return (
         <>
-            <fieldset>
+            <fieldset className="dropDown__field">
                 <div className="form-group">
                     <label htmlFor="abilities">Abilities:</label>
                 </div>

@@ -57,7 +57,7 @@ export const FightingArts = () => {
 
     return (
         <>
-            <fieldset>
+            <fieldset className="dropDown__field">
                 <div className="form-group">
                     <label>Fighting Arts:</label>
                 </div>

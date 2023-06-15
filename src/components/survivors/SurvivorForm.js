@@ -8,6 +8,7 @@ import { FightingArts } from "./fightingArts/FightingArts";
 import { SaveSurvivor } from "./SaveSurvivor";
 import { AbilitiesProvider } from "./abilities/AbilitiesContext";
 import { Abilities } from "./abilities/Abilities";
+import "./SurvivorForm.css"
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -25,7 +26,9 @@ export const SurvivorForm = () => {
     return (
         <>
             <form className="survivorForm">
+                <div className="survivorForm__title-container">
                 <h2 className="survivorForm__title">New survivor</h2>
+                </div>
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="survivorName">Name:</label>
@@ -41,6 +44,42 @@ export const SurvivorForm = () => {
                                 update(copy)
                             }}
                         />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <div>
+                            <label htmlFor="maleGender">
+                                Male
+                                <input
+                                    type="checkbox"
+                                    id="maleGender"
+                                    value="male"
+                                    checked={survivor.gender === "male"}
+                                    onChange={(evt) => {
+                                        const copy = { ...survivor }
+                                        copy.gender = evt.target.checked ? "male" : null
+                                        update(copy)
+                                    }}
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <label htmlFor="femaleGender">
+                                Female
+                                <input
+                                    type="checkbox"
+                                    id="femaleGender"
+                                    value="female"
+                                    checked={survivor.gender === "female"}
+                                    onChange={(evt) => {
+                                        const copy = { ...survivor }
+                                        copy.gender = evt.target.checked ? "female" : null
+                                        update(copy)
+                                    }}
+                                />
+                            </label>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -94,55 +133,23 @@ export const SurvivorForm = () => {
                         />
                     </div>
                 </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <div>
-                            <label htmlFor="maleGender">
-                                Male
-                                <input
-                                    type="checkbox"
-                                    id="maleGender"
-                                    value="male"
-                                    checked={survivor.gender === "male"}
-                                    onChange={(evt) => {
-                                        const copy = { ...survivor }
-                                        copy.gender = evt.target.checked ? "male" : null
-                                        update(copy)
-                                    }}
-                                />
-                            </label>
-                        </div>
-                        <div>
-                            <label htmlFor="femaleGender">
-                                Female
-                                <input
-                                    type="checkbox"
-                                    id="femaleGender"
-                                    value="female"
-                                    checked={survivor.gender === "female"}
-                                    onChange={(evt) => {
-                                        const copy = { ...survivor }
-                                        copy.gender = evt.target.checked ? "female" : null
-                                        update(copy)
-                                    }}
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-                <WeaponProficenciesProvider>
-                    <DisordersProvider>
-                        <FightingArtsProvider>
-                            <AbilitiesProvider>
-                                <WeaponProficencies />
-                                <FightingArts />
-                                <Disorders />
-                                <Abilities />
-                                <SaveSurvivor survivor={survivor} />
-                            </AbilitiesProvider>
-                        </FightingArtsProvider>
-                    </DisordersProvider>
-                </WeaponProficenciesProvider>
+                <div className="dropDowns">
+                    <WeaponProficenciesProvider>
+                        <DisordersProvider>
+                            <FightingArtsProvider>
+                                <AbilitiesProvider>
+                                    <WeaponProficencies />
+                                    <FightingArts />
+                                    <Disorders />
+                                    <Abilities />
+                                    <div className="saveButton">
+                                    <SaveSurvivor survivor={survivor} />
+                                    </div>
+                                </AbilitiesProvider>
+                            </FightingArtsProvider>
+                        </DisordersProvider>
+                    </WeaponProficenciesProvider>
+                </div>
             </form>
         </>
     )

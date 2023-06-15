@@ -13,7 +13,7 @@ export const WeaponProficencies = () => {
 
     return (
         <>
-            <fieldset>
+            <fieldset className="dropDown__field">
                 <div className="form-group">
                     <label htmlFor="weaponProficency">Weapon Proficency:</label>
                 </div>
