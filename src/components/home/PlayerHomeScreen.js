@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { getSessions, getSurvivors } from "../ApiManager"
-import { SettlementForm } from "../settlements/SettlementForm"
+import { getSessions, getSurvivors, editSession } from "../ApiManager"
 import { Link } from "react-router-dom"
 
 export const PlayerHomeScreen = () => {
@@ -10,6 +9,7 @@ export const PlayerHomeScreen = () => {
 
     const [survivors, setSurvivors] = useState([])
     const [sessions, setSessions] = useState([])
+    const [sessionClick, setSessionClick] = useState(false)
 
     useEffect(
         () => {
@@ -31,8 +31,76 @@ export const PlayerHomeScreen = () => {
         []
     )
 
+    useEffect(
+        () => {
+            if (sessionClick === true) {
+                findSessionToEdit()
+            }
+
+        },
+        [sessionClick]
+    )
+
+    const findSessionToEdit = () => {
+        sessions.forEach((session) => {
+            if (session.player1Id === deathUserObject.id) {
+                editSession(session)
+                    .then(getSessions)
+                    .then((sessions) => {
+                        setSessions(sessions)
+                    })
+            } else if (session.player2Id === deathUserObject.id) {
+                editSession(session)
+                    .then(getSessions)
+                    .then((sessions) => {
+                        setSessions(sessions)
+                    })
+            } else if (session.player3Id === deathUserObject.id) {
+                editSession(session)
+                    .then(getSessions)
+                    .then((sessions) => {
+                        setSessions(sessions)
+                    })
+            } else if (session.player4Id === deathUserObject.id) {
+                editSession(session)
+                    .then(getSessions)
+                    .then((sessions) => {
+                        setSessions(sessions)
+                    })
+            }
+        })
+        setSessionClick(false)
+    }
+
     const editButton = (survivorId) => {
         return <Link to={`/survivor/${survivorId}`}><button>Edit</button></Link>
+    }
+
+    const joinGameButton = (session) => {
+
+        if (session.player1Id === deathUserObject.id || session.player2Id === deathUserObject.id || session.player3Id === deathUserObject.id || session.player4Id === deathUserObject.id) {
+            return <> Joined!</>
+        } else if (session.player1Id && session.player2Id && session.player3Id && session.player4Id) {
+            return <>Full!</>
+        } else {
+            return <button onClick={() => { joinSession(session) }}>Join Game?</button>
+        }
+    }
+
+    const joinSession = (clickedSession) => {
+        const copySessions = [...sessions]
+        const findSession = sessions.find((session) => { return session.id === clickedSession.id })
+        if (!findSession.player1Id) {
+            findSession.player1Id = deathUserObject.id
+        } else if (!findSession.player2Id) {
+            findSession.player2Id = deathUserObject.id
+        } else if (!findSession.player3Id) {
+            findSession.player3Id = deathUserObject.id
+        } else if (!findSession.player4Id) {
+            findSession.player4Id = deathUserObject.id
+        }
+        setSessions(copySessions)
+        setSessionClick(true)
     }
 
     return <>
@@ -45,6 +113,16 @@ export const PlayerHomeScreen = () => {
                     </li>
                 ))
 
+            }
+        </ul>
+        <ul>Open Sessions
+            {
+                sessions.map((session) => (
+                    <li key={`session-${session.id}`}>
+                        {session.settlement.name}
+                        {joinGameButton(session)}
+                    </li>
+                ))
             }
         </ul>
     </>

@@ -284,6 +284,7 @@ export const getAbilityForEdit = async (abilityId) => {
 };
 
 
+
 // Stats
 export const createStats = async (stats) => {
     const response = await fetch("http://localhost:8088/stats", {
@@ -368,7 +369,7 @@ export const deleteHitLocations = async (hitLocationsId) => {
 
 // Sessions
 export const getSessions = async () => {
-    const response = await fetch("http://localhost:8088/sessions")
+    const response = await fetch("http://localhost:8088/sessions?_expand=settlement")
     const sessions = await response.json()
     return sessions
 }
@@ -383,4 +384,16 @@ export const createSession = async (session) => {
     })
     const createdSession = await response.json()
     return createdSession
+}
+
+export const editSession = async (session) => {
+    const response = await fetch(`http://localhost:8088/sessions/${session.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(session)
+    })
+    const editedSession = await response.json()
+    return editedSession
 }
