@@ -9,9 +9,6 @@ export const PlayerNav = () => {
 
     return (
         <ul className="navbar">
-            <li className="navbar__item active">
-                <Link className="navbar__link" to="/survivors">New Survivor</Link>
-            </li>
             {
                 isSurvivorPage
                     ? <li className="navbar__item navbar__logout">
@@ -19,14 +16,16 @@ export const PlayerNav = () => {
                             navigate("/")
                         }}>Home</Link>
                     </li>
-                    : ""
+                    : <li className="navbar__item active">
+                        <Link className="navbar__link" to="/survivors">New Survivor</Link>
+                    </li>
             }
             {
                 localStorage.getItem("kdm_user")
                     ? <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={() => {
                             localStorage.removeItem("kdm_user")
-                            navigate("/", {replace: true})
+                            navigate("/", { replace: true })
                         }}>Logout</Link>
                     </li>
                     : ""

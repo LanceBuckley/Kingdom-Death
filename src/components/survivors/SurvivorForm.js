@@ -13,8 +13,8 @@ import { Stats } from "./stats/Stats";
 import { StatsProvider } from "./stats/StatsContext";
 import { HitLocationsProvider } from "./hitLocations/HitLocationsContext";
 import { HitLocations } from "./hitLocations/HitLocations";
-import { useLocation, useParams } from "react-router-dom";
-import { getSurvivorToEdit } from "../ApiManager";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { deleteSurvivor, getSurvivorToEdit } from "../ApiManager";
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -22,6 +22,7 @@ export const SurvivorForm = () => {
 
     const location = useLocation()
     const { survivorId } = useParams()
+    const navigate = useNavigate()
 
     const isEditPage = location.pathname === `/survivor/${survivorId}`
 
@@ -38,19 +39,29 @@ export const SurvivorForm = () => {
         () => {
             if (isEditPage) {
                 getSurvivorToEdit(survivorId)
-                .then((survivorToEdit) => {
-                    update(survivorToEdit)
-                })
+                    .then((survivorToEdit) => {
+                        update(survivorToEdit)
+                    })
             }
         },
         []
     )
 
+    const deleteButton = () => {
+        return <button onClick={() =>
+            deleteSurvivor(survivor)
+                .then(navigate("/"))
+        }>Delete</button>
+    }
+
     return (
         <>
             <form className="survivorForm">
                 <div className="survivorForm__title-container">
-                    <h2 className="survivorForm__title">New survivor</h2>
+                    {isEditPage
+                        ? <h2 className="survivorForm__title">Edit survivor</h2>
+                        : <h2 className="survivorForm__title">New survivor</h2>}
+
                 </div>
                 <fieldset>
                     <div className="form-group">
@@ -163,18 +174,18 @@ export const SurvivorForm = () => {
                                 <StatsProvider>
                                     <HitLocationsProvider>
                                         <div className="stats">
-                                            <Stats />
+                                            <Stats isEditPage={isEditPage} survivor={survivor} />
                                         </div>
                                         <div className="hitLocations">
-                                            <HitLocations />
+                                            <HitLocations isEditPage={isEditPage} survivor={survivor} />
                                         </div>
                                         <div className="dropDowns">
-                                            <WeaponProficencies />
-                                            <FightingArts />
-                                            <Disorders />
-                                            <Abilities />
+                                            <WeaponProficencies isEditPage={isEditPage} survivor={survivor} />
+                                            <FightingArts isEditPage={isEditPage} survivor={survivor} />
+                                            <Disorders isEditPage={isEditPage} survivor={survivor} />
+                                            <Abilities isEditPage={isEditPage} survivor={survivor} />
                                             <div className="saveButton">
-                                                <SaveSurvivor survivor={survivor} />
+                                                <SaveSurvivor isEditPage={isEditPage} survivor={survivor} />
                                             </div>
                                         </div>
                                     </HitLocationsProvider>
@@ -184,7 +195,7 @@ export const SurvivorForm = () => {
                     </DisordersProvider>
                 </WeaponProficenciesProvider>
             </form>
-            {isEditPage ? <>Yes!</> :""}
+            {isEditPage ? deleteButton() : ""}
         </>
     )
 }

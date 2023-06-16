@@ -1,8 +1,52 @@
+import { useEffect } from "react"
 import { useAbilities } from "./AbilitiesContext"
- 
-export const Abilities = () => {
+import { getAbilityForEdit } from "../../ApiManager"
+
+export const Abilities = ({ isEditPage, survivor }) => {
     // Here we destructure the values prop from the provider
     const { allAbilities, chosenAbilities, setChosenAbilities } = useAbilities()
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                editAbilities()
+            }
+        },
+        [survivor]
+    )
+
+    const editAbilities = async () => {
+        const copy = [...chosenAbilities]
+
+        if (chosenAbilities.length === 0) {
+            await getAbilityForEdit(survivor.ability1Id)
+                .then((ability) => {
+                    if (ability) {
+                        ability.type = 1
+                        copy.push(ability)
+                    }
+                })
+
+            await getAbilityForEdit(survivor.ability2Id)
+                .then((ability) => {
+                    if (ability) {
+                        ability.type = 2
+                        copy.push(ability)
+                    }
+                })
+
+            await getAbilityForEdit(survivor.ability3Id)
+                .then((ability) => {
+                    if (ability) {
+                        ability.type = 3
+                        copy.push(ability)
+                    }
+                })
+
+            setChosenAbilities(copy)
+        }
+
+    }
 
     const handleChange = (evt) => {
         const copyAbilities = [...chosenAbilities]
@@ -62,7 +106,7 @@ export const Abilities = () => {
                     <label>Abilities:</label>
                 </div>
                 <div className="form-group">
-                    <select onChange={(evt) => handleChange(evt)}>
+                    <select id="ability1" value={chosenAbilities[0]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allAbilities.map((abilities) => (
                             <option key={`abilities--${abilities.id}`} value={abilities.id}>
@@ -72,7 +116,7 @@ export const Abilities = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select onChange={(evt) => handleChange(evt)}>
+                    <select id="ability2" value={chosenAbilities[1]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allAbilities.map((abilities) => (
                             <option key={`abilities--${abilities.id}`} value={abilities.id}>
@@ -82,7 +126,7 @@ export const Abilities = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select onChange={(evt) => handleChange(evt)}>
+                    <select id="ability3" value={chosenAbilities[2]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allAbilities.map((abilities) => (
                             <option key={`abilities--${abilities.id}`} value={abilities.id}>

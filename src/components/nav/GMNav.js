@@ -9,9 +9,6 @@ export const GMNav = () => {
 
     return (
         <ul className="navbar">
-            <li className="navbar__item active">
-                <Link className="navbar__link" to="/settlements">New Settlement</Link>
-            </li>
             {
                 isSettlementPage
                     ? <li className="navbar__item navbar__logout">
@@ -19,7 +16,9 @@ export const GMNav = () => {
                             navigate("/")
                         }}>Home</Link>
                     </li>
-                    : ""
+                    : <li className="navbar__item active">
+                        <Link className="navbar__link" to="/settlements">New Settlement</Link>
+                    </li>
             }
             {
                 localStorage.getItem("kdm_user")

@@ -6,7 +6,7 @@ const StatsContext = createContext()
 export const StatsProvider = ({ children }) => {
 
     const [stats, update] = useState({
-        movement: 0,
+        movement: 5,
         accuracy: 0,
         strength: 0,
         evasion: 0,

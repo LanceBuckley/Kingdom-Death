@@ -1,8 +1,52 @@
+import { useEffect } from "react"
 import { useFightingArts } from "./FightingArtsContext"
+import { getFightingArtsForEdit } from "../../ApiManager"
 
-export const FightingArts = () => {
+export const FightingArts = ({ isEditPage, survivor }) => {
     // Here we destructure the values prop from the provider
     const { allFightingArts, chosenFightingArts, setChosenFightingArts } = useFightingArts()
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                editFightingArts()
+            }
+        },
+        [survivor]
+    )
+
+    const editFightingArts = async () => {
+        const copy = [...chosenFightingArts]
+
+        if (chosenFightingArts.length === 0) {
+            await getFightingArtsForEdit(survivor.fightingArt1Id)
+                .then((fightingArts) => {
+                    if (fightingArts) {
+                        fightingArts.type = 1
+                        copy.push(fightingArts)
+                    }
+                })
+
+            await getFightingArtsForEdit(survivor.fightingArt2Id)
+                .then((fightingArts) => {
+                    if (fightingArts) {
+                        fightingArts.type = 2
+                        copy.push(fightingArts)
+                    }
+                })
+
+            await getFightingArtsForEdit(survivor.fightingArt3Id)
+                .then((fightingArts) => {
+                    if (fightingArts) {
+                        fightingArts.type = 3
+                        copy.push(fightingArts)
+                    }
+                })
+
+            setChosenFightingArts(copy)
+        }
+
+    }
 
     const handleChange = (evt) => {
         const copyFightingArts = [...chosenFightingArts]
@@ -62,7 +106,7 @@ export const FightingArts = () => {
                     <label>Fighting Arts:</label>
                 </div>
                 <div className="form-group">
-                    <select id="fightingArt1" onChange={(evt) => handleChange(evt)}>
+                    <select id="fightingArt1" value={chosenFightingArts[0]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allFightingArts.map((fightingArt) => (
                             <option key={`fightingArt--${fightingArt.id}`} value={fightingArt.id}>
@@ -72,7 +116,7 @@ export const FightingArts = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select id="fightingArt2" onChange={(evt) => handleChange(evt)}>
+                    <select id="fightingArt2" value={chosenFightingArts[1]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allFightingArts.map((fightingArt) => (
                             <option key={`fightingArt--${fightingArt.id}`} value={fightingArt.id}>
@@ -82,7 +126,7 @@ export const FightingArts = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select id="fightingArt3" onChange={(evt) => handleChange(evt)}>
+                    <select id="fightingArt3" value={chosenFightingArts[2]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allFightingArts.map((fightingArt) => (
                             <option key={`fightingArt--${fightingArt.id}`} value={fightingArt.id}>

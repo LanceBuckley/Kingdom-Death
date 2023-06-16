@@ -1,9 +1,48 @@
+import { useEffect } from "react"
+import { getHitLocationsForEdit } from "../../ApiManager"
 import { useHitLocations } from "./HitLocationsContext"
 
-export const HitLocations = () => {
+export const HitLocations = ({ isEditPage, survivor }) => {
 
     // Here we destructure the values prop from the provider
     const { hitLocations, setHitLocations } = useHitLocations()
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                editHitLocations()
+            }
+        },
+        [survivor]
+    )
+
+    const editHitLocations = async () => {
+        const copy = { ...hitLocations }
+
+        if (!hitLocations.id) {
+            await getHitLocationsForEdit(survivor.hitLocationId)
+                .then((hitLocations) => {
+                    if (hitLocations) {
+                        copy.id = hitLocations.id
+                        copy.headArmor = hitLocations.headArmor
+                        copy.headWound = hitLocations.headWound
+                        copy.armArmor = hitLocations.armArmor
+                        copy.armLightWound = hitLocations.armLightWound
+                        copy.armHeavyWound = hitLocations.armHeavyWound
+                        copy.bodyArmor = hitLocations.bodyArmor
+                        copy.bodyLightWound = hitLocations.bodyLightWound
+                        copy.bodyHeavyWound = hitLocations.bodyHeavyWound
+                        copy.waistArmor = hitLocations.waistArmor
+                        copy.waistLightWound = hitLocations.waistLightWound
+                        copy.waistHeavyWound = hitLocations.waistHeavyWound
+                        copy.legArmor = hitLocations.legArmor
+                        copy.legLightWound = hitLocations.legLightWound
+                        copy.legHeavyWound = hitLocations.legHeavyWound
+                    }
+                })
+            setHitLocations(copy)
+        }
+    }
 
     return (
         <>
@@ -25,11 +64,12 @@ export const HitLocations = () => {
                 </div>
                 <div>
                     <div className="hitLocation__field">
-                        <label htmlFor="headHeavyWound">
+                        <label htmlFor="headWound">
                             HW
                             <input
                                 type="checkbox"
-                                id="headHeavyWound"
+                                id="headWound"
+                                checked={hitLocations.headWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.headWound = evt.target.checked
@@ -63,6 +103,7 @@ export const HitLocations = () => {
                             <input
                                 type="checkbox"
                                 id="armsLightWound"
+                                checked={hitLocations.armLightWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.armLightWound = evt.target.checked
@@ -77,6 +118,7 @@ export const HitLocations = () => {
                             <input
                                 type="checkbox"
                                 id="armsHeavyWound"
+                                checked={hitLocations.armHeavyWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.armHeavyWound = evt.target.checked
@@ -104,12 +146,13 @@ export const HitLocations = () => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                <div>
+                    <div>
                         <label htmlFor="bodyLightWound">
                             LW
                             <input
                                 type="checkbox"
                                 id="bodyLightWound"
+                                checked={hitLocations.bodyLightWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.bodyLightWound = evt.target.checked
@@ -124,6 +167,7 @@ export const HitLocations = () => {
                             <input
                                 type="checkbox"
                                 id="bodyHeavyWound"
+                                checked={hitLocations.bodyHeavyWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.bodyHeavyWound = evt.target.checked
@@ -151,12 +195,13 @@ export const HitLocations = () => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                <div>
+                    <div>
                         <label htmlFor="waistLightWound">
                             LW
                             <input
                                 type="checkbox"
                                 id="waistLightWound"
+                                checked={hitLocations.waistLightWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.waistLightWound = evt.target.checked
@@ -171,6 +216,7 @@ export const HitLocations = () => {
                             <input
                                 type="checkbox"
                                 id="waistHeavyWound"
+                                checked={hitLocations.waistHeavyWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.waistHeavyWound = evt.target.checked
@@ -198,12 +244,13 @@ export const HitLocations = () => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                <div>
+                    <div>
                         <label htmlFor="legsLightWound">
                             LW
                             <input
                                 type="checkbox"
                                 id="legsLightWound"
+                                checked={hitLocations.legLightWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.legLightWound = evt.target.checked
@@ -218,6 +265,7 @@ export const HitLocations = () => {
                             <input
                                 type="checkbox"
                                 id="legsHeavyWound"
+                                checked={hitLocations.legHeavyWound}
                                 onChange={(evt) => {
                                     const copy = { ...hitLocations }
                                     copy.legHeavyWound = evt.target.checked

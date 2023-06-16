@@ -174,7 +174,6 @@ export const deleteAchievedMilestones = async (achievedMilestone) => {
 
 // Survivor
 export const createSurvivor = async (survivor) => {
-    debugger
     const response = await fetch("http://localhost:8088/survivors", {
         method: "POST",
         headers: {
@@ -199,6 +198,27 @@ export const getSurvivorToEdit = async (survivorId) => {
     return survivorToEdit;
 };
 
+export const editSurvivor = async (survivor) => {
+    const response = await fetch(`http://localhost:8088/survivors/${survivor.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(survivor)
+    });
+    const editedSurvivor = await response.json();
+    return editedSurvivor;
+};
+
+export const deleteSurvivor = async (survivor) => {
+    await deleteHitLocations(survivor.hitLocationId)
+    await deleteStats(survivor.statsId)
+    const response = await fetch(`http://localhost:8088/survivors/${survivor.id}`, {
+        method: "DELETE"
+    });
+    return await response.json();
+};
+
 
 
 // WeaponProf
@@ -206,6 +226,13 @@ export const getWeaponProficencies = async () => {
     const response = await fetch("http://localhost:8088/weaponProficencies");
     const weaponProficencies = await response.json();
     return weaponProficencies;
+};
+
+export const getWeaponProficencyForEdit = async (weaponProfId) => {
+    const response = await fetch(`http://localhost:8088/weaponProficencies?id=${weaponProfId}`)
+    const weaponProficencies = await response.json()
+    const proficency = weaponProficencies[0]
+    return proficency
 };
 
 
@@ -217,6 +244,13 @@ export const getDisorders = async () => {
     return disorders;
 };
 
+export const getDisorderForEdit = async (disorderId) => {
+    const response = await fetch(`http://localhost:8088/disorders?id=${disorderId}`)
+    const disorders = await response.json()
+    const disorder = disorders[0]
+    return disorder
+};
+
 
 
 // Fighting Arts
@@ -224,6 +258,13 @@ export const getFightingArts = async () => {
     const response = await fetch("http://localhost:8088/fightingArts");
     const fightingArts = await response.json();
     return fightingArts;
+};
+
+export const getFightingArtsForEdit = async (fightingArtId) => {
+    const response = await fetch(`http://localhost:8088/fightingArts?id=${fightingArtId}`)
+    const fightingArts = await response.json()
+    const fightingArt = fightingArts[0]
+    return fightingArt
 };
 
 
@@ -235,6 +276,12 @@ export const getAbilities = async () => {
     return abilities;
 };
 
+export const getAbilityForEdit = async (abilityId) => {
+    const response = await fetch(`http://localhost:8088/abilities?id=${abilityId}`)
+    const abilities = await response.json()
+    const ability = abilities[0]
+    return ability
+};
 
 
 // Stats
@@ -250,6 +297,32 @@ export const createStats = async (stats) => {
     return createdStats
 }
 
+export const editStats = async (stats) => {
+    const response = await fetch(`http://localhost:8088/stats/${stats.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(stats)
+    });
+    const editedStats = await response.json();
+    return editedStats;
+};
+
+export const getStatsForEdit = async (statId) => {
+    const response = await fetch(`http://localhost:8088/stats?id=${statId}`)
+    const statsArray = await response.json()
+    const stats = statsArray[0]
+    return stats
+};
+
+export const deleteStats = async (statsId) => {
+    const response = await fetch(`http://localhost:8088/stats/${statsId}`, {
+        method: "DELETE"
+    });
+    return await response.json();
+};
+
 
 
 // Hit Locations
@@ -264,6 +337,32 @@ export const createHitLocations = async (hitLocations) => {
     const createdHitLocations = await response.json()
     return createdHitLocations
 }
+
+export const editHitLocations = async (hitLocations) => {
+    const response = await fetch(`http://localhost:8088/hitLocations/${hitLocations.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(hitLocations)
+    });
+    const editedHitLocations = await response.json();
+    return editedHitLocations;
+};
+
+export const getHitLocationsForEdit = async (hitLocationId) => {
+    const response = await fetch(`http://localhost:8088/hitLocations?id=${hitLocationId}`)
+    const hLArray = await response.json()
+    const hL = hLArray[0]
+    return hL
+};
+
+export const deleteHitLocations = async (hitLocationsId) => {
+    const response = await fetch(`http://localhost:8088/hitLocations/${hitLocationsId}`, {
+        method: "DELETE"
+    });
+    return await response.json();
+};
 
 
 

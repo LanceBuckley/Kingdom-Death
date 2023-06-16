@@ -1,7 +1,50 @@
+import { useEffect } from "react"
+import { getDisorderForEdit } from "../../ApiManager"
 import { useDisorders } from "./DisordersContext"
 
-export const Disorders = () => {
+export const Disorders = ({ isEditPage, survivor }) => {
     const { allDisorders, chosenDisorders, setChosenDisorders } = useDisorders()
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                editDisorders()
+            }
+        },
+        [survivor]
+    )
+
+    const editDisorders = async () => {
+        const copy = [...chosenDisorders]
+
+        if (chosenDisorders.length === 0) {
+            await getDisorderForEdit(survivor.disorder1Id)
+                .then((disorder) => {
+                    if (disorder) {
+                        disorder.type = 1
+                        copy.push(disorder)
+                    }
+                })
+
+            await getDisorderForEdit(survivor.disorder2Id)
+                .then((disorder) => {
+                    if (disorder) {
+                        disorder.type = 2
+                        copy.push(disorder)
+                    }
+                })
+
+            await getDisorderForEdit(survivor.disorder3Id)
+                .then((disorder) => {
+                    if (disorder) {
+                        disorder.type = 3
+                        copy.push(disorder)
+                    }
+                })
+
+            setChosenDisorders(copy)
+        }
+    }
 
     const handleChange = (evt) => {
         const copyDisorders = [...chosenDisorders]
@@ -61,7 +104,7 @@ export const Disorders = () => {
                     <label>Disorders:</label>
                 </div>
                 <div className="form-group">
-                    <select id="disorders1" onChange={(evt) => handleChange(evt)}>
+                    <select id="disorders1" value={chosenDisorders[0]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allDisorders.map((disorder) => (
                             <option key={`disorder--${disorder.id}`} value={disorder.id}>
@@ -71,7 +114,7 @@ export const Disorders = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select id="disorders2" onChange={(evt) => handleChange(evt)}>
+                    <select id="disorders2" value={chosenDisorders[1]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allDisorders.map((disorder) => (
                             <option key={`disorder--${disorder.id}`} value={disorder.id}>
@@ -81,7 +124,7 @@ export const Disorders = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select id="disorders3" onChange={(evt) => handleChange(evt)}>
+                    <select id="disorders3" value={chosenDisorders[2]?.id || "0"} onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allDisorders.map((disorder) => (
                             <option key={`disorder--${disorder.id}`} value={disorder.id}>

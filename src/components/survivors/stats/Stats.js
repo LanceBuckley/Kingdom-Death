@@ -1,8 +1,41 @@
+import { useEffect } from "react"
 import { useStats } from "./StatsContext"
+import { getStatsForEdit } from "../../ApiManager"
 
-export const Stats = () => {
+export const Stats = ({ isEditPage, survivor }) => {
     // Here we destructure the values prop from the provider
     const { stats, update } = useStats()
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                editStats()
+            }
+        },
+        [survivor]
+    )
+
+    const editStats = async () => {
+        const copy = { ...stats }
+
+        if (!stats.id) {
+            await getStatsForEdit(survivor.statsId)
+                .then((stats) => {
+                    if (stats) {
+                        copy.id = stats.id
+                        copy.movement = stats.movement
+                        copy.accuracy = stats.accuracy
+                        copy.strength = stats.strength
+                        copy.evasion = stats.evasion
+                        copy.speed = stats.speed
+                        copy.luck = stats.luck
+                        copy.understanding = stats.understanding
+                        copy.courage = stats.courage
+                    }
+                })
+            update(copy)
+        }
+    }
 
     return (
         <>
@@ -13,7 +46,7 @@ export const Stats = () => {
                         type="number"
                         id="survivorMovement"
                         className="form-control"
-                        placeholder="0"
+                        placeholder="5"
                         value={stats.movement}
                         onChange={(evt) => {
                             const copy = { ...stats }
