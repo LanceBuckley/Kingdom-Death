@@ -51,7 +51,7 @@ export const MileStones = ({ settlement, settlementInventory, settlementEvents }
                                 type="checkbox"
                                 name={milestone.type}
                                 value={milestone.id}
-                                onChange={(evt) => handleChange(evt, milestone.id)}
+                                onChange={(evt) => handleChange(evt)}
                             />
                         </div>
                     )

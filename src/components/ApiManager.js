@@ -174,6 +174,7 @@ export const deleteAchievedMilestones = async (achievedMilestone) => {
 
 // Survivor
 export const createSurvivor = async (survivor) => {
+    debugger
     const response = await fetch("http://localhost:8088/survivors", {
         method: "POST",
         headers: {
@@ -183,6 +184,19 @@ export const createSurvivor = async (survivor) => {
     });
     const createdSurvivor = await response.json();
     return createdSurvivor;
+};
+
+export const getSurvivors = async (userId) => {
+    const response = await fetch(`http://localhost:8088/survivors?userId=${userId}`)
+    const survivors = await response.json()
+    return survivors
+};
+
+export const getSurvivorToEdit = async (survivorId) => {
+    const response = await fetch(`http://localhost:8088/survivors?id=${survivorId}`);
+    const survivors = await response.json();
+    const survivorToEdit = await survivors[0];
+    return survivorToEdit;
 };
 
 
@@ -225,7 +239,6 @@ export const getAbilities = async () => {
 
 // Stats
 export const createStats = async (stats) => {
-    debugger
     const response = await fetch("http://localhost:8088/stats", {
         method: "POST",
         headers: {
@@ -235,6 +248,21 @@ export const createStats = async (stats) => {
     })
     const createdStats = await response.json()
     return createdStats
+}
+
+
+
+// Hit Locations
+export const createHitLocations = async (hitLocations) => {
+    const response = await fetch("http://localhost:8088/hitLocations", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(hitLocations)
+    })
+    const createdHitLocations = await response.json()
+    return createdHitLocations
 }
 
 

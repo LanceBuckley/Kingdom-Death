@@ -59,10 +59,10 @@ export const Abilities = () => {
         <>
             <fieldset className="dropDown__field">
                 <div className="form-group">
-                    <label htmlFor="abilities">Abilities:</label>
+                    <label>Abilities:</label>
                 </div>
                 <div className="form-group">
-                    <select id="ability1" onChange={(evt) => handleChange(evt)}>
+                    <select onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allAbilities.map((abilities) => (
                             <option key={`abilities--${abilities.id}`} value={abilities.id}>
@@ -72,7 +72,7 @@ export const Abilities = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select id="ability2" onChange={(evt) => handleChange(evt)}>
+                    <select onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allAbilities.map((abilities) => (
                             <option key={`abilities--${abilities.id}`} value={abilities.id}>
@@ -82,7 +82,7 @@ export const Abilities = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <select id="ability3" onChange={(evt) => handleChange(evt)}>
+                    <select onChange={(evt) => handleChange(evt)}>
                         <option value="0">-- Select --</option>
                         {allAbilities.map((abilities) => (
                             <option key={`abilities--${abilities.id}`} value={abilities.id}>

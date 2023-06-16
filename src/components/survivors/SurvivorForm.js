@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WeaponProficenciesProvider } from "./weaponProficency/WeaponProficenciesContext";
 import { WeaponProficencies } from "./weaponProficency/WeaponProficencies";
 import { DisordersProvider } from "./disorders/DisordersContext";
@@ -11,10 +11,19 @@ import { Abilities } from "./abilities/Abilities";
 import "./SurvivorForm.css"
 import { Stats } from "./stats/Stats";
 import { StatsProvider } from "./stats/StatsContext";
+import { HitLocationsProvider } from "./hitLocations/HitLocationsContext";
+import { HitLocations } from "./hitLocations/HitLocations";
+import { useLocation, useParams } from "react-router-dom";
+import { getSurvivorToEdit } from "../ApiManager";
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
     const deathUserObject = JSON.parse(localDeathUser)
+
+    const location = useLocation()
+    const { survivorId } = useParams()
+
+    const isEditPage = location.pathname === `/survivor/${survivorId}`
 
     const [survivor, update] = useState({
         userId: deathUserObject.id,
@@ -24,6 +33,18 @@ export const SurvivorForm = () => {
         huntXp: 0,
         gender: null,
     })
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                getSurvivorToEdit(survivorId)
+                .then((survivorToEdit) => {
+                    update(survivorToEdit)
+                })
+            }
+        },
+        []
+    )
 
     return (
         <>
@@ -140,24 +161,30 @@ export const SurvivorForm = () => {
                         <FightingArtsProvider>
                             <AbilitiesProvider>
                                 <StatsProvider>
-                                    <div className="stats">
-                                        <Stats />
-                                    </div>
-                                    <div className="dropDowns">
-                                        <WeaponProficencies />
-                                        <FightingArts />
-                                        <Disorders />
-                                        <Abilities />
-                                        <div className="saveButton">
-                                            <SaveSurvivor survivor={survivor} />
+                                    <HitLocationsProvider>
+                                        <div className="stats">
+                                            <Stats />
                                         </div>
-                                    </div>
+                                        <div className="hitLocations">
+                                            <HitLocations />
+                                        </div>
+                                        <div className="dropDowns">
+                                            <WeaponProficencies />
+                                            <FightingArts />
+                                            <Disorders />
+                                            <Abilities />
+                                            <div className="saveButton">
+                                                <SaveSurvivor survivor={survivor} />
+                                            </div>
+                                        </div>
+                                    </HitLocationsProvider>
                                 </StatsProvider>
                             </AbilitiesProvider>
                         </FightingArtsProvider>
                     </DisordersProvider>
                 </WeaponProficenciesProvider>
             </form>
+            {isEditPage ? <>Yes!</> :""}
         </>
     )
 }

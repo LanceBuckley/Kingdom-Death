@@ -20,12 +20,28 @@
   .stats {
     display: flex;
     justify-content: space-evenly;
+    flex-basis: 100%;
   }
 
   .stat__group {
     height: 1rem;
     width: 8rem;
     margin: 0rem 2rem 2rem
+  }
+
+  .hitLocations {
+    margin: 1rem 0rem 5rem;
+    width: 25rem;
+    justify-content: space-between;
+  }
+
+  .hitLocation__group {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .hitLocation__field {
+    display: flex;
   }
   
   .dropDowns {
