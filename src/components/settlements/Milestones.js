@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getMilestones } from "../ApiManager"
-import { Save } from "./SaveSettlement"
+import { Save } from "./Save"
 
 export const MileStones = ({ settlement, settlementInventory, settlementEvents }) => {
 

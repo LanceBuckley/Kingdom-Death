@@ -103,6 +103,24 @@ export const PlayerHomeScreen = () => {
         setSessionClick(true)
     }
 
+    const findPlayers = (session) => {
+        const players = []
+        const { player1Id, player2Id, player3Id, player4Id } = session
+        if (session.player1Id) {
+            players.push(player1Id)
+        }
+        if (session.player2Id) {
+            players.push(player2Id)
+        }
+        if (session.player3Id) {
+            players.push(player3Id)
+        }
+        if (session.player4Id) {
+            players.push(player4Id)
+        }
+        return players
+    }
+
     return <>
         <ul className="survivor__list">My Survivors
             {
@@ -120,6 +138,7 @@ export const PlayerHomeScreen = () => {
                 sessions.map((session) => (
                     <li key={`session-${session.id}`}>
                         {session.settlement.name}
+                        {`${findPlayers(session).length}/4`}
                         {joinGameButton(session)}
                     </li>
                 ))

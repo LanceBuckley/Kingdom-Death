@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { createSession, getSessions, getSettlements } from "../ApiManager"
-import { SettlementForm } from "../settlements/SettlementForm"
+import { createSession, getSessions, getSettlements, getSurvivors } from "../ApiManager"
 import { Link } from "react-router-dom"
 
 export const GMHomeScreen = () => {
