@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
+import Butcher from "/home/erchancy/workspace/kingdom-death/src/images/Butcher.png"
+
 
 export const Register = (props) => {
     const [customer, setCustomer] = useState({
@@ -48,39 +50,74 @@ export const Register = (props) => {
     }
 
     const updateCustomer = (evt) => {
-        const copy = {...customer}
+        const copy = { ...customer }
         copy[evt.target.id] = evt.target.value
         setCustomer(copy)
     }
 
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Kingdom Death</h1>
-                <fieldset>
-                    <label htmlFor="fullName"> Full Name </label>
-                    <input onChange={updateCustomer}
-                           type="text" id="fullName" className="form-control"
-                           placeholder="Enter your name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={updateCustomer}
-                        type="email" id="email" className="form-control"
-                        placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                    <input onChange={(evt) => {
-                        const copy = {...customer}
-                        copy.isGameMaster = evt.target.checked
-                        setCustomer(copy)
-                    }}
-                        type="checkbox" id="isGameMaster" />
-                    <label htmlFor="email"> I am a Game Master </label>
-                </fieldset>
-                <fieldset>
-                    <button type="submit"> Register </button>
-                </fieldset>
+        <main className="container">
+            <section className="hero">
+                <div className="hero-body">
+                    <img src={Butcher}></img>
+                </div>
+            </section>
+            <form className="box form--login" onSubmit={handleRegister}>
+                <h1 className="title is-3 mb-3">Please Register for Kingdom Death</h1>
+                <div className="field">
+                    <label className="label" htmlFor="fullName">
+                        Full Name
+                    </label>
+                    <div className="control">
+                        <input
+                            onChange={updateCustomer}
+                            type="text"
+                            id="fullName"
+                            className="input"
+                            placeholder="Enter your name"
+                            required
+                            autoFocus
+                        />
+                    </div>
+                </div>
+                <div className="field">
+                    <label className="label" htmlFor="email">
+                        Email address
+                    </label>
+                    <div className="control">
+                        <input
+                            onChange={updateCustomer}
+                            type="email"
+                            id="email"
+                            className="input"
+                            placeholder="Email address"
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="field">
+                    <div className="control">
+                        <label className="checkbox">
+                            <input
+                                onChange={(evt) => {
+                                    const copy = { ...customer }
+                                    copy.isGameMaster = evt.target.checked
+                                    setCustomer(copy)
+                                }}
+                                type="checkbox"
+                                id="isGameMaster"
+                            />
+                            {"\tI am a Game Master"}
+                        </label>
+                    </div>
+                </div>
+                <div className="field">
+                    <div className="control">
+                        <button type="submit" className="button">
+                            Register
+                        </button>
+                    </div>
+                </div>
             </form>
         </main>
     )

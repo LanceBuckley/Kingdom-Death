@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
-import Watcher from "./images/Watcher.png"
+import Watcher from "/home/erchancy/workspace/kingdom-death/src/images/Watcher.png"
 
 export const Login = () => {
     const [email, set] = useState("twitwins@gmail.com")
@@ -31,7 +31,7 @@ export const Login = () => {
 
     return (
         <main className="container">
-            <section className="hero is-primary">
+            <section className="hero">
                 <div className="hero-body">
                     <img src={Watcher}></img>
                 </div>
@@ -56,13 +56,11 @@ export const Login = () => {
                     </div>
                     <div className="field">
                         <div className="control">
-                            <button type="submit" className="button is-light">Sign in</button>
+                            <button type="submit" className="button">Sign in</button>
                         </div>
                     </div>
-                </form>
-            </section>
-            <section className="link--register">
                 <Link to="/register">Not a member yet?</Link>
+                </form>
             </section>
         </main>
     )
