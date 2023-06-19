@@ -13,6 +13,7 @@ export const PlayerViews = () => {
             }>
             </Route>
             <Route path="survivors" element={<SurvivorForm />} />
+            <Route path="survivor/:survivorId" element={<SurvivorForm />} />
         </Routes>
     )
 }

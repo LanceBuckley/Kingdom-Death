@@ -77,7 +77,7 @@ export const GMHomeScreen = () => {
     const hostGameButton = (settlementId) => {
         const findSession = filteredSessions.find(filteredSession => { return filteredSession.settlementId === settlementId })
         if (findSession) {
-            return <>Hosting!</>
+            return <> Hosting!</>
         } else {
             return <button onClick={() => { hostSession(settlementId) }}>Host Game?</button>
         }

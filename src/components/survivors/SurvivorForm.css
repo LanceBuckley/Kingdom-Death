@@ -1,0 +1,61 @@
+.survivorForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start; /* Align flex items at the top */
+  }
+  
+  .survivorForm__title-container {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center flex items vertically */
+  }
+  
+  .survivorForm__title {
+    width: 10rem;
+    height: 4rem;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-evenly;
+    flex-basis: 100%;
+  }
+
+  .stat__group {
+    height: 1rem;
+    width: 8rem;
+    margin: 0rem 2rem 2rem
+  }
+
+  .hitLocations {
+    margin: 1rem 0rem 5rem;
+    width: 25rem;
+    justify-content: space-between;
+  }
+
+  .hitLocation__group {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .hitLocation__field {
+    display: flex;
+  }
+  
+  .dropDowns {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .dropDown__field {
+    margin: 1rem 2rem;
+  }
+  
+  .saveButton {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+  }
+  
