@@ -387,13 +387,22 @@ export const createSession = async (session) => {
 }
 
 export const editSession = async (session) => {
+    const editedSession = {
+        gameMasterId: session.gameMasterId,
+        settlementId: session.settlementId,
+        id: session.id,
+        player1Id: session.player1Id,
+        player2Id: session.player2Id,
+        player3Id: session.player3Id,
+        player4Id: session.player4Id
+    }
     const response = await fetch(`http://localhost:8088/sessions/${session.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(session)
+        body: JSON.stringify(editedSession)
     })
-    const editedSession = await response.json()
-    return editedSession
+    const updatedSession = await response.json()
+    return updatedSession
 }
