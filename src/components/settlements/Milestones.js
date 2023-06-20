@@ -23,7 +23,7 @@ export const MileStones = ({ settlement, settlementInventory, settlementEvents }
     )
 
     const handleChange = (evt) => {
-        const milestone = { ...milestoneObject}
+        const milestone = { ...milestoneObject }
         milestone.milestoneId = parseInt(evt.target.value)
         milestone.reached = evt.target.checked
         const copy = [...storedMilestones]
@@ -39,14 +39,12 @@ export const MileStones = ({ settlement, settlementInventory, settlementEvents }
 
     return (
         <>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="milestoneTypeId">Milestones:</label>
-                </div>
+            <fieldset className="field">
+                <label className="label" htmlFor="milestoneTypeId">Milestones:</label>
                 {milestones.map((milestone) => {
                     return (
-                        <div className="form-group" key={milestone.id}>
-                            <label htmlFor="milestoneType">{milestone.type}</label>
+                        <div className="control" key={milestone.id}>
+                            <label className="checkbox" htmlFor="milestoneType">{milestone.type}</label>
                             <input
                                 type="checkbox"
                                 name={milestone.type}

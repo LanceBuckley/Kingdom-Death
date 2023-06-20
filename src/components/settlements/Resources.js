@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { getResources, getSettlementInventory } from "../ApiManager"
+import { getResources } from "../ApiManager"
 import { MileStones } from "./Milestones"
+import "./SettlementForm.css"
 
 export const Resources = ({ settlement, settlementId, settlementEvents }) => {
     const [resources, setResources] = useState([])
@@ -47,7 +48,7 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
         const copyInventory = [...settlementInventory]
         const chosenItem = copyInventory.find((item) => { return item.resourceId === resourceId })
         chosenItem.amount--
-        if(chosenItem.amount === 0) {
+        if (chosenItem.amount === 0) {
             const index = copyInventory.findIndex((item) => item.resourceId === chosenItem.resourceId)
             if (index !== -1) {
                 copyInventory.splice(index, 1)
@@ -63,35 +64,45 @@ export const Resources = ({ settlement, settlementId, settlementEvents }) => {
 
     return (
         <>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="resourceTypeId">Resources:</label>
+            <div className="field resource">
+                <fieldset className="field">
+                    <label className="label" htmlFor="resourceTypeId">Resources:</label>
+                    <div className="select">
+                        <select name="resourceName" onChange={(evt) => handleChange(evt)}>
+                            <option value="0">-- Select --</option>
+                            {resources.map((resource) => (
+                                <option key={`resource--${resource.id}`} value={resource.id}>
+                                    {resource.name}
+                                </option>
+                            ))}
+                        </select>
+                        {
+                            settlementItem.resourceId ? <button onClick={addResource}>Add Resource</button> : ""
+                        }
+                    </div>
+                </fieldset>
+                <div className="inventory">
+                    <div className="inventory__title label">
+                        <div>
+                            Settlement Inventory:
+                        </div>
+                    </div>
+                    <ul className="inventory__list">
+                        {
+                            settlementInventory.map((item) => {
+                                const resource = findItem(item)
+                                return <>
+                                    <div className="inventory__item">
+                                        <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type} {item.amount}</li>
+                                        <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
+                                    </div>
+                                </>
+                            })
+                        }
+                    </ul>
                 </div>
-                <div className="form-group">
-                    <select name="resourceName" onChange={(evt) => handleChange(evt)}>
-                        <option value="0">-- Select --</option>
-                        {resources.map((resource) => (
-                            <option key={`resource--${resource.id}`} value={resource.id}>
-                                {resource.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </fieldset>
-            {
-                settlementItem.resourceId ? <button onClick={addResource}>Add Resource</button> : ""
-            }
-            <ul>Settlement Inventory:</ul>
-            {
-                settlementInventory.map((item) => {
-                    const resource = findItem(item)
-                    return <>
-                        <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type} {item.amount}</li>
-                        <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
-                    </>
-                })
-            }
-            <MileStones settlement={settlement} settlementInventory={settlementInventory} settlementId={settlementId} settlementEvents={settlementEvents}/>
+            </div>
+            <MileStones settlement={settlement} settlementInventory={settlementInventory} settlementId={settlementId} settlementEvents={settlementEvents} />
         </>
     )
 }

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { getEvents } from "../ApiManager"
 import { Resources } from "./Resources"
+import "./SettlementForm.css"
 
-export const Events = ({settlement}) => {
+export const Events = ({ settlement }) => {
 
     const [allEvents, setEvents] = useState([])
     const [settlementEvents, setSettlementEvents] = useState([])
@@ -25,7 +26,7 @@ export const Events = ({settlement}) => {
     useEffect(
         () => {
             if (newEvent.year !== 0) {
-                const copyEvent = {...newEvent}
+                const copyEvent = { ...newEvent }
                 const copySEvents = [...settlementEvents]
                 let previouslyChosenEvent = findUsedEvent(copySEvents, copyEvent)
                 if (previouslyChosenEvent) {
@@ -40,12 +41,12 @@ export const Events = ({settlement}) => {
     )
 
     const findUsedEvent = (copySEvents, copyEvent) => {
-        const previouslyChosenEvent = copySEvents.find((sEvent) => {return sEvent.year === copyEvent.year})
+        const previouslyChosenEvent = copySEvents.find((sEvent) => { return sEvent.year === copyEvent.year })
         return previouslyChosenEvent
     }
 
     const handleChange = (evt) => {
-        const copyEvent = {...newEvent}
+        const copyEvent = { ...newEvent }
         if (evt.target.value !== 0) {
             copyEvent.eventId = parseInt(evt.target.value)
             copyEvent.year = parseInt(evt.target.name)
@@ -58,8 +59,8 @@ export const Events = ({settlement}) => {
         for (let i = 0; i <= 9; i++) {
             const year = i + 1
             timeline.push(
-                <fieldset key={`event-${year}`}>
-                    <div className="form-group">
+                <fieldset className="field event" key={`event-${year}`}>
+                    <div className="select">
                         <select name={year} onChange={(evt) => handleChange(evt)}>
                             <option value="0">-- Set The Event Of Year {year} --</option>
                             {allEvents.map((event) => (
@@ -77,11 +78,12 @@ export const Events = ({settlement}) => {
 
     return (
         <>
-            <div className="form-group">
-                <label htmlFor="">Timeline:</label>
+            <label className="label" htmlFor="">Timeline:</label>
+            <div className="field timeline">
+                {createTimeline()}
             </div>
-            {createTimeline()}
-            <Resources settlement={settlement} settlementEvents={settlementEvents}/>
+            <Resources settlement={settlement} settlementEvents={settlementEvents} />
         </>
     )
 }
+

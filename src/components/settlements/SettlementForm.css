@@ -1,0 +1,47 @@
+.settlementForm {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-group {
+    justify-content: center;
+}
+
+.timeline {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.event {
+    display: flex;
+    flex-basis: 20%;
+}
+
+.resource {
+    display: flex;
+}
+
+.inventory {
+    width: 1467px;
+    height: 128px;
+    justify-content: center;
+}
+
+.inventory__title {
+    display: flex;
+    justify-content: center;
+    justify-self: flex-start;
+}
+
+.inventory__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 1rem .5rem .5rem
+}
+
+.inventory__item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 1rem 1rem .5rem .5rem
+}

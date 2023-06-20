@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Events } from "./Events"
+import "./SettlementForm.css"
 
 export const SettlementForm = () => {
 
@@ -16,62 +17,64 @@ export const SettlementForm = () => {
 
     return (
         <>
-            <form className="settlementForm">
-                <h2 className="settlementForm__title">New Settlement</h2>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="name">Name:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="The name of the settlement"
-                            value={settlement.name}
-                            onChange={
-                                (evt) => {
-                                    // This creates a copy variable of the settlement using the spread operator and then marks the appropriate property value to the input value and invokes update
-                                    const copy = { ...settlement }
-                                    copy.name = evt.target.value
-                                    update(copy)
-                                }
-                            } />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="survival">Survival Limit:</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            placeholder="Set the survival limit"
-                            value={settlement.survivalLimit}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...settlement }
-                                    copy.survivalLimit = evt.target.value
-                                    update(copy)
-                                }
-                            } />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="population">Population:</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            placeholder="Set the settlement population"
-                            value={settlement.population}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...settlement }
-                                    copy.population = evt.target.value
-                                    update(copy)
-                                }
-                            } />
-                    </div>
-                </fieldset>
+            <form className="box">
+                <h2 className="is-size-3">New Settlement</h2>
+                <div className="settlementForm">
+                    <fieldset className="field">
+                        <div className="form-group">
+                            <label className="label" htmlFor="name">Name:</label>
+                            <input
+                                type="text"
+                                className="input"
+                                placeholder="The name of the settlement"
+                                value={settlement.name}
+                                onChange={
+                                    (evt) => {
+                                        // This creates a copy variable of the settlement using the spread operator and then marks the appropriate property value to the input value and invokes update
+                                        const copy = { ...settlement }
+                                        copy.name = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                    <fieldset className="field">
+                        <div className="form-group">
+                            <label className="label" htmlFor="survival">Survival Limit:</label>
+                            <input
+                                type="number"
+                                className="input"
+                                placeholder="Set the survival limit"
+                                value={settlement.survivalLimit}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...settlement }
+                                        copy.survivalLimit = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                    <fieldset className="field">
+                        <div className="form-group">
+                            <label className="label" htmlFor="population">Population:</label>
+                            <input
+                                type="number"
+                                className="input"
+                                placeholder="Set the settlement population"
+                                value={settlement.population}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...settlement }
+                                        copy.population = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                </div>
+                <Events settlement={settlement} />
             </form>
-            <Events settlement={settlement} />
         </>
     )
 }
