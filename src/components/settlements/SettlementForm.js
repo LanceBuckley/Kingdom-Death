@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Events } from "./Events"
+import { Resources } from "./Resources"
 import "./SettlementForm.css"
+import { EventsProvider } from "./EventsContext"
 
 export const SettlementForm = () => {
 
@@ -73,7 +75,10 @@ export const SettlementForm = () => {
                         </div>
                     </fieldset>
                 </div>
-                <Events settlement={settlement} />
+                <EventsProvider>
+                    <Events settlement={settlement} />
+                    <Resources />
+                </EventsProvider>
             </form>
         </>
     )
