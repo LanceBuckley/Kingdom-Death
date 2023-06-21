@@ -1,8 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 export const GMNav = () => {
     const navigate = useNavigate()
+    const location = useLocation();
+
+    const isSettlementPage = location.pathname === "/settlements" || location.pathname.startsWith("/settlement/");
 
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -13,7 +16,7 @@ export const GMNav = () => {
             </div>
 
             <div className="navbar-menu">
-                <div className="navbar-start">
+                <div className={`navbar-item ${isSettlementPage ? "is-hidden" : ""}`}>
                     <Link className="navbar-link" to="/settlements">
                         New Settlement
                     </Link>
@@ -24,7 +27,7 @@ export const GMNav = () => {
                         <li className="navbar-item">
                             <Link
                                 className="navbar-link"
-                                to="/"
+                                to=""
                                 onClick={() => {
                                     localStorage.removeItem("kdm_user");
                                     navigate("/", { replace: true });

@@ -39,7 +39,7 @@ export const WeaponProficencies = ({ isEditPage, survivor }) => {
         <>
             <fieldset className="dropDown__field">
                 <div className="form-group">
-                    <label htmlFor="weaponProficency">Weapon Proficency:</label>
+                    <label className="label" htmlFor="weaponProficency">Weapon Proficency:</label>
                 </div>
                 <div className="form-group">
                     <select id="weaponProficency" value={chosenProficency?.id || "0"} onChange={(evt) => handleChange(evt)}>

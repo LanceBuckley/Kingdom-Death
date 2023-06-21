@@ -46,7 +46,7 @@ export const Login = () => {
                             <input
                                 type="inputEmail"
                                 value={email}
-                                onChange={(evt) => handleLogin(evt.target.value)}
+                                onChange={(evt) => set(evt.target.value)}
                                 className="input"
                                 placeholder="Email address"
                                 required
@@ -56,7 +56,7 @@ export const Login = () => {
                     </div>
                     <div className="field">
                         <div className="control">
-                            <button type="submit" className="button">Sign in</button>
+                            <button type="submit" className="button is-dark">Sign in</button>
                         </div>
                     </div>
                 <Link to="/register">Not a member yet?</Link>
@@ -65,4 +65,6 @@ export const Login = () => {
         </main>
     )
 }
+
+
 

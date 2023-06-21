@@ -25,7 +25,7 @@ export const SettlementFormProvider = ({ children }) => {
     })
 
     const deleteButton = () => {
-        return <button onClick={() =>
+        return <button  className="button is-small is-danger" onClick={() =>
             deleteSettlement(parseInt(settlementId))
                 .then(navigate("/"))
         }>Delete</button>

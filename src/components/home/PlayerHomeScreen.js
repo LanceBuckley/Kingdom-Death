@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getSessions, getSurvivors, editSession } from "../ApiManager"
 import { Link } from "react-router-dom"
+import BoneEaters from "/home/erchancy/workspace/kingdom-death/src/images/BoneEaters.png"
+import "./Home.css"
 
 export const PlayerHomeScreen = () => {
 
@@ -73,7 +75,7 @@ export const PlayerHomeScreen = () => {
     }
 
     const editButton = (survivorId) => {
-        return <Link to={`/survivor/${survivorId}`}><button>Edit</button></Link>
+        return <Link to={`/survivor/${survivorId}`}><button className="button is-dark is-small">Edit</button></Link>
     }
 
     const joinGameButton = (session) => {
@@ -83,7 +85,7 @@ export const PlayerHomeScreen = () => {
         } else if (session.player1Id && session.player2Id && session.player3Id && session.player4Id) {
             return <>Full!</>
         } else {
-            return <button onClick={() => { joinSession(session) }}>Join Game?</button>
+            return <button className="button is-link is-small" onClick={() => { joinSession(session) }}>Join Game?</button>
         }
     }
 
@@ -122,27 +124,42 @@ export const PlayerHomeScreen = () => {
     }
 
     return <>
-        <ul className="survivor__list">My Survivors
-            {
-                survivors.map((survivor) => (
-                    <li className="survivor__item" key={`survivor-${survivor.id}`}>
-                        {survivor.name}
-                        {editButton(survivor.id)}
-                    </li>
-                ))
+        <main className="container">
+            <section className="hero">
+                <div className="hero-body">
+                </div>
+            </section>
+            <div className="box container">
+                <ul className="survivor__list columns">
+                    <h1 className="title">My Survivors</h1>
+                    {
+                        survivors.map((survivor) => (
+                            <li className="survivor__item column" key={`survivor-${survivor.id}`}>
+                                <h2 className="is-size-4">{survivor.name}</h2>
+                                <h3>{editButton(survivor.id)}</h3>
+                            </li>
+                        ))
 
-            }
-        </ul>
-        <ul>Open Sessions
-            {
-                sessions.map((session) => (
-                    <li key={`session-${session.id}`}>
-                        {session.settlement.name}
-                        {`${findPlayers(session).length}/4`}
-                        {joinGameButton(session)}
-                    </li>
-                ))
-            }
-        </ul>
+                    }
+                </ul>
+                <ul className="session__list columns">
+                    <h1 className="title">Open Sessions</h1>
+                    {
+                        sessions.map((session) => (
+                            <li className="column" key={`session-${session.id}`}>
+                                <h2 className="is-size-4">{session.settlement.name}</h2>
+                                <h3>{`Players: ${findPlayers(session).length}/4`}</h3>
+                                <h3>{joinGameButton(session)}</h3>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+            <section className="hero">
+                <div className="hero-body">
+                    <img src={BoneEaters}></img>
+                </div>
+            </section>
+        </main>
     </>
 }

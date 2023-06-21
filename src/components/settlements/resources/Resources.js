@@ -20,7 +20,7 @@ export const Resources = () => {
                             ))}
                         </select>
                         {
-                            settlementItem.resourceId ? <button onClick={addResource}>Add Resource</button> : ""
+                            settlementItem.resourceId ? <button className="button is-small is-dark" onClick={addResource}>Add Resource</button> : ""
                         }
                     </div>
                 </fieldset>
@@ -38,7 +38,7 @@ export const Resources = () => {
                                     return <>
                                         <div className="inventory__item">
                                             <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type} {item.amount}</li>
-                                            <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
+                                            <button className="button is-small is-dark" onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
                                         </div>
                                     </>
                                 }

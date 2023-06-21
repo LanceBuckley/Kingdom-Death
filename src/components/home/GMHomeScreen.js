@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { createSession, getSessions, getSettlements } from "../ApiManager";
 import { Link } from "react-router-dom";
-import "./GMHome.css";
+import DBK from "/home/erchancy/workspace/kingdom-death/src/images/DBK.png"
+import "./Home.css";
 
 
 export const GMHomeScreen = () => {
@@ -93,20 +94,33 @@ export const GMHomeScreen = () => {
     };
 
     return (
-        <div className="box container">
-            <ul className="settlement__list columns">
-                <h1 className="title">My Settlements</h1>
-                {filteredSettlements.map((settlement) => (
-                    <li
-                        className="settlement__item column"
-                        key={`settlement-${settlement.id}`}
-                    >
-                        <h1 className="is-size-4">{settlement.name}</h1>
-                        <h3>{editButton(settlement.id)}</h3>
-                        <h3>{hostGameButton(settlement.id)}</h3>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <main className="container">
+            <section className="hero">
+                <div className="hero-body">
+                </div>
+            </section>
+            <section>
+                <div className="box container">
+                    <ul className="settlement__list columns">
+                        <h1 className="title">My Settlements</h1>
+                        {filteredSettlements.map((settlement) => (
+                            <li
+                                className="settlement__item column"
+                                key={`settlement-${settlement.id}`}
+                            >
+                                <h2 className="is-size-4">{settlement.name}</h2>
+                                <h3>{editButton(settlement.id)}</h3>
+                                <h3>{hostGameButton(settlement.id)}</h3>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+            <section className="hero">
+                <div className="hero-body">
+                    <img src={DBK}></img>
+                </div>
+            </section>
+        </main>
     );
 };

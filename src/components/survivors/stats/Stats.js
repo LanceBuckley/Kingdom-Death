@@ -39,9 +39,9 @@ export const Stats = ({ isEditPage, survivor }) => {
 
     return (
         <>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorMovement">Movement:</label>
+                    <label className="label" htmlFor="survivorMovement">Movement:</label>
                     <input
                         type="number"
                         id="survivorMovement"
@@ -56,9 +56,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorAccuracy">Accuracy:</label>
+                    <label className="label" htmlFor="survivorAccuracy">Accuracy:</label>
                     <input
                         type="number"
                         id="survivorAccuracy"
@@ -73,9 +73,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorStrength">Strength:</label>
+                    <label className="label" htmlFor="survivorStrength">Strength:</label>
                     <input
                         type="number"
                         id="survivorStrength"
@@ -90,9 +90,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorEvasion">Evasion:</label>
+                    <label className="label" htmlFor="survivorEvasion">Evasion:</label>
                     <input
                         type="number"
                         id="survivorEvasion"
@@ -107,9 +107,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorSpeed">Speed:</label>
+                    <label className="label" htmlFor="survivorSpeed">Speed:</label>
                     <input
                         type="number"
                         id="survivorSpeed"
@@ -124,9 +124,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorLuck">Luck:</label>
+                    <label className="label" htmlFor="survivorLuck">Luck:</label>
                     <input
                         type="number"
                         id="survivorLuck"
@@ -141,9 +141,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorUnderstanding">Understanding:</label>
+                    <label className="label" htmlFor="survivorUnderstanding">Understanding:</label>
                     <input
                         type="number"
                         id="survivorUnderstanding"
@@ -158,9 +158,9 @@ export const Stats = ({ isEditPage, survivor }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="field">
                 <div className="stat__group">
-                    <label htmlFor="survivorCourage">Courage:</label>
+                    <label className="label" htmlFor="survivorCourage">Courage:</label>
                     <input
                         type="number"
                         id="survivorCourage"

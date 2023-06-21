@@ -111,8 +111,8 @@ export const Save = () => {
     }
 
     return <button
-        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-        className="btn btn-primary">
+        className="button is-small is-dark"
+        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>
         Submit Settlement
     </button>
 }

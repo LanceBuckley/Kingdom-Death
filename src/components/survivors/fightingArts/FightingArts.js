@@ -103,7 +103,7 @@ export const FightingArts = ({ isEditPage, survivor }) => {
         <>
             <fieldset className="dropDown__field">
                 <div className="form-group">
-                    <label>Fighting Arts:</label>
+                    <label className="label">Fighting Arts:</label>
                 </div>
                 <div className="form-group">
                     <select id="fightingArt1" value={chosenFightingArts[0]?.id || "0"} onChange={(evt) => handleChange(evt)}>
