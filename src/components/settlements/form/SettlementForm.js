@@ -1,12 +1,12 @@
-import { Events } from "./Events"
-import { Resources } from "./Resources"
+import { Events } from "../events/Events"
+import { Resources } from "../resources/Resources"
 import "./SettlementForm.css"
-import { EventsProvider } from "./EventsContext"
+import { EventsProvider } from "../events/EventsContext"
 import { useSettlementForm } from "./SettlementFormContext"
-import { ResourcesProvider } from "./ResourcesContext"
-import { MilestonesProvider } from "./MilestonesContext"
-import { MileStones } from "./Milestones"
-import { Save } from "./Save"
+import { ResourcesProvider } from "../resources/ResourcesContext"
+import { MilestonesProvider } from "../milestones/MilestonesContext"
+import { MileStones } from "../milestones/Milestones"
+import { Save } from "../Save"
 
 export const SettlementForm = () => {
 

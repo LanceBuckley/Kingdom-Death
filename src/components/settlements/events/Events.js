@@ -1,5 +1,5 @@
 import { useEvents } from "./EventsContext"
-import "./SettlementForm.css"
+import "../form/SettlementForm.css"
 
 export const Events = () => {
 

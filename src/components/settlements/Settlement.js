@@ -1,5 +1,5 @@
-import { SettlementForm } from "./SettlementForm"
-import { SettlementFormProvider } from "./SettlementFormContext"
+import { SettlementForm } from "./form/SettlementForm"
+import { SettlementFormProvider } from "./form/SettlementFormContext"
 
 export const Settlement = () => {
     return (

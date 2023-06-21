@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getAchievedMilestones, getMilestones } from "../ApiManager"
-import { useSettlementForm } from "./SettlementFormContext"
+import { getAchievedMilestones, getMilestones } from "../../ApiManager"
+import { useSettlementForm } from "../form/SettlementFormContext"
 
 // Create the context variable using createContext
 const MilestonesContext = createContext()

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { deleteSettlement, getSettlementToEdit } from "../ApiManager"
+import { deleteSettlement, getSettlementToEdit } from "../../ApiManager"
 
 // Create the context variable using createContext
 const SettlementFormContext = createContext()

@@ -1,4 +1,5 @@
 import { useMilestones } from "./MilestonesContext"
+import "../form/SettlementForm.css"
 
 export const MileStones = () => {
 

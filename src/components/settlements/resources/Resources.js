@@ -1,5 +1,5 @@
 import { useResources } from "./ResourcesContext"
-import "./SettlementForm.css"
+import "../form/SettlementForm.css"
 
 export const Resources = () => {
 
