@@ -45,3 +45,7 @@
     flex-wrap: wrap;
     margin: 1rem 1rem .5rem .5rem
 }
+
+.button {
+    margin: 0rem .5rem;
+}

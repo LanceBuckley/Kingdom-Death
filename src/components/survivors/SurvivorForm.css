@@ -61,4 +61,8 @@
     flex-basis: 100%;
     justify-content: center;
   }
+
+  .button {
+    margin: .5rem;
+  }
   
