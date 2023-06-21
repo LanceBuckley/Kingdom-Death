@@ -15,7 +15,6 @@ export const SaveSurvivor = ({ isEditPage, survivor }) => {
     const { hitLocations } = useHitLocations()
 
     const handleSaveButtonClick = async () => {
-        debugger
         if (isEditPage) {
             editStats(stats)
             editHitLocations(hitLocations)
@@ -63,7 +62,7 @@ export const SaveSurvivor = ({ isEditPage, survivor }) => {
 
     return <button
         onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-        className="btn btn-primary">
+        className="button is-small is-dark">
         Submit Survivor
     </button>
 }

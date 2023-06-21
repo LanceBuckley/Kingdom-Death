@@ -48,7 +48,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
         <>
             <fieldset className="hitLocation__group">
                 <div className="hitLocation__field">
-                    <label htmlFor="survivorHead">Head:</label>
+                    <label className="label" htmlFor="survivorHead">Head:</label>
                     <input
                         type="number"
                         id="survivorHead"
@@ -64,7 +64,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                 </div>
                 <div>
                     <div className="hitLocation__field">
-                        <label htmlFor="headWound">
+                        <label className="label" htmlFor="headWound">
                             HW
                             <input
                                 type="checkbox"
@@ -82,7 +82,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
             </fieldset>
             <fieldset className="hitLocation__group">
                 <div className="hitLocation__field">
-                    <label htmlFor="survivorArms">Arms:</label>
+                    <label className="label" htmlFor="survivorArms">Arms:</label>
                     <input
                         type="number"
                         id="survivorArms"
@@ -97,7 +97,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                    <div>
+                    <div className="hitLocation__field">
                         <label htmlFor="armsLightWound">
                             LW
                             <input
@@ -112,8 +112,8 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                             />
                         </label>
                     </div>
-                    <div >
-                        <label htmlFor="armsHeavyWound">
+                    <div className="hitLocation__field">
+                        <label className="label" htmlFor="armsHeavyWound">
                             HW
                             <input
                                 type="checkbox"
@@ -131,7 +131,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
             </fieldset>
             <fieldset className="hitLocation__group">
                 <div className="hitLocation__field">
-                    <label htmlFor="survivorBody">Body:</label>
+                    <label className="label" htmlFor="survivorBody">Body:</label>
                     <input
                         type="number"
                         id="survivorBody"
@@ -146,7 +146,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                    <div>
+                    <div className="hitLocation__field">
                         <label htmlFor="bodyLightWound">
                             LW
                             <input
@@ -161,8 +161,8 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                             />
                         </label>
                     </div>
-                    <div >
-                        <label htmlFor="bodyHeavyWound">
+                    <div className="hitLocation__field">
+                        <label className="label" htmlFor="bodyHeavyWound">
                             HW
                             <input
                                 type="checkbox"
@@ -180,7 +180,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
             </fieldset>
             <fieldset className="hitLocation__group">
                 <div className="hitLocation__field">
-                    <label htmlFor="survivorWaist">Waist:</label>
+                    <label className="label" htmlFor="survivorWaist">Waist:</label>
                     <input
                         type="number"
                         id="survivorWaist"
@@ -195,7 +195,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                    <div>
+                    <div className="hitLocation__field">
                         <label htmlFor="waistLightWound">
                             LW
                             <input
@@ -210,8 +210,8 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                             />
                         </label>
                     </div>
-                    <div>
-                        <label htmlFor="waistHeavyWound">
+                    <div className="hitLocation__field">
+                        <label className="label" htmlFor="waistHeavyWound">
                             HW
                             <input
                                 type="checkbox"
@@ -229,7 +229,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
             </fieldset>
             <fieldset className="hitLocation__group">
                 <div className="hitLocation__field">
-                    <label htmlFor="survivorLegs">Legs:</label>
+                    <label className="label" htmlFor="survivorLegs">Legs:</label>
                     <input
                         type="number"
                         id="survivorLegs"
@@ -244,7 +244,7 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                     />
                 </div>
                 <div className="hitLocation__field">
-                    <div>
+                    <div className="hitLocation__field">
                         <label htmlFor="legsLightWound">
                             LW
                             <input
@@ -259,8 +259,8 @@ export const HitLocations = ({ isEditPage, survivor }) => {
                             />
                         </label>
                     </div>
-                    <div>
-                        <label htmlFor="legsHeavyWound">
+                    <div className="hitLocation__field">
+                        <label className="label" htmlFor="legsHeavyWound">
                             HW
                             <input
                                 type="checkbox"

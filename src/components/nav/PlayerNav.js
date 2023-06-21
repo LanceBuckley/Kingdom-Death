@@ -1,36 +1,44 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import "./NavBar.css"
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "./NavBar.css";
 
 export const PlayerNav = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const isSurvivorPage = location.pathname === "/survivors" || location.pathname.startsWith("/survivor/")
+    const isSurvivorPage = location.pathname === "/survivors" || location.pathname.startsWith("/survivor/");
 
     return (
-        <ul className="navbar">
-            {
-                isSurvivorPage
-                    ? <li className="navbar__item navbar__logout">
-                        <Link className="navbar__link" to="" onClick={() => {
-                            navigate("/")
-                        }}>Home</Link>
-                    </li>
-                    : <li className="navbar__item active">
-                        <Link className="navbar__link" to="/survivors">New Survivor</Link>
-                    </li>
-            }
-            {
-                localStorage.getItem("kdm_user")
-                    ? <li className="navbar__item navbar__logout">
-                        <Link className="navbar__link" to="" onClick={() => {
-                            localStorage.removeItem("kdm_user")
-                            navigate("/", { replace: true })
-                        }}>Logout</Link>
-                    </li>
-                    : ""
-            }
-        </ul>
-    )
-}
-
+        <nav className="navbar" role="navigation" aria-label="main navigation">
+            <div className="navbar-menu">
+                <div className="navbar-start">
+                    <div className="navbar-item">
+                        <Link className="navbar-link" to="/" onClick={() => navigate("/")}>
+                            Home
+                        </Link>
+                    </div>
+                    <div className={`navbar-item ${isSurvivorPage ? "is-hidden" : ""}`}>
+                        <Link className="navbar-link" to="/survivors">
+                            New Survivor
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            <div className="navbar-end">
+                <div className="navbar-item">
+                    {localStorage.getItem("kdm_user") ? (
+                        <Link
+                            className="navbar-link"
+                            to="/"
+                            onClick={() => {
+                                localStorage.removeItem("kdm_user");
+                                navigate("/", { replace: true });
+                            }}
+                        >
+                            Logout
+                        </Link>
+                    ) : null}
+                </div>
+            </div>
+        </nav>
+    );
+};

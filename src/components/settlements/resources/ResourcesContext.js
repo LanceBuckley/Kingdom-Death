@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react"
-import { getResources, getSettlementInventory } from "../ApiManager"
-import { MileStonesEdit } from "./MilestonesEdit"
+import { createContext, useContext, useEffect, useState } from "react"
+import { getResources, getSettlementInventory } from "../../ApiManager"
+import { useSettlementForm } from "../form/SettlementFormContext"
 
-export const ResourcesEdit = ({ settlement, settlementId, settlementEvents }) => {
+// Create the context variable using createContext
+const ResourcesContext = createContext()
+
+export const ResourcesProvider = ({ children }) => {
+
+    const { settlementId } = useSettlementForm()
+
     const [resources, setResources] = useState([])
     const [settlementItem, setSettlementItem] = useState({
         settlementId: 0,
@@ -67,43 +73,16 @@ export const ResourcesEdit = ({ settlement, settlementId, settlementEvents }) =>
         return currentItem
     }
 
+    // Return this context provider wrapping that passes down a value prop to its children
     return (
-        <>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="resourceTypeId">Resources:</label>
-                </div>
-                <div className="form-group">
-                    <select name="resourceName" onChange={(evt) => handleChange(evt)}>
-                        <option value="0">-- Select --</option>
-                        {resources.map((resource) => (
-                            <option key={`resource--${resource.id}`} value={resource.id}>
-                                {resource.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </fieldset>
-            {
-                settlementItem.resourceId ? <button onClick={addResource}>Add Resource</button> : ""
-            }
-            <ul>Settlement Inventory:</ul>
-            {
-                settlementInventory.map((item) => {
-                    const resource = findItem(item)
-                    if (item.amount !== 0) {
-                        return <>
-                            <li key={`resource--${resource.id}`}>{resource.name}: {resource.type} {item.amount}</li>
-                            <button onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
-                        </>
-                    }
-                })
-            }
-            <MileStonesEdit
-                settlement={settlement}
-                settlementInventory={settlementInventory}
-                settlementEvents={settlementEvents}
-                settlementId={settlementId} />
-        </>
+        <ResourcesContext.Provider
+            value={{ handleChange, findItem, removeResource, addResource, resources, settlementItem, settlementInventory }}
+        >
+            {children}
+        </ResourcesContext.Provider>
     )
 }
+
+// Export a custom hook so the child can access this component
+export const useResources = () => useContext(ResourcesContext)
+

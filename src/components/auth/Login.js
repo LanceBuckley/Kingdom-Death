@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
+import Watcher from "/home/erchancy/workspace/kingdom-death/src/images/Watcher.png"
 
 export const Login = () => {
     const [email, set] = useState("twitwins@gmail.com")
@@ -29,31 +30,41 @@ export const Login = () => {
     }
 
     return (
-        <main className="container--login">
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Kingdom Death</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset>
-                        <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email"
-                            value={email}
-                            onChange={evt => set(evt.target.value)}
-                            className="form-control"
-                            placeholder="Email address"
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset>
-                        <button type="submit">
-                            Sign in
-                        </button>
-                    </fieldset>
-                </form>
+        <main className="container">
+            <section className="hero">
+                <div className="hero-body">
+                    <img src={Watcher}></img>
+                </div>
             </section>
-            <section className="link--register">
+            <section>
+                <form className="box" onSubmit={handleLogin}>
+                    <h1 className="title">Kingdom Death</h1>
+                    <h2 className="subtitle">Please sign in</h2>
+                    <div className="field">
+                        <label htmlFor="inputEmail" className="label">Email address</label>
+                        <div className="control">
+                            <input
+                                type="inputEmail"
+                                value={email}
+                                onChange={(evt) => set(evt.target.value)}
+                                className="input"
+                                placeholder="Email address"
+                                required
+                                autoFocus
+                            />
+                        </div>
+                    </div>
+                    <div className="field">
+                        <div className="control">
+                            <button type="submit" className="button is-dark">Sign in</button>
+                        </div>
+                    </div>
                 <Link to="/register">Not a member yet?</Link>
+                </form>
             </section>
         </main>
     )
 }
+
+
 

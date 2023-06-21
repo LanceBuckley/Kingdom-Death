@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react"
-import { getEvents } from "../ApiManager"
-import { Resources } from "./Resources"
+import { createContext, useContext, useEffect, useState } from "react"
+import { getEvents, getSettlementEvents } from "../../ApiManager"
+import { useSettlementForm } from "../form/SettlementFormContext"
 
-export const Events = ({settlement}) => {
+// Create the context variable using createContext
+const EventsContext = createContext()
+
+export const EventsProvider = ({ children }) => {
+
+    const { isEditPage, settlementId } = useSettlementForm()
 
     const [allEvents, setEvents] = useState([])
     const [settlementEvents, setSettlementEvents] = useState([])
@@ -24,8 +29,20 @@ export const Events = ({settlement}) => {
 
     useEffect(
         () => {
+            if (isEditPage) {
+                getSettlementEvents(settlementId)
+                    .then((events) => {
+                        setSettlementEvents(events)
+                    })
+            }
+        },
+        []
+    )
+
+    useEffect(
+        () => {
             if (newEvent.year !== 0) {
-                const copyEvent = {...newEvent}
+                const copyEvent = { ...newEvent }
                 const copySEvents = [...settlementEvents]
                 let previouslyChosenEvent = findUsedEvent(copySEvents, copyEvent)
                 if (previouslyChosenEvent) {
@@ -40,12 +57,12 @@ export const Events = ({settlement}) => {
     )
 
     const findUsedEvent = (copySEvents, copyEvent) => {
-        const previouslyChosenEvent = copySEvents.find((sEvent) => {return sEvent.year === copyEvent.year})
+        const previouslyChosenEvent = copySEvents.find((sEvent) => { return sEvent.year === copyEvent.year })
         return previouslyChosenEvent
     }
 
     const handleChange = (evt) => {
-        const copyEvent = {...newEvent}
+        const copyEvent = { ...newEvent }
         if (evt.target.value !== 0) {
             copyEvent.eventId = parseInt(evt.target.value)
             copyEvent.year = parseInt(evt.target.name)
@@ -57,13 +74,17 @@ export const Events = ({settlement}) => {
         const timeline = []
         for (let i = 0; i <= 9; i++) {
             const year = i + 1
+            const selectedEvent = settlementEvents.find((event) => event.year === year)
             timeline.push(
-                <fieldset key={`event-${year}`}>
-                    <div className="form-group">
+                <fieldset className="field event" key={`event-${year}`}>
+                    <div className="select">
                         <select name={year} onChange={(evt) => handleChange(evt)}>
                             <option value="0">-- Set The Event Of Year {year} --</option>
                             {allEvents.map((event) => (
-                                <option key={`event--${event.id}`} value={event.id}>
+                                <option
+                                    key={`event--${event.id}`}
+                                    value={event.id}
+                                    selected={selectedEvent && selectedEvent.eventId === event.id}>
                                     {event.name}
                                 </option>
                             ))}
@@ -75,13 +96,17 @@ export const Events = ({settlement}) => {
         return timeline
     }
 
+
+    // Return this context provider wrapping that passes down a value prop to its children
     return (
-        <>
-            <div className="form-group">
-                <label htmlFor="">Timeline:</label>
-            </div>
-            {createTimeline()}
-            <Resources settlement={settlement} settlementEvents={settlementEvents}/>
-        </>
+        <EventsContext.Provider
+            value={{ createTimeline, settlementEvents }}
+        >
+            {children}
+        </EventsContext.Provider>
     )
 }
+
+// Export a custom hook so the child can access this component
+export const useEvents = () => useContext(EventsContext)
+

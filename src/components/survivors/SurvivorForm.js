@@ -15,6 +15,8 @@ import { HitLocationsProvider } from "./hitLocations/HitLocationsContext";
 import { HitLocations } from "./hitLocations/HitLocations";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { deleteSurvivor, getSurvivorToEdit } from "../ApiManager";
+import WhiteLion from "/home/erchancy/workspace/kingdom-death/src/images/WhiteLion.png"
+
 
 export const SurvivorForm = () => {
     const localDeathUser = localStorage.getItem("kdm_user")
@@ -48,7 +50,7 @@ export const SurvivorForm = () => {
     )
 
     const deleteButton = () => {
-        return <button onClick={() =>
+        return <button className="button is-small is-danger" onClick={() =>
             deleteSurvivor(survivor)
                 .then(navigate("/"))
         }>Delete</button>
@@ -56,146 +58,153 @@ export const SurvivorForm = () => {
 
     return (
         <>
-            <form className="survivorForm">
-                <div className="survivorForm__title-container">
-                    {isEditPage
-                        ? <h2 className="survivorForm__title">Edit survivor</h2>
-                        : <h2 className="survivorForm__title">New survivor</h2>}
-
-                </div>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="survivorName">Name:</label>
-                        <input
-                            type="text"
-                            id="survivorName"
-                            className="form-control"
-                            placeholder="The name of the survivor"
-                            value={survivor.name}
-                            onChange={(evt) => {
-                                const copy = { ...survivor }
-                                copy.name = evt.target.value
-                                update(copy)
-                            }}
-                        />
+            <main>
+                <form className="survivorForm box">
+                    <div className="survivorForm__title-container">
+                        {isEditPage
+                            ? <h2 className="survivorForm__title is-size-3">Edit Survivor</h2>
+                            : <h2 className="survivorForm__title is-size-3">New Survivor</h2>
+                        }
                     </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <div>
-                            <label htmlFor="maleGender">
-                                Male
-                                <input
-                                    type="checkbox"
-                                    id="maleGender"
-                                    value="male"
-                                    checked={survivor.gender === "male"}
-                                    onChange={(evt) => {
-                                        const copy = { ...survivor }
-                                        copy.gender = evt.target.checked ? "male" : null
-                                        update(copy)
-                                    }}
-                                />
-                            </label>
+                    <fieldset className="field">
+                        <div className="form-group">
+                            <label className="label" htmlFor="survivorName">Name:</label>
+                            <input
+                                type="text"
+                                id="survivorName"
+                                className="input"
+                                placeholder="The name of the survivor"
+                                value={survivor.name}
+                                onChange={(evt) => {
+                                    const copy = { ...survivor }
+                                    copy.name = evt.target.value
+                                    update(copy)
+                                }}
+                            />
                         </div>
-                        <div>
-                            <label htmlFor="femaleGender">
-                                Female
-                                <input
-                                    type="checkbox"
-                                    id="femaleGender"
-                                    value="female"
-                                    checked={survivor.gender === "female"}
-                                    onChange={(evt) => {
-                                        const copy = { ...survivor }
-                                        copy.gender = evt.target.checked ? "female" : null
-                                        update(copy)
-                                    }}
-                                />
-                            </label>
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <div>
+                                <label className="label" htmlFor="maleGender">
+                                    Male
+                                    <input
+                                        type="checkbox"
+                                        id="maleGender"
+                                        value="male"
+                                        checked={survivor.gender === "male"}
+                                        onChange={(evt) => {
+                                            const copy = { ...survivor }
+                                            copy.gender = evt.target.checked ? "male" : null
+                                            update(copy)
+                                        }}
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label className="label" htmlFor="femaleGender">
+                                    Female
+                                    <input
+                                        type="checkbox"
+                                        id="femaleGender"
+                                        value="female"
+                                        checked={survivor.gender === "female"}
+                                        onChange={(evt) => {
+                                            const copy = { ...survivor }
+                                            copy.gender = evt.target.checked ? "female" : null
+                                            update(copy)
+                                        }}
+                                    />
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="survivorSurvival">Survival:</label>
-                        <input
-                            type="number"
-                            id="survivorSurvival"
-                            className="form-control"
-                            placeholder="0"
-                            value={survivor.survival}
-                            onChange={(evt) => {
-                                const copy = { ...survivor }
-                                copy.survival = evt.target.value
-                                update(copy)
-                            }}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="survivorInsanity">Insanity:</label>
-                        <input
-                            type="number"
-                            id="survivorInsanity"
-                            className="form-control"
-                            placeholder="0"
-                            value={survivor.insanity}
-                            onChange={(evt) => {
-                                const copy = { ...survivor }
-                                copy.insanity = evt.target.value
-                                update(copy)
-                            }}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="survivorHuntXp">HuntXp:</label>
-                        <input
-                            type="number"
-                            id="survivorHuntXp"
-                            className="form-control"
-                            placeholder="0"
-                            value={survivor.huntXp}
-                            onChange={(evt) => {
-                                const copy = { ...survivor }
-                                copy.huntXp = evt.target.value
-                                update(copy)
-                            }}
-                        />
-                    </div>
-                </fieldset>
-                <WeaponProficenciesProvider>
-                    <DisordersProvider>
-                        <FightingArtsProvider>
-                            <AbilitiesProvider>
-                                <StatsProvider>
-                                    <HitLocationsProvider>
-                                        <div className="stats">
-                                            <Stats isEditPage={isEditPage} survivor={survivor} />
-                                        </div>
-                                        <div className="hitLocations">
-                                            <HitLocations isEditPage={isEditPage} survivor={survivor} />
-                                        </div>
-                                        <div className="dropDowns">
-                                            <WeaponProficencies isEditPage={isEditPage} survivor={survivor} />
-                                            <FightingArts isEditPage={isEditPage} survivor={survivor} />
-                                            <Disorders isEditPage={isEditPage} survivor={survivor} />
-                                            <Abilities isEditPage={isEditPage} survivor={survivor} />
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <label className="label" htmlFor="survivorSurvival">Survival:</label>
+                            <input
+                                type="number"
+                                id="survivorSurvival"
+                                className="input"
+                                placeholder="0"
+                                value={survivor.survival}
+                                onChange={(evt) => {
+                                    const copy = { ...survivor }
+                                    copy.survival = evt.target.value
+                                    update(copy)
+                                }}
+                            />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <label className="label" htmlFor="survivorInsanity">Insanity:</label>
+                            <input
+                                type="number"
+                                id="survivorInsanity"
+                                className="input"
+                                placeholder="0"
+                                value={survivor.insanity}
+                                onChange={(evt) => {
+                                    const copy = { ...survivor }
+                                    copy.insanity = evt.target.value
+                                    update(copy)
+                                }}
+                            />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <label className="label" htmlFor="survivorHuntXp">HuntXp:</label>
+                            <input
+                                type="number"
+                                id="survivorHuntXp"
+                                className="input"
+                                placeholder="0"
+                                value={survivor.huntXp}
+                                onChange={(evt) => {
+                                    const copy = { ...survivor }
+                                    copy.huntXp = evt.target.value
+                                    update(copy)
+                                }}
+                            />
+                        </div>
+                    </fieldset>
+                    <WeaponProficenciesProvider>
+                        <DisordersProvider>
+                            <FightingArtsProvider>
+                                <AbilitiesProvider>
+                                    <StatsProvider>
+                                        <HitLocationsProvider>
+                                            <div className="stats">
+                                                <Stats isEditPage={isEditPage} survivor={survivor} />
+                                            </div>
+                                            <div className="hitLocations">
+                                                <HitLocations isEditPage={isEditPage} survivor={survivor} />
+                                            </div>
+                                            <div className="dropDowns">
+                                                <WeaponProficencies isEditPage={isEditPage} survivor={survivor} />
+                                                <FightingArts isEditPage={isEditPage} survivor={survivor} />
+                                                <Disorders isEditPage={isEditPage} survivor={survivor} />
+                                                <Abilities isEditPage={isEditPage} survivor={survivor} />
+                                            </div>
                                             <div className="saveButton">
                                                 <SaveSurvivor isEditPage={isEditPage} survivor={survivor} />
                                             </div>
-                                        </div>
-                                    </HitLocationsProvider>
-                                </StatsProvider>
-                            </AbilitiesProvider>
-                        </FightingArtsProvider>
-                    </DisordersProvider>
-                </WeaponProficenciesProvider>
-            </form>
-            {isEditPage ? deleteButton() : ""}
+                                        </HitLocationsProvider>
+                                    </StatsProvider>
+                                </AbilitiesProvider>
+                            </FightingArtsProvider>
+                        </DisordersProvider>
+                    </WeaponProficenciesProvider>
+                    {isEditPage ? deleteButton() : ""}
+                </form>
+                <section className="hero">
+                    <div className="hero-body">
+                        <img src={WhiteLion}></img>
+                    </div>
+                </section>
+            </main>
         </>
     )
 }
