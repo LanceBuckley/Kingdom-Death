@@ -1,53 +1,23 @@
-import { useEffect, useState } from "react"
-import { getMilestones } from "../ApiManager"
-import { Save } from "./Save"
+import { useMilestones } from "./MilestonesContext"
 
-export const MileStones = ({ settlement, settlementInventory, settlementEvents }) => {
+export const MileStones = () => {
 
-    const [milestones, setMilestones] = useState([])
-    const [storedMilestones, setStoredMilestones] = useState([])
-    const [milestoneObject, setMilestoneObject] = useState({
-        milestoneId: 0,
-        reached: false
-    })
-
-
-    useEffect(
-        () => {
-            getMilestones()
-                .then((milestones) => {
-                    setMilestones(milestones)
-                })
-        },
-        []
-    )
-
-    const handleChange = (evt) => {
-        const milestone = { ...milestoneObject }
-        milestone.milestoneId = parseInt(evt.target.value)
-        milestone.reached = evt.target.checked
-        const copy = [...storedMilestones]
-        const updatedMilestone = copy.find((oldMilestone) => oldMilestone.milestoneId === parseInt(evt.target.value))
-        if (updatedMilestone) {
-            updatedMilestone.milestoneId = milestone.milestoneId
-            updatedMilestone.reached = milestone.reached
-        } else {
-            copy.push(milestone)
-        }
-        setStoredMilestones(copy)
-    }
+    const { handleChange, milestones, storedMilestones } = useMilestones()
 
     return (
         <>
             <fieldset className="field">
                 <label className="label" htmlFor="milestoneTypeId">Milestones:</label>
                 {milestones.map((milestone) => {
+                    const storedMilestone = storedMilestones.find((storedMilestone) => storedMilestone.milestoneId === milestone.id);
+                    const reached = storedMilestone ? storedMilestone.reached : false;
                     return (
                         <div className="control" key={milestone.id}>
                             <label className="checkbox" htmlFor="milestoneType">{milestone.type}</label>
                             <input
                                 type="checkbox"
                                 name={milestone.type}
+                                checked={reached}
                                 value={milestone.id}
                                 onChange={(evt) => handleChange(evt)}
                             />
@@ -55,7 +25,6 @@ export const MileStones = ({ settlement, settlementInventory, settlementEvents }
                     )
                 })}
             </fieldset>
-            <Save settlement={settlement} settlementInventory={settlementInventory} achievedMilestones={storedMilestones} settlementEvents={settlementEvents} />
         </>
     )
 }

@@ -1,26 +1,24 @@
-import { useState } from "react"
 import { Events } from "./Events"
 import { Resources } from "./Resources"
 import "./SettlementForm.css"
 import { EventsProvider } from "./EventsContext"
+import { useSettlementForm } from "./SettlementFormContext"
+import { ResourcesProvider } from "./ResourcesContext"
+import { MilestonesProvider } from "./MilestonesContext"
+import { MileStones } from "./Milestones"
+import { Save } from "./Save"
 
 export const SettlementForm = () => {
 
-    const localDeathUser = localStorage.getItem("kdm_user")
-    const deathUserObject = JSON.parse(localDeathUser)
-
-    // This defines the settlement state object and allows it to be updated using update
-    const [settlement, update] = useState({
-        name: "",
-        survivalLimit: 0,
-        population: 0,
-        userId: deathUserObject.id
-    })
+    const { settlement, update, settlementId, isEditPage, navigate, deleteButton } = useSettlementForm()
 
     return (
         <>
             <form className="box">
-                <h2 className="is-size-3">New Settlement</h2>
+                {isEditPage
+                    ? <h2 className="is-size-3">Edit Settlement</h2>
+                    : <h2 className="is-size-3">New Settlement</h2>
+                }
                 <div className="settlementForm">
                     <fieldset className="field">
                         <div className="form-group">
@@ -76,9 +74,16 @@ export const SettlementForm = () => {
                     </fieldset>
                 </div>
                 <EventsProvider>
-                    <Events settlement={settlement} />
-                    <Resources />
+                    <ResourcesProvider>
+                        <MilestonesProvider>
+                            <Events />
+                            <Resources />
+                            <MileStones />
+                            <Save />
+                        </MilestonesProvider>
+                    </ResourcesProvider>
                 </EventsProvider>
+                {isEditPage && deleteButton()}
             </form>
         </>
     )

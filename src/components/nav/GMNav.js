@@ -2,19 +2,18 @@ import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 export const GMNav = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                    <Link className="navbar-item" to="/">
-                        Home
-                    </Link>
+                <Link className="navbar-item" to="/">
+                    Home
+                </Link>
             </div>
 
             <div className="navbar-menu">
                 <div className="navbar-start">
-
                     <Link className="navbar-link" to="/settlements">
                         New Settlement
                     </Link>

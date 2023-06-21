@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getEvents } from "../ApiManager"
+import { getEvents, getSettlementEvents } from "../ApiManager"
+import { useSettlementForm } from "./SettlementFormContext"
 
 // Create the context variable using createContext
 const EventsContext = createContext()
 
 export const EventsProvider = ({ children }) => {
+
+    const { isEditPage, settlementId } = useSettlementForm()
 
     const [allEvents, setEvents] = useState([])
     const [settlementEvents, setSettlementEvents] = useState([])
@@ -20,6 +23,18 @@ export const EventsProvider = ({ children }) => {
                 .then((events) => {
                     setEvents(events)
                 })
+        },
+        []
+    )
+
+    useEffect(
+        () => {
+            if (isEditPage) {
+                getSettlementEvents(settlementId)
+                    .then((events) => {
+                        setSettlementEvents(events)
+                    })
+            }
         },
         []
     )
@@ -66,7 +81,10 @@ export const EventsProvider = ({ children }) => {
                         <select name={year} onChange={(evt) => handleChange(evt)}>
                             <option value="0">-- Set The Event Of Year {year} --</option>
                             {allEvents.map((event) => (
-                                <option key={`event--${event.id}`} value={event.id} selected={selectedEvent && selectedEvent.eventId === event.id}>
+                                <option
+                                    key={`event--${event.id}`}
+                                    value={event.id}
+                                    selected={selectedEvent && selectedEvent.eventId === event.id}>
                                     {event.name}
                                 </option>
                             ))}
