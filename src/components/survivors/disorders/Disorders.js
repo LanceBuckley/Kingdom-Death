@@ -1,9 +1,12 @@
 import { useEffect } from "react"
 import { getDisorderForEdit } from "../../ApiManager"
 import { useDisorders } from "./DisordersContext"
+import { useSurvivor } from "../form/SurvivorFormContext"
 
-export const Disorders = ({ isEditPage, survivor }) => {
+export const Disorders = () => {
     const { allDisorders, chosenDisorders, setChosenDisorders } = useDisorders()
+    const { survivor, isEditPage } = useSurvivor()
+
 
     useEffect(
         () => {

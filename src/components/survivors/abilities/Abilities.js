@@ -1,10 +1,13 @@
 import { useEffect } from "react"
 import { useAbilities } from "./AbilitiesContext"
 import { getAbilityForEdit } from "../../ApiManager"
+import { useSurvivor } from "../form/SurvivorFormContext"
 
-export const Abilities = ({ isEditPage, survivor }) => {
+export const Abilities = () => {
     // Here we destructure the values prop from the provider
     const { allAbilities, chosenAbilities, setChosenAbilities } = useAbilities()
+    const { survivor, isEditPage } = useSurvivor()
+
 
     useEffect(
         () => {

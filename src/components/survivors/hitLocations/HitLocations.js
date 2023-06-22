@@ -1,11 +1,14 @@
 import { useEffect } from "react"
 import { getHitLocationsForEdit } from "../../ApiManager"
 import { useHitLocations } from "./HitLocationsContext"
+import { useSurvivor } from "../form/SurvivorFormContext"
 
-export const HitLocations = ({ isEditPage, survivor }) => {
+export const HitLocations = () => {
 
     // Here we destructure the values prop from the provider
     const { hitLocations, setHitLocations } = useHitLocations()
+    const { survivor, isEditPage } = useSurvivor()
+
 
     useEffect(
         () => {

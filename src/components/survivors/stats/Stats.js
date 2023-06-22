@@ -1,10 +1,13 @@
 import { useEffect } from "react"
 import { useStats } from "./StatsContext"
 import { getStatsForEdit } from "../../ApiManager"
+import { useSurvivor } from "../form/SurvivorFormContext"
 
-export const Stats = ({ isEditPage, survivor }) => {
+export const Stats = () => {
     // Here we destructure the values prop from the provider
     const { stats, update } = useStats()
+    const { survivor, isEditPage } = useSurvivor()
+
 
     useEffect(
         () => {

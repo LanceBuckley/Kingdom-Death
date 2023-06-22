@@ -1,10 +1,13 @@
 import { useEffect } from "react"
 import { getWeaponProficencyForEdit } from "../../ApiManager"
 import { useWeaponProficencies } from "./WeaponProficenciesContext"
+import { useSurvivor } from "../form/SurvivorFormContext"
 
-export const WeaponProficencies = ({ isEditPage, survivor }) => {
+export const WeaponProficencies = () => {
     // Here we destructure the values prop from the provider
     const { allProficencies, chosenProficency, setChosenProficency } = useWeaponProficencies()
+    const { survivor, isEditPage } = useSurvivor()
+
 
     useEffect(
         () => {

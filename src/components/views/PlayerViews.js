@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom"
-import { SurvivorForm } from "../survivors/SurvivorForm"
 import { PlayerHomeScreen } from "../home/PlayerHomeScreen"
+import { Survivor } from "../survivors/Survivor"
 
 export const PlayerViews = () => {
     return (
@@ -12,8 +12,8 @@ export const PlayerViews = () => {
                 </>
             }>
             </Route>
-            <Route path="survivors" element={<SurvivorForm />} />
-            <Route path="survivor/:survivorId" element={<SurvivorForm />} />
+            <Route path="survivors" element={<Survivor />} />
+            <Route path="survivor/:survivorId" element={<Survivor />} />
         </Routes>
     )
 }

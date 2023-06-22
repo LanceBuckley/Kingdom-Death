@@ -1,10 +1,13 @@
 import { useEffect } from "react"
 import { useFightingArts } from "./FightingArtsContext"
 import { getFightingArtsForEdit } from "../../ApiManager"
+import { useSurvivor } from "../form/SurvivorFormContext"
 
-export const FightingArts = ({ isEditPage, survivor }) => {
+export const FightingArts = () => {
     // Here we destructure the values prop from the provider
     const { allFightingArts, chosenFightingArts, setChosenFightingArts } = useFightingArts()
+    const { survivor, isEditPage } = useSurvivor()
+
 
     useEffect(
         () => {
