@@ -1,16 +1,18 @@
-import { Navigate, useLocation } from "react-router-dom"
+import React from "react"
+import { Navigate } from "react-router-dom"
+import { ApplicationViews } from "./ApplicationViews"
+import { NavBar } from "../nav/NavBar"
+import { useKingdomDeath } from "../../context/KingdomDeathContext"
 
-export const Authorized = ({ children }) => {
-    const location = useLocation()
+export const Authorized = () => {
 
-    if (localStorage.getItem("kdm_user")) {
-        return children
+    const { token } = useKingdomDeath()
+
+    if (token) {
+        return <>
+            <NavBar />
+            <ApplicationViews />
+        </>
     }
-    else {
-        return <Navigate
-            to={`/login/${location.search}`}
-            replace
-            state={{ location }} />
-    }
+    return <Navigate to='/login' replace />
 }
-

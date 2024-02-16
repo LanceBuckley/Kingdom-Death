@@ -63,25 +63,25 @@ export const Save = () => {
         }
     }
 
-    const saveInventory = (newSettlement) => {
-        settlementInventory.forEach((settlementItem) => {
+    const saveInventory = async (newSettlement) => {
+        settlementInventory.forEach(async (settlementItem) => {
             settlementItem.settlementId = newSettlement.id
-            createSettlementInventory(settlementItem)
+            await createSettlementInventory(settlementItem)
         })
     }
 
-    const saveEvents = (newSettlement) => {
-        settlementEvents.forEach((settlementEvent) => {
+    const saveEvents = async (newSettlement) => {
+        settlementEvents.forEach(async (settlementEvent) => {
             settlementEvent.settlementId = newSettlement.id
-            createSettlementEvents(settlementEvent)
+            await createSettlementEvents(settlementEvent)
         })
     }
 
-    const saveAchievedMilestones = (newSettlement) => {
-        storedMilestones.forEach((storedMilestone) => {
+    const saveAchievedMilestones = async (newSettlement) => {
+        storedMilestones.forEach(async (storedMilestone) => {
             if (storedMilestone.reached === true) {
                 storedMilestone.settlementId = newSettlement.id
-                createAchievedMilestone(storedMilestone)
+                await createAchievedMilestone(storedMilestone)
             }
         })
     }
@@ -97,14 +97,11 @@ export const Save = () => {
             navigate("/")
         } else {
             // This posts/adds the new settlement to the list of settlements in the database and then reroutes the user to /
-            createSettlement(settlement)
-                .then((newSettlement) => {
-                    saveInventory(newSettlement)
-                    saveEvents(newSettlement)
-                    saveAchievedMilestones(newSettlement)
-                }).then(() => {
-                    navigate("/")
-                })
+            const newSettlement = await createSettlement(settlement)
+            await saveInventory(newSettlement)
+            await saveEvents(newSettlement)
+            await saveAchievedMilestones(newSettlement)
+            navigate("/")
         }
 
 

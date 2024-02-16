@@ -5,22 +5,32 @@ import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import "./KingdomDeath.css"
+import { LoginProvider } from "../context/LoginContext"
+import { RegisterProvider } from "../context/RegisterContext"
+import { KingdomDeathProvider } from "../context/KingdomDeathContext"
 
 
 export const KingdomDeath = () => {
-	return <Routes>
-		<Route path="/login" element={<Login />} />
-		<Route path="/register" element={<Register />} />
+	return (
+		<KingdomDeathProvider>
+			<LoginProvider>
+				<RegisterProvider>
+					<Routes>
+						<Route path="/login" element={<Login />} />
+						<Route path="/register" element={<Register />} />
 
-		<Route path="*" element={
-			<Authorized>
-				<>
-					<NavBar />
-					<ApplicationViews />
-				</>
-			</Authorized>
+						<Route path="*" element={
+							<Authorized>
+								<>
+									<NavBar />
+									<ApplicationViews />
+								</>
+							</Authorized>
 
-		} />
-	</Routes>
+						} />
+					</Routes>
+				</RegisterProvider>
+			</LoginProvider>
+		</KingdomDeathProvider>)
 }
 

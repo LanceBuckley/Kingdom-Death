@@ -1,12 +1,12 @@
+import { useKingdomDeath } from "../../context/KingdomDeathContext"
 import { GameMasterViews } from "./GameMasterViews"
 import { PlayerViews } from "./PlayerViews"
 
 export const ApplicationViews = () => {
 
-	const localDeathUser = localStorage.getItem("kdm_user")
-    const deathUserObject = JSON.parse(localDeathUser)
+    const { isGameMaster } = useKingdomDeath()
 
-    if (deathUserObject.gameMaster) {
+    if (isGameMaster) {
         // Return game master views
         return <GameMasterViews />
     }

@@ -4,10 +4,10 @@ import { PlayerNav } from "./PlayerNav"
 
 export const NavBar = () => {
 
-    const localDeathUser = localStorage.getItem("kdm_user")
-    const deathUserObject = JSON.parse(localDeathUser)
+    const gm = localStorage.getItem("is_game_master")
+    const gmObject = JSON.parse(gm)
 
-    if (deathUserObject.gameMaster) {
+    if (gmObject.gameMaster) {
         // Return game master navbar
         return <GMNav />
     }

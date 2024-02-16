@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { createSession, getSessions, getSettlements } from "../ApiManager";
 import { Link } from "react-router-dom";
 import DBK from "/home/erchancy/workspace/kingdom-death/src/images/DBK.png"
 import "./Home.css";
+import { getSettlements } from "../../managers/settlementManager";
+import { createSession, getSessions } from "../../managers/sessionManager";
+import { getCurrentPlayer } from "../../managers/userManager";
 
 
 export const GMHomeScreen = () => {
+    const [currentPlayer, setCurrentPlayer] = useState([{ id: 0 }])
     const [settlements, setSettlements] = useState([]);
     const [sessions, setSessions] = useState([]);
     const [filteredSettlements, setFilteredSettlements] = useState([]);
@@ -15,8 +18,10 @@ export const GMHomeScreen = () => {
         settlementId: 0
     });
 
-    const localDeathUser = localStorage.getItem("kdm_user");
-    const deathUserObject = JSON.parse(localDeathUser);
+    useEffect(() => {
+        getCurrentPlayer()
+            .then((player) => setCurrentPlayer(player))
+    }, [])
 
     useEffect(() => {
         getSettlements().then((settlements) => {
@@ -32,14 +37,14 @@ export const GMHomeScreen = () => {
 
     useEffect(() => {
         const mySettlements = settlements.filter(
-            (settlement) => settlement.userId === deathUserObject.id
+            (settlement) => settlement.game_master.id === currentPlayer[0].id
         );
         setFilteredSettlements(mySettlements);
-    }, [settlements]);
+    }, [settlements, currentPlayer]);
 
     useEffect(() => {
         const mySessions = sessions.filter(
-            (session) => session.gameMasterId === deathUserObject.id
+            (session) => session.gameMasterId === currentPlayer.id
         );
         setFilteredSessions(mySessions);
     }, [sessions]);
@@ -89,7 +94,7 @@ export const GMHomeScreen = () => {
     const hostSession = (settlementId) => {
         const copy = { ...session };
         copy.settlementId = settlementId;
-        copy.gameMasterId = deathUserObject.id;
+        copy.gameMasterId = currentPlayer.id;
         setSession(copy);
     };
 
