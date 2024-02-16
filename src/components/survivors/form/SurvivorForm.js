@@ -13,7 +13,7 @@ import { StatsProvider } from "../stats/StatsContext";
 import { HitLocationsProvider } from "../hitLocations/HitLocationsContext";
 import { HitLocations } from "../hitLocations/HitLocations";
 import { deleteSurvivor } from "../../ApiManager";
-import WhiteLion from "../../../src/images/WhiteLion.png"
+import WhiteLion from "../../../images/WhiteLion.png"
 import { useSurvivor } from "./SurvivorFormContext";
 
 

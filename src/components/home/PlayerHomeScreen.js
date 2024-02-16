@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getSessions, getSurvivors, editSession } from "../ApiManager"
 import { Link } from "react-router-dom"
-import BoneEaters from "../../src/images/BoneEaters.png"
+import BoneEaters from "../../images/BoneEaters.png"
 import "./Home.css"
 
 export const PlayerHomeScreen = () => {

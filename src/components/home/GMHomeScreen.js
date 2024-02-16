@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import DBK from "../../src/images/DBK.png"
+import DBK from "../../images/DBK.png"
 import "./Home.css";
 import { getSettlements } from "../../managers/settlementManager";
 import { createSession, getSessions } from "../../managers/sessionManager";
