@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
 import "./Login.css"
-import Watcher from "/home/erchancy/workspace/kingdom-death/src/images/Watcher.png"
+import Watcher from "../../images/Watcher.png"
 import { useLogin } from "../../context/LoginContext";
 
 export const Login = () => {

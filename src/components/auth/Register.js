@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
-import Butcher from "/home/erchancy/workspace/kingdom-death/src/images/Butcher.png"
+import Butcher from "../../images/Butcher.png"
 
 
 export const Register = (props) => {
