@@ -7,7 +7,7 @@ import { ResourcesProvider } from "../resources/ResourcesContext"
 import { MilestonesProvider } from "../milestones/MilestonesContext"
 import { MileStones } from "../milestones/Milestones"
 import { Save } from "../Save"
-import Godhand from "/home/erchancy/workspace/kingdom-death/src/images/Godhand.png"
+import Godhand from "../../../src/images/Godhand.png"
 
 export const SettlementForm = () => {
 
