@@ -47,7 +47,7 @@ export const GMHomeScreen = () => {
             (session) => session.gameMasterId === currentPlayer.id
         );
         setFilteredSessions(mySessions);
-    }, [sessions]);
+    }, [sessions, currentPlayer]);
 
     useEffect(() => {
         if (session.settlementId !== 0) {
@@ -123,7 +123,7 @@ export const GMHomeScreen = () => {
             </section>
             <section className="hero">
                 <div className="hero-body">
-                    <img src={DBK}></img>
+                <img src={DBK} alt="" />
                 </div>
             </section>
         </main>

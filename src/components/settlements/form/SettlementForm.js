@@ -11,7 +11,7 @@ import Godhand from "../../../images/Godhand.png"
 
 export const SettlementForm = () => {
 
-    const { settlement, update, settlementId, isEditPage, navigate, deleteButton } = useSettlementForm()
+    const { settlement, update, isEditPage, deleteButton } = useSettlementForm()
 
     return (
         <>
@@ -93,7 +93,7 @@ export const SettlementForm = () => {
                 </form>
                 <section className="hero">
                     <div className="hero-body">
-                        <img src={Godhand}></img>
+                        <img src={Godhand} alt=""></img>
                     </div>
                 </section>
             </main>

@@ -173,7 +173,7 @@ export const SurvivorForm = () => {
                 </form>
                 <section className="hero">
                     <div className="hero-body">
-                        <img src={WhiteLion}></img>
+                        <img src={WhiteLion} alt=""></img>
                     </div>
                 </section>
             </main>

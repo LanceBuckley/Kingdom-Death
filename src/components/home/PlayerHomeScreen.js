@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react"
-import { getSessions, getSurvivors, editSession } from "../ApiManager"
+import { getSessions, getSurvivors } from "../ApiManager"
 import { Link } from "react-router-dom"
 import BoneEaters from "../../images/BoneEaters.png"
 import "./Home.css"
+import { getCurrentPlayer } from "../../managers/userManager"
 
 export const PlayerHomeScreen = () => {
 
     const localDeathUser = localStorage.getItem("kdm_user")
     const deathUserObject = JSON.parse(localDeathUser)
 
+    const [currentPlayer, setCurrentPlayer] = useState([{ id: 0 }])
     const [survivors, setSurvivors] = useState([])
     const [sessions, setSessions] = useState([])
-    const [sessionClick, setSessionClick] = useState(false)
+
+    useEffect(() => {
+        getCurrentPlayer()
+            .then((player) => setCurrentPlayer(player))
+    }, [])
 
     useEffect(
         () => {
-            getSurvivors(deathUserObject.id)
+            getSurvivors(currentPlayer[0].id)
                 .then((survivors) => {
                     setSurvivors(survivors)
                 })
         },
-        []
+        [currentPlayer]
     )
 
     useEffect(
@@ -33,47 +39,7 @@ export const PlayerHomeScreen = () => {
         []
     )
 
-    useEffect(
-        () => {
-            if (sessionClick === true) {
-                findSessionToEdit()
-            }
-
-        },
-        [sessionClick]
-    )
-
-    const findSessionToEdit = () => {
-        sessions.forEach((session) => {
-            if (session.player1Id === deathUserObject.id) {
-                editSession(session)
-                    .then(getSessions)
-                    .then((sessions) => {
-                        setSessions(sessions)
-                    })
-            } else if (session.player2Id === deathUserObject.id) {
-                editSession(session)
-                    .then(getSessions)
-                    .then((sessions) => {
-                        setSessions(sessions)
-                    })
-            } else if (session.player3Id === deathUserObject.id) {
-                editSession(session)
-                    .then(getSessions)
-                    .then((sessions) => {
-                        setSessions(sessions)
-                    })
-            } else if (session.player4Id === deathUserObject.id) {
-                editSession(session)
-                    .then(getSessions)
-                    .then((sessions) => {
-                        setSessions(sessions)
-                    })
-            }
-        })
-        setSessionClick(false)
-    }
-
+    
     const editButton = (survivorId) => {
         return <Link to={`/survivor/${survivorId}`}><button className="button is-dark is-small">Edit</button></Link>
     }
@@ -102,7 +68,6 @@ export const PlayerHomeScreen = () => {
             findSession.player4Id = deathUserObject.id
         }
         setSessions(copySessions)
-        setSessionClick(true)
     }
 
     const findPlayers = (session) => {
@@ -157,7 +122,7 @@ export const PlayerHomeScreen = () => {
             </div>
             <section className="hero">
                 <div className="hero-body">
-                    <img src={BoneEaters}></img>
+                    <img src={BoneEaters} alt=""></img>
                 </div>
             </section>
         </main>
