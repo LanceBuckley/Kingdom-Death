@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getFightingArts } from "../../ApiManager"
+import { getFightingArts } from "../../../managers/fightingArtManager"
 
 // Create the context variable using createContext
 const FightingArtsContext = createContext()

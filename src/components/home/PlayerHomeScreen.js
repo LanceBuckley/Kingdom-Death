@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { getSessions, getSurvivors } from "../ApiManager"
 import { Link } from "react-router-dom"
 import BoneEaters from "../../images/BoneEaters.png"
 import "./Home.css"
 import { getCurrentPlayer } from "../../managers/userManager"
+import { getSurvivors } from "../../managers/survivorManager"
+import { getSessions } from "../../managers/sessionManager"
 
 export const PlayerHomeScreen = () => {
 

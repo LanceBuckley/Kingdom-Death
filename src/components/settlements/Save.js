@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom"
-import { createAchievedMilestone, createSettlement, createSettlementEvents, createSettlementInventory, deleteAchievedMilestones, deleteSettlementEvents, deleteSettlementInventory, editSettlement, editSettlementEvents, editSettlementInventory } from "../ApiManager"
 import { useSettlementForm } from "./form/SettlementFormContext"
 import { useResources } from "./resources/ResourcesContext"
 import { useMilestones } from "./milestones/MilestonesContext"
 import { useEvents } from "./events/EventsContext"
+import { createSettlementEvents, deleteSettlementEvents, editSettlementEvents } from "../../managers/eventManager"
+import { createSettlementInventory, deleteSettlementInventory, editSettlementInventory } from "../../managers/resourceManager"
+import { createAchievedMilestone, deleteAchievedMilestones } from "../../managers/milestoneManager"
+import { createSettlement, editSettlement } from "../../managers/settlementManager"
 
 export const Save = () => {
 

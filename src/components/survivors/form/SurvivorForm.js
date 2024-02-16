@@ -1,5 +1,5 @@
-import { WeaponProficenciesProvider } from "../weaponProficency/WeaponProficenciesContext";
-import { WeaponProficencies } from "../weaponProficency/WeaponProficencies";
+import { WeaponProficienciesProvider } from "../weaponProficiencies/WeaponProficienciesContext";
+import { WeaponProficiencies } from "../weaponProficiencies/WeaponProficiencies";
 import { DisordersProvider } from "../disorders/DisordersContext";
 import { Disorders } from "../disorders/Disorders";
 import { FightingArtsProvider } from "../fightingArts/FightingArtsContext";
@@ -12,9 +12,9 @@ import { Stats } from "../stats/Stats";
 import { StatsProvider } from "../stats/StatsContext";
 import { HitLocationsProvider } from "../hitLocations/HitLocationsContext";
 import { HitLocations } from "../hitLocations/HitLocations";
-import { deleteSurvivor } from "../../ApiManager";
 import WhiteLion from "../../../images/WhiteLion.png"
 import { useSurvivor } from "./SurvivorFormContext";
+import { deleteSurvivor } from "../../../managers/survivorManager";
 
 
 export const SurvivorForm = () => {
@@ -142,7 +142,7 @@ export const SurvivorForm = () => {
                             />
                         </div>
                     </fieldset>
-                    <WeaponProficenciesProvider>
+                    <WeaponProficienciesProvider>
                         <DisordersProvider>
                             <FightingArtsProvider>
                                 <AbilitiesProvider>
@@ -155,7 +155,7 @@ export const SurvivorForm = () => {
                                                 <HitLocations />
                                             </div>
                                             <div className="dropDowns">
-                                                <WeaponProficencies />
+                                                <WeaponProficiencies />
                                                 <FightingArts />
                                                 <Disorders />
                                                 <Abilities />
@@ -168,7 +168,7 @@ export const SurvivorForm = () => {
                                 </AbilitiesProvider>
                             </FightingArtsProvider>
                         </DisordersProvider>
-                    </WeaponProficenciesProvider>
+                    </WeaponProficienciesProvider>
                     {isEditPage ? deleteButton() : ""}
                 </form>
                 <section className="hero">

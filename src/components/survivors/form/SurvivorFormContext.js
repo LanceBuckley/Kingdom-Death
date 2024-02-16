@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { getSurvivorToEdit } from "../../ApiManager"
+import { getSurvivorToEdit } from "../../../managers/survivorManager"
 
 // Create the context variable using createContext
 const SurvivorContext = createContext()

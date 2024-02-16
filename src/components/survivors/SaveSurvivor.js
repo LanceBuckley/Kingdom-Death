@@ -1,14 +1,14 @@
-import { createHitLocations, createStats, createSurvivor, editHitLocations, editStats, editSurvivor } from "../ApiManager"
+import { createHitLocations, createStats, createSurvivor, editHitLocations, editStats, editSurvivor } from "../../managers/survivorManager"
 import { useAbilities } from "./abilities/AbilitiesContext"
 import { useDisorders } from "./disorders/DisordersContext"
 import { useFightingArts } from "./fightingArts/FightingArtsContext"
 import { useSurvivor } from "./form/SurvivorFormContext"
 import { useHitLocations } from "./hitLocations/HitLocationsContext"
 import { useStats } from "./stats/StatsContext"
-import { useWeaponProficencies } from "./weaponProficency/WeaponProficenciesContext"
+import { useWeaponProficiencies } from "./weaponProficiencies/WeaponProficienciesContext"
 
 export const SaveSurvivor = () => {
-    const { chosenProficency } = useWeaponProficencies()
+    const { chosenProficiency } = useWeaponProficiencies()
     const { chosenFightingArts } = useFightingArts()
     const { chosenDisorders } = useDisorders()
     const { chosenAbilities } = useAbilities()
@@ -17,7 +17,7 @@ export const SaveSurvivor = () => {
     const { survivor, isEditPage, navigate } = useSurvivor()
 
     const saveWeaponProf = () => {
-        survivor.weaponProfId = chosenProficency.id
+        survivor.weaponProfId = chosenProficiency.id
         return survivor
     }
 

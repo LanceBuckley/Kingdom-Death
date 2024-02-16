@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useFightingArts } from "./FightingArtsContext"
-import { getFightingArtsForEdit } from "../../ApiManager"
 import { useSurvivor } from "../form/SurvivorFormContext"
+import { getFightingArtsForEdit } from "../../../managers/fightingArtManager"
 
 export const FightingArts = () => {
     // Here we destructure the values prop from the provider

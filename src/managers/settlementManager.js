@@ -25,7 +25,14 @@ export const getSettlements = async () => {
 }
 
 export const getSettlementToEdit = async (settlementId) => {
-    const response = await fetch(`http://localhost:8000/settlements?id=${settlementId}`);
+    const response = await fetch(`http://localhost:8000/settlements?id=${settlementId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
+    })
     const settlements = await response.json();
     const settlementToEdit = await settlements[0];
     return settlementToEdit;
@@ -35,7 +42,9 @@ export const editSettlement = async (settlementId, settlement) => {
     const response = await fetch(`http://localhost:8000/settlements/${settlementId}`, {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
         },
         body: JSON.stringify(settlement)
     });

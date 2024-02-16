@@ -1,7 +1,7 @@
 import { useEffect } from "react"
-import { getHitLocationsForEdit } from "../../ApiManager"
 import { useHitLocations } from "./HitLocationsContext"
 import { useSurvivor } from "../form/SurvivorFormContext"
+import { getHitLocationsForEdit } from "../../../managers/survivorManager"
 
 export const HitLocations = () => {
 

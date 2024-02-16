@@ -1,7 +1,7 @@
 import { useEffect } from "react"
-import { getDisorderForEdit } from "../../ApiManager"
 import { useDisorders } from "./DisordersContext"
 import { useSurvivor } from "../form/SurvivorFormContext"
+import { getDisorderForEdit } from "../../../managers/disorderManager"
 
 export const Disorders = () => {
     const { allDisorders, chosenDisorders, setChosenDisorders } = useDisorders()

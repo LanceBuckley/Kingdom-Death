@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getAbilities } from "../../ApiManager"
+import { getAbilities } from "../../../managers/abilityManager"
 
 // Create the context variable using createContext
 const AbilitiesContext = createContext()

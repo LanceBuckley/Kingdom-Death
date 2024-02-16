@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getDisorders } from "../../ApiManager"
+import { getDisorders } from "../../../managers/disorderManager"
 
 const DisordersContext = createContext()
 

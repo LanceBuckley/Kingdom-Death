@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getResources, getSettlementInventory } from "../../ApiManager"
 import { useSettlementForm } from "../form/SettlementFormContext"
+import { getResources, getSettlementInventory } from "../../../managers/resourceManager"
 
 // Create the context variable using createContext
 const ResourcesContext = createContext()

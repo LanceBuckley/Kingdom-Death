@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { getEvents, getSettlementEvents } from "../../ApiManager"
 import { useSettlementForm } from "../form/SettlementFormContext"
+import { getEvents, getSettlementEvents } from "../../../managers/eventManager"
 
 // Create the context variable using createContext
 const EventsContext = createContext()
