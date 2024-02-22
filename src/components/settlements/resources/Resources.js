@@ -33,11 +33,11 @@ export const Resources = () => {
                     <ul className="inventory__list">
                         {
                             settlementInventory.map((item) => {
-                                const resource = findItem(item)
+                                const resource = item.resource
                                 if (item.amount !== 0) {
                                     return <>
                                         <div className="inventory__item">
-                                            <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type} {item.amount}</li>
+                                            <li key={`chosenResource--${resource.id}-${item.amount}`}>{resource.name}: {resource.type.name} {item.amount}</li>
                                             <button className="button is-small is-dark" onClick={(evt) => removeResource(evt, resource.id)}>Remove</button>
                                         </div>
                                     </>

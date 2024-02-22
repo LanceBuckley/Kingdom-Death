@@ -13,7 +13,7 @@ export const getEvents = async () => {
 }
 
 export const getSettlementEvents = async (settlementId) => {
-    const response = await fetch(`http://localhost:8000/settlementEvents?settlementId=${settlementId}`, {
+    const response = await fetch(`http://localhost:8000/settlement_events?settlement=${settlementId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const getSettlementEvents = async (settlementId) => {
 };
 
 export const createSettlementEvents = async (settlementEvent) => {
-    const response = await fetch("http://localhost:8000/settlementEvents", {
+    const response = await fetch("http://localhost:8000/settlement_events", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const createSettlementEvents = async (settlementEvent) => {
 
 export const editSettlementEvents = async (currentEvent) => {
     if (currentEvent.eventId !== 0) {
-        const response = await fetch(`http://localhost:8000/settlementEvents/${currentEvent.id}`, {
+        const response = await fetch(`http://localhost:8000/settlement_events/${currentEvent.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export const editSettlementEvents = async (currentEvent) => {
 };
 
 export const deleteSettlementEvents = async (removedEvent) => {
-    const response = await fetch(`http://localhost:8000/settlementEvents/${removedEvent.id}`, {
+    const response = await fetch(`http://localhost:8000/settlement_events/${removedEvent.id}`, {
         method: "DELETE"
     });
     return await response.json();

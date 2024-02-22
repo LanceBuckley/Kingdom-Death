@@ -1,5 +1,5 @@
 export const getMilestones = async () => {
-    const response = await fetch("http://localhost:8000/milestones", {
+    const response = await fetch("http://localhost:8000/milestone_types", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export const getMilestones = async () => {
 };
 
 export const getAchievedMilestones = async (settlementId) => {
-    const response = await fetch(`http://localhost:8000/achievedMilestones?settlementId=${settlementId}`, {
+    const response = await fetch(`http://localhost:8000/milestones?achieved=True&settlement=${settlementId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const getAchievedMilestones = async (settlementId) => {
 };
 
 export const createAchievedMilestone = async (achievedMilestone) => {
-    const response = await fetch("http://localhost:8000/achievedMilestones", {
+    const response = await fetch("http://localhost:8000/milestones?achieved=True", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const createAchievedMilestone = async (achievedMilestone) => {
 };
 
 export const deleteAchievedMilestones = async (achievedMilestone) => {
-    const response = await fetch(`http://localhost:8000/achievedMilestones/${achievedMilestone.id}`, {
+    const response = await fetch(`http://localhost:8000/milestones/${achievedMilestone.id}`, {
         method: "DELETE"
     });
     return await response.json();

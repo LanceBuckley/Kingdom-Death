@@ -13,7 +13,7 @@ export const getResources = async () => {
 };
 
 export const getSettlementInventory = async (settlementId) => {
-    const response = await fetch(`http://localhost:8000/settlementInventory?settlementId=${settlementId}`, {
+    const response = await fetch(`http://localhost:8000/settlement_inventories?settlement=${settlementId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const getSettlementInventory = async (settlementId) => {
 };
 
 export const createSettlementInventory = async (settlementItem) => {
-    const response = await fetch("http://localhost:8000/settlementInventory", {
+    const response = await fetch("http://localhost:8000/settlement_inventories", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const createSettlementInventory = async (settlementItem) => {
 };
 
 export const editSettlementInventory = async (existingItem) => {
-    const response = await fetch(`http://localhost:8000/settlementInventory/${existingItem.id}`, {
+    const response = await fetch(`http://localhost:8000/settlement_inventories/${existingItem.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
