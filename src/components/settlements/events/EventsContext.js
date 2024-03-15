@@ -84,7 +84,7 @@ export const EventsProvider = ({ children }) => {
                                 <option
                                     key={`event--${event.id}`}
                                     value={event.id}
-                                    selected={selectedEvent && selectedEvent.eventId === event.id}>
+                                    selected={selectedEvent && selectedEvent.event.id === event.id}>
                                     {event.name}
                                 </option>
                             ))}
