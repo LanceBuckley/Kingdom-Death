@@ -49,8 +49,7 @@ export const editSettlementInventory = async (existingItem) => {
         },
         body: JSON.stringify(existingItem)
     });
-    const editedInventory = await response.json();
-    return editedInventory;
+    return response.status
 };
 
 export const deleteSettlementInventory = async (removedItem) => {

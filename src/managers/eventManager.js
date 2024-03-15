@@ -50,8 +50,7 @@ export const editSettlementEvents = async (currentEvent) => {
             },
             body: JSON.stringify(currentEvent)
         });
-        const editedSEvent = response.json();
-        return editedSEvent;
+        return response.status
     }
 };
 

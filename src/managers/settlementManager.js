@@ -48,8 +48,7 @@ export const editSettlement = async (settlementId, settlement) => {
         },
         body: JSON.stringify(settlement)
     });
-    const editedSettlement = await response.json();
-    return editedSettlement;
+    return response.status
 };
 
 export const deleteSettlement = async (settlementId) => {

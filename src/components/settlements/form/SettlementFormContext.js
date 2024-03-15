@@ -25,7 +25,7 @@ export const SettlementFormProvider = ({ children }) => {
         name: "",
         survivalLimit: 0,
         population: 0,
-        userId: currentPlayer[0].id
+        game_master: currentPlayer[0].id
     })
 
     const deleteButton = () => {
