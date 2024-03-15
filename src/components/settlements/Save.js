@@ -45,7 +45,6 @@ export const Save = () => {
         }
 
         for (const newItem of newItems) {
-            newItem.settlementId = parseInt(settlementId)
             await createSettlementInventory(newItem)
         }
 

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { useSettlementForm } from "../form/SettlementFormContext"
-import { getResources, getSettlementInventory } from "../../../managers/resourceManager"
+import { getAResource, getResources, getSettlementInventory } from "../../../managers/resourceManager"
 
 // Create the context variable using createContext
 const ResourcesContext = createContext()
@@ -46,16 +46,21 @@ export const ResourcesProvider = ({ children }) => {
         setSettlementItem(copyItem)
     }
 
-    const addResource = (evt) => {
+    const addResource = async (evt) => {
         evt.preventDefault()
         const copyInventory = [...settlementInventory]
         const copyItem = { ...settlementItem }
-        const existingItem = copyInventory.find((item) => { return item.resourceId === copyItem.resourceId })
+        const existingItem = copyInventory.find((item) => { return item.resource.id === copyItem.resourceId })
         if (existingItem) {
             existingItem.amount++
         } else if (copyItem.resourceId === 0) {
         } else {
-            copyInventory.push(copyItem)
+            let specificResource = {}
+            specificResource.resource = await getAResource(copyItem.resourceId)
+            specificResource.amount = 1
+            specificResource.settlement = parseInt(settlementId)
+            copyInventory.push(specificResource)
+
         }
         setSettlementInventory(copyInventory)
     }
@@ -63,7 +68,7 @@ export const ResourcesProvider = ({ children }) => {
     const removeResource = (evt, resourceId) => {
         evt.preventDefault()
         const copyInventory = [...settlementInventory]
-        const chosenItem = copyInventory.find((item) => { return item.resourceId === resourceId })
+        const chosenItem = copyInventory.find((item) => { return item.resource.id === resourceId })
         chosenItem.amount--
         setSettlementInventory(copyInventory)
     }

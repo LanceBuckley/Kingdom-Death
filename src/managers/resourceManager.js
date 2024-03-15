@@ -12,6 +12,19 @@ export const getResources = async () => {
     return resources;
 };
 
+export const getAResource = async (id) => {
+    const response = await fetch(`http://localhost:8000/resources/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
+    })
+    const resource = await response.json();
+    return resource;
+};
+
 export const getSettlementInventory = async (settlementId) => {
     const response = await fetch(`http://localhost:8000/settlement_inventories?settlement=${settlementId}`, {
         method: "GET",
