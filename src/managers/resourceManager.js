@@ -66,8 +66,13 @@ export const editSettlementInventory = async (existingItem) => {
 };
 
 export const deleteSettlementInventory = async (removedItem) => {
-    const response = await fetch(`http://localhost:8000/settlementInventory/${removedItem.id}`, {
-        method: "DELETE"
+    const response = await fetch(`http://localhost:8000/settlement_inventories/${removedItem.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
     });
-    return await response.json();
+    return response.status
 };
